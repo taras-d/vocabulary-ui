@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
+import { SharedModule } from '../shared/shared.module';
 import { VocabularyRoutingModule } from './vocabulary-routing.module';
 import { VocabularyComponent } from './vocabulary.component';
 import { WordsComponent } from './words/words.component';
@@ -10,9 +10,15 @@ import { WordEditComponent } from './word-edit/word-edit.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     VocabularyRoutingModule
   ],
-  declarations: [VocabularyComponent, WordsComponent, RandomWordComponent, WordsCreateComponent, WordEditComponent]
+  declarations: [
+    VocabularyComponent,
+    WordsComponent,
+    RandomWordComponent,
+    WordsCreateComponent,
+    WordEditComponent
+  ]
 })
 export class VocabularyModule { }
