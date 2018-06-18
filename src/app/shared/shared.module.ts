@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SuiMessageModule } from 'ng2-semantic-ui';
+import { PageLayoutComponent } from './page-layout/page-layout.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,12 @@ import { SuiMessageModule } from 'ng2-semantic-ui';
     FormsModule,
     ReactiveFormsModule,
 
-    SuiMessageModule
+    SuiMessageModule,
+
+    PageLayoutComponent
   ],
-  declarations: []
+  declarations: [
+    PageLayoutComponent
+  ]
 })
 export class SharedModule { }

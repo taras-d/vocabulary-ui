@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -9,26 +9,28 @@ import { AppStartService } from './app.start.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  user: any;
+  private _user: BehaviorSubject<any>;
+  user: Observable<any>;
 
   constructor(
     private apiService: ApiService,
     private appStartService: AppStartService
   ) {
-    this.user = this.appStartService.preloadedData.user;
+    this._user = new BehaviorSubject(this.appStartService.preloadedData.user || null);
+    this.user = this._user.asObservable();
   }
 
   login(data: any): Observable<any> {
     return this.apiService.post('authentication', data).pipe(
       tap(res => {
-        this.user = res.user;
+        this._user.next(res.user);
         localStorage.setItem(environment.tokenKey, res.accessToken);
       })
     );
   }
 
   logout(): Observable<any> {
-    this.user = null;
+    this._user.next(null);
     localStorage.removeItem(environment.tokenKey);
     return of(null);
   }

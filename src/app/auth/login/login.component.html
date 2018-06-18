@@ -6,7 +6,7 @@
     <sui-message *ngIf="message" [isDismissable]="false" [class]="message.type">
       <div class="header">{{message.text}}</div>
     </sui-message>
-    <form class="ui form" [class.loading]="loading" [formGroup]="loginForm">
+    <form class="ui form" [class.loading]="loading" [formGroup]="loginForm" autocomplete="false">
       <div class="field">
         <div class="ui left icon input">
           <input type="text" placeholder="Email" formControlName="email">

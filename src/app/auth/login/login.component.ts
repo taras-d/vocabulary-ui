@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService, ObservableManager, getErrorMessage } from '../../core/core.module';
+import { AuthService } from '../../core/services';
+import { ObservableManager, getErrorMessage } from '../../core/utils';
 
 @Component({
   selector: 'v-login',

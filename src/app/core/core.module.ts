@@ -4,10 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppStartService } from './services/app.start.service';
 
-export * from './services';
-export * from './guards';
-export * from './utils';
-
 @NgModule({
   imports: [
     CommonModule,

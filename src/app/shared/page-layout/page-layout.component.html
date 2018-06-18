@@ -1,0 +1,18 @@
+<div class="ui card">
+  <div class="content">
+    <div class="ui grid">
+      <div class="ten wide column">
+        <h3 class="ui header">
+          <a routerLink="/">Vocabulary</a>
+        </h3>
+      </div>
+      <div class="six wide column">
+        <div class="user">
+          {{user?.email}} (<a (click)="onLogout()">log out</a>)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
