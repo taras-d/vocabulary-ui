@@ -1,6 +1,15 @@
 <div class="ui top attached tabular menu">
-  <a class="item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Words</a>
-  <a class="item" routerLink="/random-word" routerLinkActive="active">Random word</a>
+  <a class="item"
+    routerLink="/"
+    routerLinkActive="active" 
+    [routerLinkActiveOptions]="{ exact: true }">
+    <i class="icon list"></i> Words
+  </a>
+  <a class="item" 
+    routerLink="/random-word" 
+    routerLinkActive="active">
+    <i class="icon random"></i> Random word
+  </a>
 </div>
 
 <div class="ui bottom attached segment">

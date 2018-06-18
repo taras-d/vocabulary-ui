@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://app-vocabulary.herokuapp.com/',
+  apiUrl: 'https://vocabulary123.herokuapp.com/',
   tokenKey: 'vocabularyToken'
 };

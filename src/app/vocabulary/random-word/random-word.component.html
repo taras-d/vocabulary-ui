@@ -1,3 +1,35 @@
-<p>
-  random-word works!
-</p>
+<ng-container *ngIf="word">
+  <h1 class="ui header word-text"
+    title="Click to show translation"
+    suiPopup
+    popupTrigger="outsideClick"
+    popupPlacement="top"
+    [popupText]="word.translation || 'no translation'">
+    {{word.text}}
+  </h1>
+
+  <div class="google-links">
+    <a class="ui basic small button"
+      target="_blank"
+      title="Open in Google translate"
+      [href]="word.googleTranslateLink">
+      GT
+    </a>
+    <a class="ui basic small button"
+      target="_blank"
+      title="Open in Google images"
+      [href]="word.googleImagesLink">
+      GI
+    </a>
+  </div>
+    
+  <button class="ui primary basic small button" 
+    (click)="onNext()" 
+    title="Next random word">
+    <i class="icon random"></i> Next
+  </button>
+</ng-container>
+
+<div *ngIf="loading" class="ui active inverted dimmer">
+  <div class="ui loader"></div>
+</div>

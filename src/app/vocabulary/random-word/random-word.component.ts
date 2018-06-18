@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { WordsService } from '../../core/services';
 import { ObservableManager, getErrorMessage } from '../../core/utils';
@@ -8,7 +8,7 @@ import { ObservableManager, getErrorMessage } from '../../core/utils';
   templateUrl: './random-word.component.html',
   styleUrls: ['./random-word.component.less']
 })
-export class RandomWordComponent implements OnInit {
+export class RandomWordComponent implements OnInit, OnDestroy {
 
   loading: boolean;
 
@@ -23,13 +23,12 @@ export class RandomWordComponent implements OnInit {
 
       getRandomWord: {
         create: () => {
-          this.loading = false;
+          this.loading = true;
           return this.wordsService.getRandomWord()
         },
         next: res => {
-          this.loading = false;
           this.word = res;
-          console.log(this.word);
+          this.loading = false;
         }
       }
 
