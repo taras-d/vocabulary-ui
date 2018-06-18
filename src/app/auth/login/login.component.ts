@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService, ObservableManager, getErrorMessage } from '../../core/core.module';
 
 @Component({
   selector: 'v-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loading: boolean;
 
@@ -14,10 +17,31 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder
-  ) {
+  om: ObservableManager;
 
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.om = new ObservableManager({
+
+      login: {
+        create: () => {
+          this.message = null;
+          this.loading = true;
+          return this.authService.login(this.loginForm.value)
+        },
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: err => {
+          this.message = { type: 'negative', text: getErrorMessage(err) };
+          this.loading = false;
+        }
+      }
+
+    });
   }
 
   buildForm(): void {
@@ -31,16 +55,12 @@ export class LoginComponent implements OnInit {
     this.buildForm();
   }
 
-  onLogin(): void {
-    console.log(this.loginForm.value);
+  ngOnDestroy(): void {
+    this.om.unsubAll();
+  }
 
-    this.message = null;
-    this.loading = true;
-    
-    setTimeout(() => {
-      this.message = { type: 'negative', text: 'Incorrect email or password' };
-      this.loading = false;
-    }, 600);
+  onLogin(): void {
+    this.om.invoke('login');
   }
 
 }
