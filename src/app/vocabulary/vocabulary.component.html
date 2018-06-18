@@ -1,4 +1,8 @@
-<a routerLink="/">Words</a>
-<a routerLink="/random-word">Random word</a>
+<div class="ui top attached tabular menu">
+  <a class="item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Words</a>
+  <a class="item" routerLink="/random-word" routerLinkActive="active">Random word</a>
+</div>
 
-<router-outlet></router-outlet>
+<div class="ui bottom attached segment">
+  <router-outlet></router-outlet>
+</div>
