@@ -13,8 +13,6 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   loading: boolean;
 
-  message: { type: string, text: string };
-
   search: string;
   words: any[] = [];
   paging = { skip: 0, limit: 10, total: 0 };
@@ -28,7 +26,6 @@ export class WordsComponent implements OnInit, OnDestroy {
       
       getWords: {
         create: () => {
-          this.message = null;
           this.loading = true;
           return this.wordsService.getWords(this.search, { createdAt: -1 }, this.paging);
         },
@@ -42,9 +39,8 @@ export class WordsComponent implements OnInit, OnDestroy {
     }, {
 
       error: (name, err) => {
-        this.message = { type: 'negative', text: getErrorMessage(err) };
+        console.error(err);
         this.loading = false;
-        console.log(err);
       }
 
     });

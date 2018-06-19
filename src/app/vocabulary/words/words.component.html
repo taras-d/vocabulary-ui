@@ -1,34 +1,36 @@
-<sui-message *ngIf="message"
-  class="small {{message.type}} message"
-  [isDismissable]="false">
-  <div class="header">{{message.text}}</div>
-</sui-message>
-
 <table class="ui compact table">
   <thead>
     <tr>
       <th>Text</th>
       <th>Translation</th>
-      <th></th>
+      <th style="width: 180px"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let word of words">
       <td>{{word.text}}</td>
       <td>{{word.translation}}</td>
-      <td>
-        <!-- <a class="ui basic tiny button google-link"
+      <td class="actions">
+        <a class="ui basic small button google-service"
           target="_blank"
           title="Open in Google translate"
           [href]="word.googleTranslateLink">
           <img src="assets/images/google-translate-icon.png">
         </a>
-        <a class="ui basic tiny button google-link"
+        <a class="ui basic small button google-service"
           target="_blank"
           title="Open in Google images"
           [href]="word.googleImagesLink">
           <img src="assets/images/google-images-icon.png">
-        </a> -->
+        </a>
+        <button class="ui basic small icon button"
+          title="Edit word">
+          <i class="edit outline grey icon"></i>
+        </button>
+        <button class="ui basic small icon button"
+          title="Remove word">
+          <i class="window close outline grey icon"></i>
+        </button>
       </td>
     </tr>
     <tr *ngIf="!words.length">

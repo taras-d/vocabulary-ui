@@ -12,8 +12,6 @@ export class RandomWordComponent implements OnInit, OnDestroy {
 
   loading: boolean;
 
-  message: { type: string, text: string };
-
   word: any;
 
   om: ObservableManager;
@@ -35,7 +33,7 @@ export class RandomWordComponent implements OnInit, OnDestroy {
     }, {
 
       error: (name, err) => {
-        this.message = { type: 'negative', text: getErrorMessage(err) };
+        console.error(err);
         this.loading = false;
       }
 

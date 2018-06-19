@@ -1,9 +1,3 @@
-<sui-message *ngIf="message"
-  class="small {{message.type}} message"
-  [isDismissable]="false">
-  <div class="header">{{message.text}}</div>
-</sui-message>
-
 <ng-container *ngIf="word">
   <h1 class="ui header">
     <span class="word-text"
@@ -17,13 +11,13 @@
   </h1>
 
   <div class="google-links">
-    <a class="ui basic tiny button google-link"
+    <a class="ui basic small button google-service"
       target="_blank"
       title="Open in Google translate"
       [href]="word.googleTranslateLink">
       <img src="assets/images/google-translate-icon.png">
     </a>
-    <a class="ui basic tiny button google-link"
+    <a class="ui basic small button google-service"
       target="_blank"
       title="Open in Google images"
       [href]="word.googleImagesLink">
@@ -31,7 +25,7 @@
     </a>
   </div>
     
-  <button class="ui basic tiny button" 
+  <button class="ui basic samll button" 
     (click)="onNext()" 
     title="Next random word">
     <i class="icon random"></i> Next

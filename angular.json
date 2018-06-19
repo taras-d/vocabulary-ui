@@ -46,7 +46,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/index.less"
+              "node_modules/semantic-ui-css/semantic.css",
+              "src/styles/styles.less"
             ],
             "scripts": []
           },
