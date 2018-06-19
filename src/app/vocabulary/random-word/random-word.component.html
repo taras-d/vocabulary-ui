@@ -1,3 +1,9 @@
+<sui-message *ngIf="message"
+  class="small {{message.type}} message"
+  [isDismissable]="false">
+  <div class="header">{{message.text}}</div>
+</sui-message>
+
 <ng-container *ngIf="word">
   <h1 class="ui header">
     <span class="word-text"

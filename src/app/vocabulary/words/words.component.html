@@ -1,3 +1,59 @@
-<p>
-  words works!
-</p>
+<sui-message *ngIf="message"
+  class="small {{message.type}} message"
+  [isDismissable]="false">
+  <div class="header">{{message.text}}</div>
+</sui-message>
+
+<table class="ui compact table">
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Translation</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let word of words">
+      <td>{{word.text}}</td>
+      <td>{{word.translation}}</td>
+      <td>
+        <!-- <a class="ui basic tiny button google-link"
+          target="_blank"
+          title="Open in Google translate"
+          [href]="word.googleTranslateLink">
+          <img src="assets/images/google-translate-icon.png">
+        </a>
+        <a class="ui basic tiny button google-link"
+          target="_blank"
+          title="Open in Google images"
+          [href]="word.googleImagesLink">
+          <img src="assets/images/google-images-icon.png">
+        </a> -->
+      </td>
+    </tr>
+    <tr *ngIf="!words.length">
+      <td colspan="3" class="empty">no words</td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="paging.total">
+    <tr>
+      <th>
+        Shown {{paging.skip + 1}}-{{paging.skip + words.length}} words of {{paging.total}}
+      </th>
+      <th colspan="2">
+        <sui-pagination
+          class="mini"
+          [collectionSize]="paging.total"
+          [pageSize]="paging.limit"
+          [maxSize]="5"
+          (pageChange)="onPageChange($event)"> 
+        </sui-pagination>
+      </th>
+    </tr>
+  </tfoot>
+</table>
+
+
+<div *ngIf="loading" class="ui active inverted dimmer">
+  <div class="ui medium loader"></div>
+</div>

@@ -1,15 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import * as _ from 'lodash';
+
+import { WordsService } from '../../core/services';
+import { ObservableManager, getErrorMessage } from '../../core/utils';
 
 @Component({
   selector: 'v-words',
   templateUrl: './words.component.html',
   styleUrls: ['./words.component.less']
 })
-export class WordsComponent implements OnInit {
+export class WordsComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  loading: boolean;
 
-  ngOnInit() {
+  message: { type: string, text: string };
+
+  search: string;
+  words: any[] = [];
+  paging = { skip: 0, limit: 10, total: 0 };
+
+  page = 3;
+
+  om: ObservableManager;
+
+  constructor(private wordsService: WordsService) {
+    this.om = new ObservableManager({
+      
+      getWords: {
+        create: () => {
+          this.message = null;
+          this.loading = true;
+          return this.wordsService.getWords(this.search, { createdAt: -1 }, this.paging);
+        },
+        next: res => {
+          this.words = res.data;
+          this.paging = _.pick(res, ['skip', 'limit', 'total']);
+          this.loading = false;
+        }
+      }
+
+    }, {
+
+      error: (name, err) => {
+        this.message = { type: 'negative', text: getErrorMessage(err) };
+        this.loading = false;
+        console.log(err);
+      }
+
+    });
+  }
+
+  ngOnInit(): void {
+    this.om.invoke('getWords');
+  }
+
+  ngOnDestroy(): void {
+    this.om.unsubAll();
+  }
+
+  onPageChange(page: number): void {
+    this.paging.skip = this.paging.limit * (page - 1);
+    this.om.invoke('getWords');
   }
 
 }

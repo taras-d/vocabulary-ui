@@ -19,8 +19,8 @@ export class WordsService {
 
   getWords(search: string, sort: any, paging: any): Observable<any> {
     const params: any = {
-      $search: search || undefined,
-      $sort: sort || undefined,
+      // $search: search || undefined,
+      // $sort: sort || undefined,
       $limit: _.get(paging, 'limit', 10),
       $skip: _.get(paging, 'skip', 0)
     };
