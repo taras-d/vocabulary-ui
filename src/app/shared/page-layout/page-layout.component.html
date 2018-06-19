@@ -8,7 +8,12 @@
       </div>
       <div class="six wide column">
         <div class="user">
-          {{user?.email}} (<a (click)="onLogout()">log out</a>)
+          {{user?.email}} 
+          <button class="ui mini basic icon button"
+            title="Log out"
+            (click)="onLogout()">
+            <i class="power off icon"></i>
+          </button>
         </div>
       </div>
     </div>

@@ -1,11 +1,13 @@
 <ng-container *ngIf="word">
-  <h1 class="ui header word-text"
-    title="Click to show translation"
-    suiPopup
-    popupTrigger="outsideClick"
-    popupPlacement="top"
-    [popupText]="word.translation || 'no translation'">
-    {{word.text}}
+  <h1 class="ui header">
+    <span class="word-text"
+      title="Click to show translation"
+      suiPopup
+      popupTrigger="outsideClick"
+      popupPlacement="top"
+      [popupText]="word.translation || 'no translation'">
+      {{word.text}}
+    </span>
   </h1>
 
   <div class="google-links">

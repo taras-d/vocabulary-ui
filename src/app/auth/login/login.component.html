@@ -3,25 +3,41 @@
     <div class="header">Vocabulary</div>
   </div>
   <div class="content">
-    <sui-message *ngIf="message" [isDismissable]="false" [class]="message.type">
+    <sui-message *ngIf="message"
+      class="small {{message.type}} message"
+      [isDismissable]="false">
       <div class="header">{{message.text}}</div>
     </sui-message>
-    <form class="ui form" [class.loading]="loading" [formGroup]="loginForm" autocomplete="false">
+
+    <form class="ui small form" [formGroup]="loginForm" autocomplete="false">
       <div class="field">
         <div class="ui left icon input">
-          <input type="text" placeholder="Email" formControlName="email">
+          <input type="text" 
+            placeholder="Email" 
+            formControlName="email">
           <i class="user icon"></i>
         </div>
       </div>
+
       <div class="field">
         <div class="ui left icon input">
-          <input type="password" placeholder="Password" formControlName="password">
+          <input type="password" 
+            placeholder="Password" 
+            formControlName="password">
           <i class="lock icon"></i>
         </div>
       </div>
-      <button class="ui primary button" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
+
+      <button class="ui primary button" 
+        type="submit" 
+        [disabled]="loginForm.invalid" 
+        (click)="onLogin()">
         Login
       </button>
+      
+      <div *ngIf="loading" class="ui active inverted dimmer">
+        <div class="ui medium loader"></div>
+      </div>
     </form>
   </div>
 </div>
