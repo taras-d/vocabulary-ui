@@ -1,6 +1,8 @@
 <div class="ui card">
   <div class="content">
-    <div class="header">Vocabulary</div>
+    <div class="header">
+      <i class="book grey icon"></i> Vocabulary
+    </div>
   </div>
   <div class="content">
     <sui-message *ngIf="message"
@@ -28,11 +30,11 @@
         </div>
       </div>
 
-      <button class="ui primary button" 
+      <button class="ui button" 
         type="submit" 
         [disabled]="loginForm.invalid" 
         (click)="onLogin()">
-        Login
+        <i class="sign in alternate grey icon"></i> Login
       </button>
       
       <div *ngIf="loading" class="ui active inverted dimmer">

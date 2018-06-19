@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObservableManager } from '../../core/utils';
 
 @Component({
   selector: 'v-login',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         },
         error: err => {
-          this.message = { type: 'negative', text: getErrorMessage(err) };
+          this.message = { type: 'error', text: 'Incorrect email or password' };
           this.loading = false;
         }
       }
