@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SuiMessageModule, SuiPopupModule, SuiPaginationModule } from 'ng2-semantic-ui';
+import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule } from 'ng2-semantic-ui';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 
 @NgModule({
@@ -15,7 +15,8 @@ import { PageLayoutComponent } from './page-layout/page-layout.component';
 
     SuiMessageModule,
     SuiPopupModule,
-    SuiPaginationModule
+    SuiPaginationModule,
+    SuiModalModule
   ],
   exports: [
     CommonModule,
@@ -26,6 +27,7 @@ import { PageLayoutComponent } from './page-layout/page-layout.component';
     SuiMessageModule,
     SuiPopupModule,
     SuiPaginationModule,
+    SuiModalModule,
 
     PageLayoutComponent
   ],

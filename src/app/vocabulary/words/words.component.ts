@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 
 import { WordsService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObservableManager } from '../../core/utils';
+import { WordEditComponent } from '../word-edit/word-edit.component';
 
 @Component({
   selector: 'v-words',
@@ -11,13 +12,13 @@ import { ObservableManager, getErrorMessage } from '../../core/utils';
 })
 export class WordsComponent implements OnInit, OnDestroy {
 
+  @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
+
   loading: boolean;
 
   search: string;
   words: any[] = [];
   paging = { skip: 0, limit: 10, total: 0 };
-
-  page = 3;
 
   om: ObservableManager;
 
@@ -52,6 +53,10 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.om.unsubAll();
+  }
+
+  onEdit(word: any): void {
+    this.wordEditRef.openEdit(word);
   }
 
   onPageChange(page: number): void {

@@ -1,3 +1,15 @@
-<p>
-  word-edit works!
-</p>
+<ng-template #modalTemplate>
+  <div class="header">Edit word</div>
+  <div class="content">
+    <form [formGroup]="wordForm">
+      <textarea formControlName="text"></textarea>
+      <textarea formControlName="translation"></textarea>
+    </form>
+  </div>
+  <div class="actions">
+    <button class="ui button" (click)="onClose()">Cancel</button>
+    <button class="ui button" [disabled]="wordForm.invalid" (click)="onSave()">
+      Save
+    </button>
+  </div>
+</ng-template>

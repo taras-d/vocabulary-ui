@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { WordsService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObservableManager } from '../../core/utils';
 
 @Component({
   selector: 'v-random-word',
