@@ -5,38 +5,26 @@
     </div>
   </div>
   <div class="content">
-    <sui-message *ngIf="message"
-      class="small {{message.type}} message"
-      [isDismissable]="false">
+    <sui-message *ngIf="message" class="small {{message.type}} message" [isDismissable]="false">
       <div class="header">{{message.text}}</div>
     </sui-message>
 
     <form class="ui small form" [formGroup]="loginForm" autocomplete="false">
       <div class="field">
         <div class="ui left icon input">
-          <input type="text" 
-            placeholder="Email" 
-            formControlName="email">
+          <input type="text" placeholder="Email" formControlName="email" maxlength="80">
           <i class="user icon"></i>
         </div>
       </div>
-
       <div class="field">
         <div class="ui left icon input">
-          <input type="password" 
-            placeholder="Password" 
-            formControlName="password">
+          <input type="password" placeholder="Password" formControlName="password" maxlength="80">
           <i class="lock icon"></i>
         </div>
       </div>
-
-      <button class="ui button" 
-        type="submit" 
-        [disabled]="loginForm.invalid" 
-        (click)="onLogin()">
+      <button class="ui button" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
         <i class="sign in alternate grey icon"></i> Login
       </button>
-      
       <div *ngIf="loading" class="ui active inverted dimmer">
         <div class="ui medium loader"></div>
       </div>
