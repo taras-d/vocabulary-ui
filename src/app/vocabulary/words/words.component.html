@@ -1,3 +1,11 @@
+<ng-template let-popup let-context="context" #deleteWordTemplate>
+  <div class="delete-word-confirm">
+    <div>Are you sure?</div>
+    <a (click)="popup.close(); onDelete(context.word)">Yes</a>
+    <a (click)="popup.close()">No</a>
+  </div>
+</ng-template>
+
 <table class="ui compact table">
   <thead>
     <tr>
@@ -29,7 +37,12 @@
           <i class="edit outline grey icon"></i>
         </button>
         <button class="ui basic small icon button"
-          title="Remove word">
+          title="Remove word"
+          suiPopup
+          popupPlacement="top"
+          popupTrigger="outsideClick"
+          [popupTemplate]="deleteWordTemplate"
+          [popupTemplateContext]="{ word: word }">
           <i class="window close outline grey icon"></i>
         </button>
       </td>

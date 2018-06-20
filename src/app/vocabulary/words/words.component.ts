@@ -35,6 +35,16 @@ export class WordsComponent implements OnInit, OnDestroy {
           this.paging = _.pick(res, ['skip', 'limit', 'total']);
           this.loading = false;
         }
+      },
+
+      deleteWord: {
+        create: word => {
+          this.loading = true;
+          return this.wordsService.deleteWord(word._id);
+        },
+        next: () => {
+          this.om.invoke('getWords');
+        }
       }
 
     }, {
@@ -55,17 +65,21 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.om.unsubAll();
   }
 
-  onEdit(word: any): void {
-    this.wordEditRef.openEdit(word);
-  }
-
   onPageChange(page: number): void {
     this.paging.skip = this.paging.limit * (page - 1);
     this.om.invoke('getWords');
   }
 
+  onEdit(word: any): void {
+    this.wordEditRef.openEdit(word);
+  }
+
   onEditComplete(): void {
     this.om.invoke('getWords');
+  }
+
+  onDelete(word: any): void {
+    this.om.invoke('deleteWord', word);
   }
 
 }
