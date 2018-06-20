@@ -64,4 +64,8 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.om.invoke('getWords');
   }
 
+  onEditComplete(): void {
+    this.om.invoke('getWords');
+  }
+
 }

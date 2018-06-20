@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SuiModalService, TemplateModalConfig, SuiActiveModal } from 'ng2-semantic-ui';
 import * as _ from 'lodash';
@@ -12,9 +12,11 @@ import { WordsService } from '../../core/services';
   templateUrl: './word-edit.component.html',
   styleUrls: ['./word-edit.component.less']
 })
-export class WordEditComponent implements OnInit {
+export class WordEditComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalTemplate') modalTemplate: any;
+
+  @Output() complete = new EventEmitter();
 
   loading: boolean;
 
@@ -40,6 +42,7 @@ export class WordEditComponent implements OnInit {
         next: () => {
           this.loading = false;
           this.modal.approve(null);
+          this.complete.emit();
         }
       }
 
@@ -55,6 +58,10 @@ export class WordEditComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  ngOnDestroy(): void {
+    this.om.unsubAll();
   }
 
   buildForm(data: any): void {
@@ -77,6 +84,7 @@ export class WordEditComponent implements OnInit {
     this.modal.onDeny(() => {
       this.word = null;
       this.wordForm.setValue({ text: '', translation: '' });
+      this.om.unsubAll();
     });
   }
 

@@ -1,15 +1,28 @@
 <ng-template #modalTemplate>
-  <div class="header">Edit word</div>
-  <div class="content">
-    <form [formGroup]="wordForm">
-      <textarea formControlName="text"></textarea>
-      <textarea formControlName="translation"></textarea>
-    </form>
+  <div class="header">
+    Edit word
   </div>
-  <div class="actions">
-    <button class="ui button" (click)="onClose()">Cancel</button>
-    <button class="ui button" [disabled]="wordForm.invalid" (click)="onSave()">
-      Save
-    </button>
+  <div class="content">
+    <form class="ui form" [formGroup]="wordForm">
+      <div class="field">
+        <label>Text</label>
+        <textarea formControlName="text" rows="2" maxlength="200"></textarea>
+      </div>
+      <div class="field">
+        <label>Translation</label>
+        <textarea formControlName="translation" rows="2" maxlength="200"></textarea>
+      </div>
+      <div class="field">
+        <button class="ui button" (click)="onClose()">
+          <i class="arrow circle left icon"></i> Cancel
+        </button>
+        <button class="ui primary button" [disabled]="wordForm.invalid" (click)="onSave()">
+          <i class="save outline icon"></i> Save
+        </button>
+      </div>
+    </form>
+    <div *ngIf="loading" class="ui active inverted dimmer">
+      <div class="ui medium loader"></div>
+    </div>
   </div>
 </ng-template>
