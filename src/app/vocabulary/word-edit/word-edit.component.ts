@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SuiModalService, TemplateModalConfig, SuiActiveModal } from 'ng2-semantic-ui';
 import * as _ from 'lodash';
@@ -14,7 +14,7 @@ import { WordsService } from '../../core/services';
 })
 export class WordEditComponent implements OnInit, OnDestroy {
 
-  @ViewChild('modalTemplate') modalTemplate: any;
+  @ViewChild('modalTemplate') modalTemplateRef: TemplateRef<any>;
 
   @Output() complete = new EventEmitter();
 
@@ -71,12 +71,12 @@ export class WordEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  openEdit(word: any): void {
+  open(word: any): void {
     this.word = _.cloneDeep(word);
 
     this.buildForm(word);
 
-    const config = new TemplateModalConfig(this.modalTemplate);
+    const config = new TemplateModalConfig(this.modalTemplateRef);
     config.isInverted = true;
     config.size = 'tiny';
 

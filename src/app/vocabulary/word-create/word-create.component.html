@@ -1,0 +1,33 @@
+<ng-template #modalTemplate>
+  <div class="header">Add word(s)</div>
+  <div class="content">
+    <form class="ui small form" [formGroup]="wordsForm">
+      <div *ngFor="let group of wordsForm.controls; index as controlIndex" class="two fields">
+        <div class="field">
+          <textarea [formControl]="group.get('text')" 
+            rows="2" maxlength="200" placeholder="Text"></textarea>
+        </div>
+        <div class="field">
+          <textarea [formControl]="group.get('translation')" 
+            rows="2" maxlength="200" placeholder="Translation"></textarea>
+        </div>
+        <button *ngIf="controlIndex !== 0"
+          class="ui basic small compact icon button"
+          (click)="onDelete(controlIndex)">
+          <i class="window close outline grey icon"></i>
+        </button>
+      </div>
+      <div class="field">
+        <button class="ui basic button" (click)="onAdd()">
+          <i class="plus icon"></i> Add word
+        </button>
+        <button class="ui button right floated" [disabled]="wordsForm.invalid" (click)="onSave()">
+          <i class="save outline icon"></i> Save
+        </button>
+      </div>
+    </form>
+    <div *ngIf="loading" class="ui active inverted dimmer">
+      <div class="ui medium loader"></div>
+    </div>
+  </div>
+</ng-template>

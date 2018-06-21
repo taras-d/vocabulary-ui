@@ -60,7 +60,7 @@
           Shown {{paging.skip + 1}}-{{paging.skip + words.length}} words of {{paging.total}}
         </div>
         <sui-pagination
-          class="small"
+          class="mini"
           [collectionSize]="paging.total"
           [pageSize]="paging.limit"
           [maxSize]="5"
@@ -71,8 +71,15 @@
   </tfoot>
 </table>
 
+<div class="add-word">
+  <button class="ui basic small button" (click)="onCreate()">
+    <i class="plus icon"></i> Add word(s)
+  </button>
+</div>
+
 <div *ngIf="loading" class="ui active inverted dimmer">
   <div class="ui medium loader"></div>
 </div>
 
 <v-word-edit (complete)="onEditComplete()"></v-word-edit>
+<v-word-create (complete)="onCreateComplete()"></v-word-create>

@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { WordsService } from '../../core/services';
 import { ObservableManager } from '../../core/utils';
 import { WordEditComponent } from '../word-edit/word-edit.component';
+import { WordCreateComponent } from '../word-create/word-create.component';
 
 @Component({
   selector: 'v-words',
@@ -13,6 +14,7 @@ import { WordEditComponent } from '../word-edit/word-edit.component';
 export class WordsComponent implements OnInit, OnDestroy {
 
   @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
+  @ViewChild(WordCreateComponent) wordCreateRef: WordCreateComponent;
 
   loading: boolean;
 
@@ -43,6 +45,9 @@ export class WordsComponent implements OnInit, OnDestroy {
           return this.wordsService.deleteWord(word._id);
         },
         next: () => {
+          if (this.paging.skip > 0 && this.words.length === 1) {
+            this.paging.skip -= this.paging.limit;
+          }
           this.om.invoke('getWords');
         }
       }
@@ -71,10 +76,18 @@ export class WordsComponent implements OnInit, OnDestroy {
   }
 
   onEdit(word: any): void {
-    this.wordEditRef.openEdit(word);
+    this.wordEditRef.open(word);
   }
 
   onEditComplete(): void {
+    this.om.invoke('getWords');
+  }
+
+  onCreate(): void {
+    this.wordCreateRef.open();
+  }
+
+  onCreateComplete(): void {
     this.om.invoke('getWords');
   }
 
