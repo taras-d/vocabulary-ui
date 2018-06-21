@@ -56,13 +56,12 @@
   <tfoot *ngIf="paging.total">
     <tr>
       <th colspan="4">
-        <div class="paging-meta">
-          Shown {{paging.skip + 1}}-{{paging.skip + words.length}} words of {{paging.total}}
-        </div>
+        <div class="paging-meta">{{paging.meta}}</div>
         <sui-pagination
           class="mini"
           [collectionSize]="paging.total"
-          [pageSize]="paging.limit"
+          [pageSize]="paging.pageSize"
+          [page]="paging.page"
           [maxSize]="5"
           (pageChange)="onPageChange($event)"> 
         </sui-pagination>

@@ -20,7 +20,7 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   search: string;
   words: any[] = [];
-  paging = { skip: 0, limit: 10, total: 0 };
+  paging = { page: 1, pageSize: 10, total: 0, meta: '' };
 
   om: ObservableManager;
 
@@ -30,11 +30,20 @@ export class WordsComponent implements OnInit, OnDestroy {
       getWords: {
         create: () => {
           this.loading = true;
-          return this.wordsService.getWords(this.search, { createdAt: -1 }, this.paging);
+          const paging = this.paging;
+          return this.wordsService.getWords(this.search, { createdAt: -1 }, {
+            skip: paging.page * paging.pageSize - paging.pageSize, 
+            limit: paging.pageSize
+          });
         },
         next: res => {
           this.words = res.data;
-          this.paging = _.pick(res, ['skip', 'limit', 'total']);
+          this.paging = {
+            page: res.skip / res.limit + 1,
+            pageSize: res.limit,
+            total: res.total,
+            meta: `Shown ${res.skip + 1}-${res.skip + res.data.length} words of ${res.total}` 
+          };
           this.loading = false;
         }
       },
@@ -45,8 +54,8 @@ export class WordsComponent implements OnInit, OnDestroy {
           return this.wordsService.deleteWord(word._id);
         },
         next: () => {
-          if (this.paging.skip > 0 && this.words.length === 1) {
-            this.paging.skip -= this.paging.limit;
+          if (this.paging.page > 1 && this.words.length === 1) {
+            this.paging.page -= 1;
           }
           this.om.invoke('getWords');
         }
@@ -71,8 +80,10 @@ export class WordsComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(page: number): void {
-    this.paging.skip = this.paging.limit * (page - 1);
-    this.om.invoke('getWords');
+    if (this.paging.page !== page) {
+      this.paging.page = page;
+      this.om.invoke('getWords');
+    }
   }
 
   onEdit(word: any): void {
