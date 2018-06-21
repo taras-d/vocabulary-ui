@@ -1,7 +1,7 @@
 <ng-template #modalTemplate>
   <div class="header">Edit word</div>
   <div class="content">
-    <form class="ui form" [formGroup]="wordForm">
+    <form class="ui form" [formGroup]="wordForm" #form>
       <div class="field">
         <label>Text</label>
         <textarea formControlName="text" rows="2" maxlength="200"></textarea>
@@ -11,10 +11,10 @@
         <textarea formControlName="translation" rows="2" maxlength="200"></textarea>
       </div>
       <div class="field">
-        <button class="ui basic button" (click)="onClose()">
+        <button class="ui basic compact button" (click)="onCancel()">
           <i class="arrow circle left icon"></i> Cancel
         </button>
-        <button class="ui button save" [disabled]="wordForm.invalid" (click)="onSave()">
+        <button class="ui button compact right floated" [disabled]="wordForm.invalid" (click)="onSave()">
           <i class="save outline icon"></i> Save
         </button>
       </div>

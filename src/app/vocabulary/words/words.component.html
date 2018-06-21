@@ -12,7 +12,7 @@
       <th>Text</th>
       <th>Translation</th>
       <th>Date</th>
-      <th style="width: 180px"></th>
+      <th style="width: 170px"></th>
     </tr>
   </thead>
   <tbody>
@@ -21,24 +21,24 @@
       <td class="overflow-effect" [title]="word.translation">{{word.translation}}</td>
       <td class="overflow-effect" title="{{word.createdAt|date:'dd.MM.yyyy HH:mm'}}">{{word.date}}</td>
       <td class="actions">
-        <a class="ui basic small button google-service"
+        <a class="ui basic compact button google-service"
           target="_blank"
           title="Open in Google translate"
           [href]="word.googleTranslateLink">
           <img src="assets/images/google-translate-icon.png">
         </a>
-        <a class="ui basic small button google-service"
+        <a class="ui basic compact button google-service"
           target="_blank"
           title="Open in Google images"
           [href]="word.googleImagesLink">
           <img src="assets/images/google-images-icon.png">
         </a>
-        <button class="ui basic small icon button"
+        <button class="ui basic compact icon button"
           title="Edit word"
           (click)="onEdit(word)">
           <i class="edit outline grey icon"></i>
         </button>
-        <button class="ui basic small icon button"
+        <button class="ui basic compact icon button"
           title="Remove word"
           suiPopup
           popupPlacement="top"
@@ -72,7 +72,7 @@
 </table>
 
 <div class="add-word">
-  <button class="ui basic small button" (click)="onCreate()">
+  <button class="ui basic compact button" (click)="onCreate()">
     <i class="plus icon"></i> Add word(s)
   </button>
 </div>

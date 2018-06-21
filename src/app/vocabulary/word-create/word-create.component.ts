@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
 
@@ -16,6 +16,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
   @Output() complete = new EventEmitter();
 
   @ViewChild('modalTemplate') modalTemplateRef: TemplateRef<any>;
+  @ViewChild('form') formRef: ElementRef;
 
   loading: boolean;
 
@@ -69,6 +70,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
     const config = new TemplateModalConfig(this.modalTemplateRef);
     config.isInverted = true;
     config.size = 'small';
+    config.mustScroll = true;
 
     this.modal = this.suiModalService.open(config);
     this.modal.onDeny(() => {
@@ -89,14 +91,31 @@ export class WordCreateComponent implements OnInit, OnDestroy {
         translation: ''
       })
     );
+    this.focusAndScrollToLastField();
   }
 
   onDelete(index: number): void {
     this.wordsForm.removeAt(index);
   }
 
+  onCancel(): void {
+    this.modal.deny(null);
+  }
+
   onSave(): void {
     this.om.invoke('createWord');
+  }
+
+  focusAndScrollToLastField(): void {
+    setTimeout(() => {
+      const form = this.formRef.nativeElement as HTMLElement;
+      form.scrollTop = form.scrollHeight;
+    
+      const field = form.querySelector('.fields:last-child .field:first-child textarea') as HTMLTextAreaElement;
+      if (field) {
+        setTimeout(() => field.focus(), 100);
+      }
+    });
   }
 
 }

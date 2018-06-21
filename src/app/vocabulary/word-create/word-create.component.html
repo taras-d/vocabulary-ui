@@ -1,7 +1,7 @@
 <ng-template #modalTemplate>
   <div class="header">Add word(s)</div>
   <div class="content">
-    <form class="ui small form" [formGroup]="wordsForm">
+    <form class="ui small form" [formGroup]="wordsForm" #form>
       <div *ngFor="let group of wordsForm.controls; index as controlIndex" class="two fields">
         <div class="field">
           <textarea [formControl]="group.get('text')" 
@@ -17,15 +17,18 @@
           <i class="window close outline grey icon"></i>
         </button>
       </div>
-      <div class="field">
-        <button class="ui basic button" (click)="onAdd()">
-          <i class="plus icon"></i> Add word
-        </button>
-        <button class="ui button right floated" [disabled]="wordsForm.invalid" (click)="onSave()">
-          <i class="save outline icon"></i> Save
-        </button>
-      </div>
     </form>
+    <div>
+      <button class="ui basic compact button" (click)="onCancel()">
+        <i class="arrow circle left icon"></i> Cancel
+      </button>
+      <button class="ui compact button right floated save" [disabled]="wordsForm.invalid" (click)="onSave()">
+        <i class="save outline icon"></i> Save
+      </button>
+      <button class="ui basic compact button right floated" (click)="onAdd()">
+        <i class="plus icon"></i> Add word
+      </button>
+    </div>
     <div *ngIf="loading" class="ui active inverted dimmer">
       <div class="ui medium loader"></div>
     </div>

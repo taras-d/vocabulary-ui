@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SuiModalService, TemplateModalConfig, SuiActiveModal } from 'ng2-semantic-ui';
 import * as _ from 'lodash';
@@ -15,6 +15,7 @@ import { WordsService } from '../../core/services';
 export class WordEditComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalTemplate') modalTemplateRef: TemplateRef<any>;
+  @ViewChild('form') formRef: ElementRef;
 
   @Output() complete = new EventEmitter();
 
@@ -79,21 +80,33 @@ export class WordEditComponent implements OnInit, OnDestroy {
     const config = new TemplateModalConfig(this.modalTemplateRef);
     config.isInverted = true;
     config.size = 'tiny';
+    config.mustScroll = true;
 
     this.modal = this.suiModalService.open(config);
     this.modal.onDeny(() => {
-      this.word = null;
-      this.wordForm.setValue({ text: '', translation: '' });
+      this.word = this.wordForm = null;
       this.om.unsubAll();
     });
+
+    this.focusTextField();
   }
 
   onSave(): void {
     this.om.invoke('updateWord');
   }
 
-  onClose(): void {
+  onCancel(): void {
     this.modal.deny(null);
+  }
+
+  focusTextField(): void {
+    setTimeout(() => {
+      const form = this.formRef.nativeElement as HTMLFormElement;
+      const field = form.querySelector('.field:first-child textarea') as HTMLTextAreaElement;
+      if (field) {
+        field.focus();
+      }
+    }, 100);
   }
 
 }
