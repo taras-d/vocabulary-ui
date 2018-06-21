@@ -6,18 +6,20 @@
   </div>
 </ng-template>
 
-<table class="ui compact table">
+<table class="ui compact fixed celled table">
   <thead>
     <tr>
       <th>Text</th>
       <th>Translation</th>
+      <th>Date</th>
       <th style="width: 180px"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let word of words">
-      <td>{{word.text}}</td>
-      <td>{{word.translation}}</td>
+      <td class="overflow-effect" [title]="word.text">{{word.text}}</td>
+      <td class="overflow-effect" [title]="word.translation">{{word.translation}}</td>
+      <td class="overflow-effect" title="{{word.createdAt|date:'dd.MM.yyyy HH:mm'}}">{{word.date}}</td>
       <td class="actions">
         <a class="ui basic small button google-service"
           target="_blank"
@@ -48,17 +50,17 @@
       </td>
     </tr>
     <tr *ngIf="!words.length">
-      <td colspan="3" class="empty">no words</td>
+      <td colspan="4" class="empty">no words</td>
     </tr>
   </tbody>
   <tfoot *ngIf="paging.total">
     <tr>
-      <th colspan="3">
+      <th colspan="4">
         <div class="paging-meta">
           Shown {{paging.skip + 1}}-{{paging.skip + words.length}} words of {{paging.total}}
         </div>
         <sui-pagination
-          class="mini"
+          class="small"
           [collectionSize]="paging.total"
           [pageSize]="paging.limit"
           [maxSize]="5"
