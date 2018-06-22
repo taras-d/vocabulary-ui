@@ -17,13 +17,16 @@ export class WordsService {
     return this.apiService.post(`words`, words);
   }
 
-  getWords(search: string, sort: any, paging: any): Observable<any> {
+  getWords(search: string, paging: any): Observable<any> {
     const params: any = {
-      // $search: search || undefined,
-      // $sort: sort || undefined,
+      '$sort[craetedAt]': -1,
       $limit: _.get(paging, 'limit', 10),
       $skip: _.get(paging, 'skip', 0)
     };
+
+    if (search) {
+      params.$search = search;
+    }
 
     return this.apiService.get(`words`, { params }).pipe(
       tap(res => {

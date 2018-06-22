@@ -33,7 +33,7 @@ export class WordsComponent implements OnInit, OnDestroy {
         create: () => {
           this.loading = true;
           const paging = this.paging;
-          return this.wordsService.getWords(this.search, { createdAt: -1 }, {
+          return this.wordsService.getWords(this.search, {
             skip: paging.page * paging.pageSize - paging.pageSize, 
             limit: paging.pageSize
           });
@@ -108,6 +108,10 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   onDelete(word: any): void {
     this.om.invoke('deleteWord', word);
+  }
+
+  onSearch(): void {
+    this.om.invoke('getWords');
   }
 
 }
