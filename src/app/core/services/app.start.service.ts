@@ -19,7 +19,7 @@ export class AppStartService {
   }
 
   preloadUser(): Observable<any> {
-    if (!localStorage.getItem(environment.tokenKey)) {
+    if (!localStorage.getItem(environment.authTokenKey)) {
       return of(null);
     }
 

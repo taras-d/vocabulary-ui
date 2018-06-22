@@ -88,7 +88,7 @@ export class ApiService {
   }
 
   private getAuthToken(): string {
-    return localStorage.getItem(environment.tokenKey);
+    return localStorage.getItem(environment.authTokenKey);
   }
 
 }

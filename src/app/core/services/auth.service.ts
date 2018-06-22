@@ -24,14 +24,14 @@ export class AuthService {
     return this.apiService.post('authentication', data).pipe(
       tap(res => {
         this._user.next(res.user);
-        localStorage.setItem(environment.tokenKey, res.accessToken);
+        localStorage.setItem(environment.authTokenKey, res.accessToken);
       })
     );
   }
 
   logout(): Observable<any> {
     this._user.next(null);
-    localStorage.removeItem(environment.tokenKey);
+    localStorage.removeItem(environment.authTokenKey);
     return of(null);
   }
   
