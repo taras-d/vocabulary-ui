@@ -42,7 +42,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
         next: res => {
           this.appService.pushMessage({
             text: `Created: ${res.inserted}, duplicates: ${res.duplicates}`,
-            type: 'success' 
+            type: 'success'
           });
 
           this.loading = false;
@@ -55,7 +55,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
 
       error: (name, err) => {
         this.appService.pushMessage({
-          header: 'Error', text: getErrorMessage(err), type: 'error' 
+          header: 'Error', text: getErrorMessage(err), type: 'error'
         });
         this.loading = false;
       }
@@ -117,7 +117,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const form = this.formRef.nativeElement as HTMLElement;
       form.scrollTop = form.scrollHeight;
-    
+
       const field = form.querySelector('.fields:last-child .field:first-child textarea') as HTMLTextAreaElement;
       if (field) {
         setTimeout(() => field.focus(), 100);

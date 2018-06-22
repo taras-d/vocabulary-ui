@@ -28,13 +28,13 @@ export class WordsComponent implements OnInit, OnDestroy {
     private wordsService: WordsService
   ) {
     this.om = new ObservableManager({
-      
+
       getWords: {
         create: () => {
           this.loading = true;
           const paging = this.paging;
           return this.wordsService.getWords(this.search, {
-            skip: paging.page * paging.pageSize - paging.pageSize, 
+            skip: paging.page * paging.pageSize - paging.pageSize,
             limit: paging.pageSize
           });
         },
@@ -44,7 +44,7 @@ export class WordsComponent implements OnInit, OnDestroy {
             page: res.skip / res.limit + 1,
             pageSize: res.limit,
             total: res.total,
-            meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words` 
+            meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words`
           };
           this.loading = false;
         }

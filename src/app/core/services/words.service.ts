@@ -30,7 +30,7 @@ export class WordsService {
 
     return this.apiService.get(`words`, { params }).pipe(
       tap(res => {
-        res.data.forEach(decorateWord)
+        res.data.forEach(decorateWord);
       })
     );
   }

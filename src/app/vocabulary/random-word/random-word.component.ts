@@ -25,7 +25,7 @@ export class RandomWordComponent implements OnInit, OnDestroy {
       getRandomWord: {
         create: () => {
           this.loading = true;
-          return this.wordsService.getRandomWord()
+          return this.wordsService.getRandomWord();
         },
         next: res => {
           this.word = res;

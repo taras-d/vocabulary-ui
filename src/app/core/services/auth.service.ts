@@ -34,5 +34,5 @@ export class AuthService {
     localStorage.removeItem(environment.authTokenKey);
     return of(null);
   }
-  
+
 }

@@ -24,7 +24,7 @@ export class NotAuthenticatedGuard implements CanActivate {
     return this.authService.user.pipe(
       map(user => {
         if (user) {
-          this.router.navigate([''])
+          this.router.navigate(['']);
           return false;
         } else {
           return true;
