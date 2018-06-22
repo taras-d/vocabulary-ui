@@ -2,6 +2,11 @@
   <div class="word-hint">{{word.translation || 'no translation'}}</div>
 </ng-template>
 
+<sui-message *ngIf="!loading && !word" class="info" [isDismissable]="false">
+  <div>Cannot display random word</div>
+  <div>Try to add some words</div>
+</sui-message>
+
 <ng-container *ngIf="word">
   <h1 class="ui header">
     <span class="word-text"
