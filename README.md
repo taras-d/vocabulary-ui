@@ -1,6 +1,6 @@
 # vocabulary-ui
 
-Simple application that helps to collect and remember English words
+Simple application that helps to collect and memorize English words
 
 ## Install
 
