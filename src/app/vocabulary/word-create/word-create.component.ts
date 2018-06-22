@@ -3,8 +3,8 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
 
 import { notEmpty } from '../../core/validators';
-import { ObservableManager } from '../../core/utils';
-import { WordsService } from '../../core/services';
+import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { AppService, WordsService } from '../../core/services';
 
 @Component({
   selector: 'v-word-create',
@@ -29,6 +29,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private suiModalService: SuiModalService,
+    private appService: AppService,
     private wordsService: WordsService
   ) {
     this.om = new ObservableManager({
@@ -39,7 +40,11 @@ export class WordCreateComponent implements OnInit, OnDestroy {
           return this.wordsService.createWord(this.wordsForm.value);
         },
         next: res => {
-          console.log(res);
+          this.appService.pushMessage({
+            text: `Created: ${res.inserted}, duplicates: ${res.duplicates}`,
+            type: 'success' 
+          });
+
           this.loading = false;
           this.modal.approve(null);
           this.complete.emit();
@@ -49,8 +54,10 @@ export class WordCreateComponent implements OnInit, OnDestroy {
     }, {
 
       error: (name, err) => {
+        this.appService.pushMessage({
+          header: 'Error', text: getErrorMessage(err), type: 'error' 
+        });
         this.loading = false;
-        console.error(err);
       }
 
     });

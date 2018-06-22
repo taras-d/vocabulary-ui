@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { WordsService } from '../../core/services';
-import { ObservableManager } from '../../core/utils';
+import { AppService, WordsService } from '../../core/services';
+import { ObservableManager, getErrorMessage } from '../../core/utils';
 
 @Component({
   selector: 'v-random-word',
@@ -16,7 +16,10 @@ export class RandomWordComponent implements OnInit, OnDestroy {
 
   om: ObservableManager;
 
-  constructor(private wordsService: WordsService) {
+  constructor(
+    private appService: AppService,
+    private wordsService: WordsService
+  ) {
     this.om = new ObservableManager({
 
       getRandomWord: {
@@ -33,7 +36,9 @@ export class RandomWordComponent implements OnInit, OnDestroy {
     }, {
 
       error: (name, err) => {
-        console.error(err);
+        this.appService.pushMessage({
+          header: 'Error', text: getErrorMessage(err), type: 'error'
+        });
         this.loading = false;
       }
 

@@ -4,8 +4,8 @@ import { SuiModalService, TemplateModalConfig, SuiActiveModal } from 'ng2-semant
 import * as _ from 'lodash';
 
 import { notEmpty } from '../../core/validators';
-import { ObservableManager } from '../../core/utils';
-import { WordsService } from '../../core/services';
+import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { AppService, WordsService } from '../../core/services';
 
 @Component({
   selector: 'v-word-edit',
@@ -31,6 +31,7 @@ export class WordEditComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private suiModalService: SuiModalService,
+    private appService: AppService,
     private wordsService: WordsService
   ) {
     this.om = new ObservableManager({
@@ -50,8 +51,10 @@ export class WordEditComponent implements OnInit, OnDestroy {
     }, {
 
       error: (name, err) => {
+        this.appService.pushMessage({
+          header: 'Error', text: getErrorMessage(err), type: 'error'
+        });
         this.loading = false;
-        console.error(err);
       }
 
     });

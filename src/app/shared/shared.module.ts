@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule } from 'ng2-semantic-ui';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
+import { MessagePanelComponent } from './message-panel/message-panel.component';
 
 @NgModule({
   imports: [
@@ -29,10 +30,12 @@ import { PageLayoutComponent } from './page-layout/page-layout.component';
     SuiPaginationModule,
     SuiModalModule,
 
-    PageLayoutComponent
+    PageLayoutComponent,
+    MessagePanelComponent
   ],
   declarations: [
-    PageLayoutComponent
+    PageLayoutComponent,
+    MessagePanelComponent
   ]
 })
 export class SharedModule { }
