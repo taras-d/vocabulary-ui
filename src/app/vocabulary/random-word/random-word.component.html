@@ -1,3 +1,7 @@
+<ng-template let-popup #hintTemplate>
+  <div class="word-hint">{{word.translation || 'no translation'}}</div>
+</ng-template>
+
 <ng-container *ngIf="word">
   <h1 class="ui header">
     <span class="word-text"
@@ -5,7 +9,7 @@
       suiPopup
       popupTrigger="outsideClick"
       popupPlacement="top"
-      [popupText]="word.translation || 'no translation'">
+      [popupTemplate]="hintTemplate">
       {{word.text}}
     </span>
   </h1>

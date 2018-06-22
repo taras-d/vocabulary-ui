@@ -9,7 +9,8 @@
 <form class="ui small form search-form">
   <div class="field">
     <div class="ui icon input">
-      <input type="text" placeholder="Search" name="search" [(ngModel)]="search" (keyup.enter)="onSearch()">
+      <input type="text" placeholder="Search" name="search" title="Search in text or translation"
+        [(ngModel)]="search" (keyup.enter)="onSearch()">
       <i class="search link icon" (click)="onSearch()"></i>
     </div>
   </div>

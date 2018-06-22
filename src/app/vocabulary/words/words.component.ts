@@ -44,7 +44,7 @@ export class WordsComponent implements OnInit, OnDestroy {
             page: res.skip / res.limit + 1,
             pageSize: res.limit,
             total: res.total,
-            meta: `Shown ${res.skip + 1}-${res.skip + res.data.length} words of ${res.total}` 
+            meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words` 
           };
           this.loading = false;
         }
