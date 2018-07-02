@@ -19,7 +19,7 @@ export class WordsService {
 
   getWords(search: string, paging: any): Observable<any> {
     const params: any = {
-      '$sort[craetedAt]': -1,
+      '$sort[createdAt]': -1,
       $limit: _.get(paging, 'limit', 10),
       $skip: _.get(paging, 'skip', 0)
     };
