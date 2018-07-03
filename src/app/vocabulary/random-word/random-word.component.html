@@ -19,7 +19,7 @@
     </span>
   </h1>
 
-  <div class="google-links">
+  <div class="word-actions">
     <a class="ui basic compact button google-service"
       target="_blank"
       title="Open in Google translate"
@@ -32,6 +32,11 @@
       [href]="word.googleImagesLink">
       <img src="assets/images/google-images-icon.png">
     </a>
+    <button class="ui basic compact icon button"
+      title="Edit word"
+      (click)="onEdit(word)">
+      <i class="edit outline grey icon"></i>
+    </button>
   </div>
     
   <button class="ui basic compact button" 
@@ -44,3 +49,5 @@
 <div *ngIf="loading" class="ui active inverted dimmer">
   <div class="ui loader"></div>
 </div>
+
+<v-word-edit (complete)="onEditComplete()"></v-word-edit>

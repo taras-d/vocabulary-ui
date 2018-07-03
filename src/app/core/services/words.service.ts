@@ -35,6 +35,12 @@ export class WordsService {
     );
   }
 
+  getWord(id: string): Observable<any> {
+    return this.apiService.get(`words/${id}`).pipe(
+      map(decorateWord)
+    );
+  }
+
   getRandomWord(): Observable<any> {
     return this.apiService.get(`random-word`).pipe(
       map(word => decorateWord(word))

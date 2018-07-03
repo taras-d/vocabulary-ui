@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { AppService, WordsService } from '../../core/services';
 import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { WordEditComponent } from '../word-edit/word-edit.component';
 
 @Component({
   selector: 'v-random-word',
@@ -9,6 +10,8 @@ import { ObservableManager, getErrorMessage } from '../../core/utils';
   styleUrls: ['./random-word.component.less']
 })
 export class RandomWordComponent implements OnInit, OnDestroy {
+
+  @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
 
   loading: boolean;
 
@@ -26,6 +29,17 @@ export class RandomWordComponent implements OnInit, OnDestroy {
         create: () => {
           this.loading = true;
           return this.wordsService.getRandomWord();
+        },
+        next: res => {
+          this.word = res;
+          this.loading = false;
+        }
+      },
+
+      reloadWord: {
+        create: () => {
+          this.loading = true;
+          return this.wordsService.getWord(this.word._id);
         },
         next: res => {
           this.word = res;
@@ -55,6 +69,14 @@ export class RandomWordComponent implements OnInit, OnDestroy {
 
   onNext(): void {
     this.om.invoke('getRandomWord');
+  }
+
+  onEdit(): void {
+    this.wordEditRef.open(this.word);
+  }
+
+  onEditComplete(): void {
+    this.om.invoke('reloadWord');
   }
 
 }
