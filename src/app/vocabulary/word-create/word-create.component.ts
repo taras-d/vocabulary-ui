@@ -41,7 +41,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
         },
         next: res => {
           this.appService.pushMessage({
-            text: `Created: ${res.inserted}, duplicates: ${res.duplicates}`,
+            text: `Added: ${res.inserted}, duplicates: ${res.duplicates}`,
             type: 'success'
           });
 
