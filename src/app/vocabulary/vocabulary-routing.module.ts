@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PageLayoutComponent } from '../shared/page-layout/page-layout.component';
 import { VocabularyComponent } from './vocabulary.component';
 import { WordsComponent } from './words/words.component';
 import { RandomWordComponent } from './random-word/random-word.component';
-import { PageLayoutComponent } from '../shared/page-layout/page-layout.component';
+import { WordsStatsComponent } from './words-stats/words-stats.component';
 import { AuthenticatedGuard } from '../core/guards';
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
           {
             path: 'random-word',
             component: RandomWordComponent
+          },
+          {
+            path: 'stats',
+            component: WordsStatsComponent
           }
         ]
       }

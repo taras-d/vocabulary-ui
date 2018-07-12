@@ -7,6 +7,7 @@ import { WordsComponent } from './words/words.component';
 import { RandomWordComponent } from './random-word/random-word.component';
 import { WordCreateComponent } from './word-create/word-create.component';
 import { WordEditComponent } from './word-edit/word-edit.component';
+import { WordsStatsComponent } from './words-stats/words-stats.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { WordEditComponent } from './word-edit/word-edit.component';
     WordsComponent,
     RandomWordComponent,
     WordCreateComponent,
-    WordEditComponent
+    WordEditComponent,
+    WordsStatsComponent
   ]
 })
 export class VocabularyModule { }

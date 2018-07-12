@@ -1,0 +1,20 @@
+<ng-container *ngIf="!firstLoading">
+  <div class="ui dropdown basic compact button" suiDropdown>
+    <div class="text">{{years.selected}}</div>
+    <i class="dropdown icon"></i>
+    <div class="menu" suiDropdownMenu>
+      <div *ngFor="let year of years.available"
+        class="item"
+        [class.active]="year === years.selected"
+        (click)="onYearSelect(year)">
+        {{year}}
+      </div>
+    </div>
+  </div>
+
+  <pre style="height: 500px; overflow: auto; background-color: #e8e8e8;">{{totalInMonth|json}}</pre>
+</ng-container>
+
+<div *ngIf="firstLoading || loading" class="ui active inverted dimmer">
+  <div class="ui loader"></div>
+</div>
