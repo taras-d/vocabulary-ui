@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import { WordsStatsService, AppService } from '../../core/services';
 import { ObservableManager, getErrorMessage } from '../../core/utils';
@@ -9,6 +9,8 @@ import { ObservableManager, getErrorMessage } from '../../core/utils';
   styleUrls: ['./words-stats.component.less']
 })
 export class WordsStatsComponent implements OnInit, OnDestroy {
+
+  @ViewChild('canvas') canvas: ElementRef;
 
   firstLoading: boolean;
   loading: boolean;
@@ -48,6 +50,9 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
         next: res => {
           this.totalInMonth = res;
           this.firstLoading = this.loading = false;
+          setTimeout(() => {
+            this.wordsStatsService.renderTotalInMonthChart(this.canvas.nativeElement, this.totalInMonth);
+          });
         }
       }
 

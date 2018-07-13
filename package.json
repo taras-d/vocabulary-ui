@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "@types/lodash": "^4.14.110",
+    "chart.js": "^2.7.2",
     "core-js": "^2.5.4",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
