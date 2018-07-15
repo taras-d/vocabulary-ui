@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import Chart from 'chart.js';
+import * as moment from 'moment';
 
 import { WordsStatsService, AppService } from '../../core/services';
 import { ObservableManager, getErrorMessage } from '../../core/utils';
@@ -23,6 +25,8 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
   totalInMonth: any[];
 
   om: ObservableManager;
+
+  chart: any;
 
   constructor(
     private appService: AppService,
@@ -50,9 +54,14 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
         next: res => {
           this.totalInMonth = res;
           this.firstLoading = this.loading = false;
-          setTimeout(() => {
-            this.wordsStatsService.renderTotalInMonthChart(this.canvas.nativeElement, this.totalInMonth);
-          });
+
+          const data = this.totalInMonth.map(i => i.total);
+
+          if (this.chart) {
+            this.updateChart(data);
+          } else {
+            setTimeout(() => this.createChart(data));
+          }
         }
       }
 
@@ -73,7 +82,38 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyChart();
     this.om.unsubAll();
+  }
+
+  createChart(data: any): void {
+    const ctx = this.canvas.nativeElement.getContext('2d');
+    this.chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: moment.months(),
+        datasets: [{
+          label: 'Words added', data,
+          backgroundColor: 'rgba(118, 219, 255, 0.5)',
+          borderColor: 'rgba(118, 219, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        legend: false
+      }
+    });
+  }
+
+  updateChart(data: any): void {
+    this.chart.data.datasets[0].data = data;
+    this.chart.update();
+  }
+
+  destroyChart(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 
   onYearSelect(year: number): void {
