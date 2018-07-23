@@ -1,7 +1,8 @@
 <ng-template #modalTemplate>
   <div class="header">Add word(s)</div>
   <div class="content">
-    <form class="ui small form" [formGroup]="wordsForm" #form>
+
+    <form class="ui small form" [formGroup]="wordsForm">
       <div *ngFor="let group of wordsForm.controls; index as controlIndex" class="two fields">
         <div class="field">
           <textarea [formControl]="group.get('text')" 
@@ -18,17 +19,30 @@
         </button>
       </div>
     </form>
-    <div>
-      <button class="ui basic compact button" (click)="onCancel()">
-        <i class="arrow circle left icon"></i> Cancel
-      </button>
-      <button class="ui compact button right floated save" [disabled]="wordsForm.invalid" (click)="onSave()">
-        <i class="save outline icon"></i> Save
-      </button>
-      <button class="ui basic compact button right floated" (click)="onAdd()">
-        <i class="plus icon"></i> Add word
-      </button>
+
+    <div class="ui grid actions">
+      <div class="four wide column">
+        <button class="ui basic compact button" (click)="onCancel()">
+          <i class="arrow circle left icon"></i> Cancel
+        </button>
+      </div>
+      <div class="eight wide column add-n-rows">
+        Add 
+        <div class="ui mini input">
+          <input type="text" maxlength="2" value="1" #nRows>
+        </div> 
+        row(s) 
+        <button class="ui basic compact icon button" (click)="onAdd(nRows.value)">
+          <i class="plus icon"></i>
+        </button>
+      </div>
+      <div class="four wide column save">
+        <button class="ui compact button" [disabled]="wordsForm.invalid" (click)="onSave()">
+          <i class="save outline icon"></i> Save
+        </button>
+      </div>
     </div>
+
     <div *ngIf="loading" class="ui active inverted dimmer">
       <div class="ui medium loader"></div>
     </div>

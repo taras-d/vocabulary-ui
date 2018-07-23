@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
+import * as _ from 'lodash';
 
 import { notEmpty } from '../../core/validators';
 import { ObservableManager, getErrorMessage } from '../../core/utils';
@@ -16,7 +17,6 @@ export class WordCreateComponent implements OnInit, OnDestroy {
   @Output() complete = new EventEmitter();
 
   @ViewChild('modalTemplate') modalTemplateRef: TemplateRef<any>;
-  @ViewChild('form') formRef: ElementRef;
 
   loading: boolean;
 
@@ -88,17 +88,24 @@ export class WordCreateComponent implements OnInit, OnDestroy {
 
   buildForm(): void {
     this.wordsForm = this.fb.array([]);
-    this.onAdd();
+    this.onAdd(1);
   }
 
-  onAdd(): void {
-    this.wordsForm.push(
-      this.fb.group({
-        text: ['', notEmpty],
-        translation: ''
-      })
-    );
-    this.focusAndScrollToLastField();
+  onAdd(count: any): void {
+    count = +count;
+
+    if (!count || count < 0) {
+      return;
+    }
+
+    _.times(count, () => {
+      this.wordsForm.push(
+        this.fb.group({
+          text: ['', notEmpty],
+          translation: ''
+        })
+      );
+    });
   }
 
   onDelete(index: number): void {
@@ -111,18 +118,6 @@ export class WordCreateComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     this.om.invoke('createWord');
-  }
-
-  focusAndScrollToLastField(): void {
-    setTimeout(() => {
-      const form = this.formRef.nativeElement as HTMLElement;
-      form.scrollTop = form.scrollHeight;
-
-      const field = form.querySelector('.fields:last-child .field:first-child textarea') as HTMLTextAreaElement;
-      if (field) {
-        setTimeout(() => field.focus(), 100);
-      }
-    });
   }
 
 }
