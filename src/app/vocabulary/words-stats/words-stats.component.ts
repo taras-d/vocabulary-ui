@@ -37,7 +37,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
       getAvailableYears: {
         create: () => {
           this.firstLoading = true;
-          return this.wordsStatsService.getAvailableYears()
+          return this.wordsStatsService.getAvailableYears();
         },
         next: res => {
           this.years.available = res;
