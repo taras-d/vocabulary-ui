@@ -3,7 +3,7 @@ import Chart from 'chart.js';
 import * as moment from 'moment';
 
 import { WordsStatsService, AppService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObserverManager, getErrorMessage } from '../../core/utils';
 
 @Component({
   selector: 'v-words-stats',
@@ -24,7 +24,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
 
   totalInMonth: any[];
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   chart: any;
 
@@ -32,7 +32,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private wordsStatsService: WordsStatsService
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       getAvailableYears: {
         create: () => {

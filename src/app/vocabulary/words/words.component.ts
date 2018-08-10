@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { AppService, WordsService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObserverManager, getErrorMessage } from '../../core/utils';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 import { WordCreateComponent } from '../word-create/word-create.component';
 
@@ -21,13 +21,13 @@ export class WordsComponent implements OnInit, OnDestroy {
   words: any[] = [];
   paging = { page: 1, pageSize: 10, total: 0, meta: '' };
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   constructor(
     private appService: AppService,
     private wordsService: WordsService
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       getWords: {
         create: () => {

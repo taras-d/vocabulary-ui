@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services';
-import { ObservableManager } from '../../core/utils';
+import { ObserverManager } from '../../core/utils';
 
 @Component({
   selector: 'v-page-layout',
@@ -13,13 +13,13 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
 
   user: any;
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       getUser: {
         create: () => this.authService.user,

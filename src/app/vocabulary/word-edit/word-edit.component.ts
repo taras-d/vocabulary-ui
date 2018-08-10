@@ -4,7 +4,7 @@ import { SuiModalService, TemplateModalConfig, SuiActiveModal } from 'ng2-semant
 import * as _ from 'lodash';
 
 import { notEmpty } from '../../core/validators';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObserverManager, getErrorMessage } from '../../core/utils';
 import { AppService, WordsService } from '../../core/services';
 
 @Component({
@@ -26,7 +26,7 @@ export class WordEditComponent implements OnInit, OnDestroy {
 
   modal: SuiActiveModal<any, any, any>;
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +34,7 @@ export class WordEditComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private wordsService: WordsService
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       updateWord: {
         create: () => {

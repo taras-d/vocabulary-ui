@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services';
-import { ObservableManager } from '../../core/utils';
+import { ObserverManager } from '../../core/utils';
 
 @Component({
   selector: 'v-login',
@@ -18,14 +18,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       login: {
         create: () => {

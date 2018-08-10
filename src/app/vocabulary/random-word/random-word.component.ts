@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { AppService, WordsService } from '../../core/services';
-import { ObservableManager, getErrorMessage } from '../../core/utils';
+import { ObserverManager, getErrorMessage } from '../../core/utils';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 
 @Component({
@@ -17,13 +17,13 @@ export class RandomWordComponent implements OnInit, OnDestroy {
 
   word: any;
 
-  om: ObservableManager;
+  om: ObserverManager;
 
   constructor(
     private appService: AppService,
     private wordsService: WordsService
   ) {
-    this.om = new ObservableManager({
+    this.om = new ObserverManager({
 
       getRandomWord: {
         create: () => {
