@@ -16,6 +16,7 @@ export class RandomWordComponent implements OnInit, OnDestroy {
   loading: boolean;
 
   word: any;
+  wordCounter = 0;
 
   om: ObserverManager;
 
@@ -32,6 +33,7 @@ export class RandomWordComponent implements OnInit, OnDestroy {
         },
         next: res => {
           this.word = res;
+          this.wordCounter += 1;
           this.loading = false;
         }
       },
