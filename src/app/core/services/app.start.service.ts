@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { ApiService } from './api.service';
+import { environment } from '@env/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AppStartService {
+  preloadedData: {[key: string]: any} = {};
 
-  preloadedData: any = {};
-
-  constructor(private apiService: ApiService) {
+  constructor(
+    private http: HttpClient
+  ) {
 
   }
 
@@ -23,7 +24,7 @@ export class AppStartService {
       return of(null);
     }
 
-    return this.apiService.get('me').pipe(
+    return this.http.get(`${environment.apiUrl}/me`).pipe(
       catchError(() => of(null)),
       tap(user => this.preloadedData.user = user)
     );

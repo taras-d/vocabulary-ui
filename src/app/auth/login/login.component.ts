@@ -14,7 +14,7 @@ export class LoginComponent {
   loginData = { email: '', password: '' };
   message: { type: string, text: string };
 
-  @ViewChild(NgForm) loginForm: NgForm;
+  @ViewChild('loginForm') loginForm: NgForm;
 
   constructor(
     private router: Router,
