@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
-import { AuthService } from '../../core/services';
+import { AuthService } from '@core/services';
 
 @Component({
   selector: 'v-login',
@@ -13,6 +14,8 @@ export class LoginComponent {
   loginData = { email: '', password: '' };
   message: { type: string, text: string };
 
+  @ViewChild(NgForm) loginForm: NgForm;
+
   constructor(
     private router: Router,
     private authService: AuthService
@@ -20,12 +23,13 @@ export class LoginComponent {
 
   }
 
-  login(): void {
-    if (!this.loginData.email || !this.loginData.password) {
+  onSubmit(): void {
+    this.message = null;
+
+    if (this.loginForm.invalid) {
       return;
     }
 
-    this.message = null;
     this.loading = true;
 
     this.authService.login(this.loginData).subscribe(() => {

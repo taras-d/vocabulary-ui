@@ -1,9 +1,9 @@
 <nz-card nzType="inner" [nzTitle]="cardTitleTpl">
   <nz-alert *ngIf="message" [nzType]="message.type" [nzMessage]="message.text"></nz-alert>
   
-  <form nz-form (submit)="login()">
+  <form nz-form (ngSubmit)="onSubmit()">
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control nzValidateStatus="success">
         <nz-input-group [nzPrefix]="prefixEmailTpl">
           <input type="text" nz-input placeholder="Email" name="email"
             [(ngModel)]="loginData.email" required/>
@@ -11,7 +11,7 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control nzValidateStatus="success">
         <nz-input-group [nzPrefix]="prefixPasswordTpl">
           <input type="password" nz-input placeholder="Password" name="password"
             [(ngModel)]="loginData.password" required/>
