@@ -1,22 +1,31 @@
 :host {
   display: block;
-  padding-top: 100px;
+  padding: 100px 0;
 }
 
-.ui.card {
-  width: 300px;
+nz-alert {
+  margin-bottom: 10px;
+}
+.ant-card {
+  max-width: 300px;
   margin: 0 auto;
-  .header,
-  .meta {
-    text-align: center;
+}
+.card-title {
+  text-align: center;
+  i {
+    font-size: 18px;
+    vertical-align: middle;
+    margin-right: 6px;
   }
-  sui-message {
-    display: block;
-    margin-bottom: 14px;
-  }
-  .form .button {
-    display: block;
-    width: 100px;
-    margin: 0 auto;
+}
+form {
+  .ant-form-item {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+      button {
+        width: 100%;
+      }
+    }
   }
 }

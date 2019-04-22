@@ -1,33 +1,39 @@
-<div class="ui card">
-  <div class="content">
-    <div class="header">
-      <i class="book grey icon"></i> Vocabulary
-    </div>
-  </div>
-  <div class="content">
-    <sui-message *ngIf="message" class="small {{message.type}}" [isDismissable]="false">
-      <div class="header">{{message.text}}</div>
-    </sui-message>
+<nz-card nzType="inner" [nzTitle]="cardTitleTpl">
+  <nz-alert *ngIf="message" [nzType]="message.type" [nzMessage]="message.text"></nz-alert>
+  
+  <form nz-form (submit)="login()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixEmailTpl">
+          <input type="text" nz-input placeholder="Email" name="email"
+            [(ngModel)]="loginData.email" required/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixPasswordTpl">
+          <input type="password" nz-input placeholder="Password" name="password"
+            [(ngModel)]="loginData.password" required/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="login-item">
+      <nz-form-control>
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading">
+          <i nz-icon type="login"></i>  Login
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
 
-    <form class="ui form" [formGroup]="loginForm" autocomplete="false">
-      <div class="field">
-        <div class="ui left icon input">
-          <input type="text" placeholder="Email" formControlName="email" maxlength="80">
-          <i class="user icon"></i>
-        </div>
-      </div>
-      <div class="field">
-        <div class="ui left icon input">
-          <input type="password" placeholder="Password" formControlName="password" maxlength="80">
-          <i class="lock icon"></i>
-        </div>
-      </div>
-      <button class="ui button" type="submit" [disabled]="loginForm.invalid" (click)="onLogin()">
-        <i class="sign in alternate grey icon"></i> Login
-      </button>
-      <div *ngIf="loading" class="ui active inverted dimmer">
-        <div class="ui medium loader"></div>
-      </div>
-    </form>
+<ng-template #cardTitleTpl>
+  <div class="card-title">
+    <i nz-icon nzType="read" nzTheme="outline"></i> Vocabulary
   </div>
-</div>
+</ng-template>
+
+<ng-template #prefixEmailTpl><i nz-icon type="user"></i></ng-template>
+
+<ng-template #prefixPasswordTpl><i nz-icon type="lock"></i></ng-template>

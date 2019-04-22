@@ -3,7 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NzButtonModule } from 'ng-zorro-antd';
+import {
+  NzCardModule,
+  NzButtonModule,
+  NzIconModule,
+  NzFormModule,
+  NzInputModule,
+  NzAlertModule
+} from 'ng-zorro-antd';
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
@@ -16,7 +23,12 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
     FormsModule,
     ReactiveFormsModule,
 
+    NzCardModule,
     NzButtonModule,
+    NzIconModule,
+    NzFormModule,
+    NzInputModule,
+    NzAlertModule,
 
     SuiMessageModule,
     SuiPopupModule,
@@ -30,7 +42,12 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
     FormsModule,
     ReactiveFormsModule,
 
+    NzCardModule,
     NzButtonModule,
+    NzIconModule,
+    NzFormModule,
+    NzInputModule,
+    NzAlertModule,
 
     SuiMessageModule,
     SuiPopupModule,
