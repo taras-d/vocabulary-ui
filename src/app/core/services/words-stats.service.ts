@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class WordsStatsService {
-
-  constructor(private apiService: ApiService) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   getAvailableYears(): Observable<any> {
-    return this.apiService.get(`words-stats`, {
-      params: { type: 'available-years' }
+    return this.http.get(`words-stats`, {
+      params: { _auth: 'true', type: 'available-years' }
     });
   }
 
   getTotalInMonth(year: number): Observable<any> {
-    return this.apiService.get(`words-stats`, {
-      params: { type: 'total-in-month', year }
+    return this.http.get(`words-stats`, {
+      params: { _auth: 'true', type: 'total-in-month', year: `${year}` }
     });
   }
-
 }

@@ -1,5 +1,6 @@
 <nz-card nzType="inner" [nzTitle]="cardTitleTpl">
-  <nz-alert *ngIf="message" [nzType]="message.type" [nzMessage]="message.text"></nz-alert>
+  <nz-alert *ngIf="message" [nzType]="message.type"
+    [nzMessage]="message.text"></nz-alert>
   
   <form nz-form #loginForm="ngForm" (ngSubmit)="onSubmit()">
     <nz-form-item>
@@ -20,7 +21,8 @@
     </nz-form-item>
     <nz-form-item class="login-item">
       <nz-form-control>
-        <button nz-button [nzType]="'primary'" [nzLoading]="loading" [disabled]="loginForm.invalid">
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading"
+          [disabled]="loginForm.invalid">
           <i nz-icon type="login"></i>  Login
         </button>
       </nz-form-control>

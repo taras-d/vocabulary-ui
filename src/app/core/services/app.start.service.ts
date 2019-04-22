@@ -9,25 +9,22 @@ import { environment } from '@env/environment';
 export class AppStartService {
   preloadedData: {[key: string]: any} = {};
 
-  constructor(
-    private http: HttpClient
-  ) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   load(): Promise<any> {
     return this.preloadUser().toPromise();
   }
 
   preloadUser(): Observable<any> {
-    if (!localStorage.getItem(environment.authTokenKey)) {
+    if (!localStorage[environment.authTokenKey]) {
       return of(null);
     }
 
-    return this.http.get(`${environment.apiUrl}/me`).pipe(
+    return this.http.get(`me`, {
+      params: { _auth: 'true' }
+    }).pipe(
       catchError(() => of(null)),
       tap(user => this.preloadedData.user = user)
     );
   }
-
 }

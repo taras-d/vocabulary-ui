@@ -1,8 +1,9 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppStartService } from './services/app.start.service';
+import { ApiInterceptor } from '@core/interceptors/api.interceptor';
+import { AppStartService } from '@core/services/app.start.service';
 
 @NgModule({
   imports: [
@@ -11,6 +12,11 @@ import { AppStartService } from './services/app.start.service';
   ],
   declarations: [],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: appStart => () => appStart.load(),

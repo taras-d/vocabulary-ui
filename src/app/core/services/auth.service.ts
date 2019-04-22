@@ -8,7 +8,6 @@ import { AppStartService } from '@core/services/app.start.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
   private _user: BehaviorSubject<any>;
   user: Observable<any>;
 
@@ -21,18 +20,17 @@ export class AuthService {
   }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/authentication`, data).pipe(
+    return this.http.post(`authentication`, data).pipe(
       tap(res => {
         this._user.next(res.user);
-        localStorage.setItem(environment.authTokenKey, res.accessToken);
+        localStorage[environment.authTokenKey] = res.accessToken;
       })
     );
   }
 
   logout(): Observable<any> {
     this._user.next(null);
-    localStorage.removeItem(environment.authTokenKey);
+    delete localStorage[environment.authTokenKey];
     return of(null);
   }
-
 }
