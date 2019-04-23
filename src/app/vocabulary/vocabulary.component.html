@@ -1,22 +1,14 @@
-<div class="ui top attached tabular menu">
-  <a class="item"
-    routerLink="/"
-    routerLinkActive="active" 
+<ul nz-menu nzMode="horizontal">
+  <li nz-menu-item routerLink="/" routerLinkActive="ant-menu-item-selected"
     [routerLinkActiveOptions]="{ exact: true }">
-    <i class="list grey icon"></i> Words
-  </a>
-  <a class="item" 
-    routerLink="/random-word" 
-    routerLinkActive="active">
-    <i class="random grey icon"></i> Random word
-  </a>
-  <a class="item" 
-    routerLink="/stats" 
-    routerLinkActive="active">
-    <i class="random chart bar outline icon"></i> Stats
-  </a>
-</div>
+    <i nz-icon type="bars"></i> Words
+  </li>
+  <li nz-menu-item routerLink="/random-word" routerLinkActive="ant-menu-item-selected">
+    <i nz-icon type="interation"></i> Random word
+  </li>
+  <li nz-menu-item routerLink="/stats" routerLinkActive="ant-menu-item-selected">
+    <i nz-icon type="bar-chart"></i> Stats
+  </li>
+</ul>
 
-<div class="ui bottom attached segment">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>

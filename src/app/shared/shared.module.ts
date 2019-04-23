@@ -11,7 +11,8 @@ import {
   NzInputModule,
   NzAlertModule,
   NzDropDownModule,
-  NzModalModule
+  NzModalModule,
+  NzMenuModule
 } from 'ng-zorro-antd';
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
@@ -33,6 +34,7 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
     NzAlertModule,
     NzDropDownModule,
     NzModalModule,
+    NzMenuModule,
 
     SuiMessageModule,
     SuiPopupModule,
@@ -54,6 +56,7 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
     NzAlertModule,
     NzDropDownModule,
     NzModalModule,
+    NzMenuModule,
 
     SuiMessageModule,
     SuiPopupModule,

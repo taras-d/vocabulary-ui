@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { VocabularyRoutingModule } from './vocabulary-routing.module';
 import { VocabularyComponent } from './vocabulary.component';
 import { WordsComponent } from './words/words.component';
