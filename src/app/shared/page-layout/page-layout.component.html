@@ -1,15 +1,28 @@
-<div class="ui menu">
-  <a class="header item" routerLink="/">
-    <i class="book grey icon"></i> Vocabulary
+<nz-card  nzType="inner" [nzTitle]="cardTitleTpl"
+  [nzExtra]="cardExtraTpl"></nz-card>
+
+<ng-template #cardTitleTpl>
+  <a class="card-title" routerLink="/">
+    <i nz-icon nzType="read" nzTheme="outline"></i>
+    <span>Vocabulary</span>
   </a>
-  <div class="right menu">
-    <div class="item">
-      <i class="user grey icon"></i> {{user?.email}}
-    </div>
-    <a class="item" (click)="onLogout()">
-      <i class="power off grey icon"></i> Log out
-    </a>
-  </div>
-</div>
+</ng-template>
+
+<ng-template #cardExtraTpl>
+  <nz-dropdown nzPlacement="bottomRight" nzTrigger="click">
+    <button nz-button nz-dropdown class="user-button">
+      <i nz-icon type="user"></i>
+    </button>
+    <ul nz-menu>
+      <li nz-menu-item (click)="openProfile()">
+        <i nz-icon type="profile"></i> Profile
+      </li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item (click)="logout()">
+        <i nz-icon type="poweroff"></i> Logout
+      </li>
+    </ul>
+  </nz-dropdown>
+</ng-template>
 
 <router-outlet></router-outlet>

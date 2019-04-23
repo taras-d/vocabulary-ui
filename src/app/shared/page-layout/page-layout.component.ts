@@ -1,49 +1,30 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd';
 
-import { AuthService } from '../../core/services';
-import { ObserverManager } from '../../core/utils';
+import { AuthService } from '@core/services';
 
 @Component({
   selector: 'v-page-layout',
   templateUrl: './page-layout.component.html',
   styleUrls: ['./page-layout.component.less']
 })
-export class PageLayoutComponent implements OnInit, OnDestroy {
-
+export class PageLayoutComponent {
   user: any;
-
-  om: ObserverManager;
-
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private modalService: NzModalService,
+    public authService: AuthService
   ) {
-    this.om = new ObserverManager({
 
-      getUser: {
-        create: () => this.authService.user,
-        next: user => this.user = user
-      },
+  }
 
-      logout: {
-        create: () => this.authService.logout(),
-        next: () => this.router.navigate(['login'])
-      }
-
+  openProfile(): void {
+    this.modalService.info({
+      nzTitle: 'Profile page is under construction',
+      nzContent: 'Please try again later'
     });
   }
 
-  ngOnInit(): void {
-    this.om.invoke('getUser');
+  logout(): void {
+    this.authService.logout().subscribe();
   }
-
-  ngOnDestroy(): void {
-    this.om.unsubAll();
-  }
-
-  onLogout(): void {
-    this.om.invoke('logout');
-  }
-
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -13,6 +14,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private appStartService: AppStartService
   ) {
     this._user = new BehaviorSubject(this.appStartService.preloadedData.user || null);
@@ -29,8 +31,9 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    this._user.next(null);
     delete localStorage[environment.authTokenKey];
+    this._user.next(null);
+    this.router.navigate(['login']);
     return of(null);
   }
 }
