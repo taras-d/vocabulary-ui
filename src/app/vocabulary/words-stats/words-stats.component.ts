@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js';
 import * as moment from 'moment';
+import { NzNotificationService } from 'ng-zorro-antd';
 
-import { WordsStatsService, AppService } from '../../core/services';
-import { ObserverManager, getErrorMessage } from '../../core/utils';
+import { WordsStatsService } from '@core/services';
+import { getErrorMessage } from '@core/utils';
 
 @Component({
   selector: 'v-words-stats',
@@ -11,79 +12,57 @@ import { ObserverManager, getErrorMessage } from '../../core/utils';
   styleUrls: ['./words-stats.component.less']
 })
 export class WordsStatsComponent implements OnInit, OnDestroy {
-
   @ViewChild('canvas') canvas: ElementRef;
 
-  firstLoading: boolean;
   loading: boolean;
-
-  years = {
-    available: [],
-    selected: null
-  };
-
+  availableYears: any[];
+  selectedYear: any;
   totalInMonth: any[];
-
-  om: ObserverManager;
-
   chart: any;
 
   constructor(
-    private appService: AppService,
+    private notificationService: NzNotificationService,
     private wordsStatsService: WordsStatsService
   ) {
-    this.om = new ObserverManager({
 
-      getAvailableYears: {
-        create: () => {
-          this.firstLoading = true;
-          return this.wordsStatsService.getAvailableYears();
-        },
-        next: res => {
-          this.years.available = res;
-          this.years.selected = this.years.available[0];
-          this.om.invoke('getTotalInMonth');
-        }
-      },
-
-      getTotalInMonth: {
-        create: () => {
-          this.loading = true;
-          return this.wordsStatsService.getTotalInMonth(this.years.selected);
-        },
-        next: res => {
-          this.totalInMonth = res;
-          this.firstLoading = this.loading = false;
-
-          const data = this.totalInMonth.map(i => i.total);
-
-          if (this.chart) {
-            this.updateChart(data);
-          } else {
-            setTimeout(() => this.createChart(data));
-          }
-        }
-      }
-
-    }, {
-
-      error: (name, err) => {
-        this.appService.pushMessage({
-          header: 'Error', text: getErrorMessage(err), type: 'error'
-        });
-        this.loading = false;
-      }
-
-    });
   }
 
   ngOnInit(): void {
-    this.om.invoke('getAvailableYears');
+    this.getAvailableYears();
   }
 
   ngOnDestroy(): void {
     this.destroyChart();
-    this.om.unsubAll();
+  }
+
+  getAvailableYears(): void {
+    this.loading = true;
+    this.wordsStatsService.getAvailableYears().subscribe(res => {
+      this.availableYears = res;
+      this.selectedYear = res[0];
+      this.loading = !!this.selectedYear;
+      if (this.selectedYear) {
+        this.getTotalInMonth();
+      }
+    }, err => {
+      this.notificationService.error('Error', getErrorMessage(err));
+    });
+  }
+
+  getTotalInMonth(): void {
+    this.loading = true;
+    this.wordsStatsService.getTotalInMonth(this.selectedYear).subscribe(res => {
+      this.totalInMonth = res;
+      this.loading = false;
+      const data = this.totalInMonth.map(i => i.total);
+      if (this.chart) {
+        this.updateChart(data);
+      } else {
+        setTimeout(() => this.createChart(data));
+      }
+    }, err => {
+      this.notificationService.error('Error', getErrorMessage(err));
+    });
   }
 
   createChart(data: any): void {
@@ -93,7 +72,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
       data: {
         labels: moment.months(),
         datasets: [{
-          label: 'Words added', data,
+          label: 'New words', data,
           backgroundColor: 'rgba(118, 219, 255, 0.5)',
           borderColor: 'rgba(118, 219, 255, 1)',
           borderWidth: 1
@@ -117,12 +96,9 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
   }
 
   onYearSelect(year: number): void {
-    if (this.years.selected === year) {
-      return;
+    if (this.selectedYear !== year) {
+      this.selectedYear = year;
+      this.getTotalInMonth();
     }
-
-    this.years.selected = year;
-    this.om.invoke('getTotalInMonth');
   }
-
 }

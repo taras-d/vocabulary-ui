@@ -1,22 +1,19 @@
-<ng-container *ngIf="!firstLoading">
-  <div class="ui dropdown basic compact button" suiDropdown>
-    <div class="text">{{years.selected}}</div>
-    <i class="dropdown icon"></i>
-    <div class="menu" suiDropdownMenu>
-      <div *ngFor="let year of years.available"
-        class="item"
-        [class.active]="year === years.selected"
-        (click)="onYearSelect(year)">
-        {{year}}
-      </div>
+<nz-spin [nzSpinning]="loading">
+  <ng-container *ngIf="totalInMonth">
+    <nz-dropdown>
+      <button nz-button nz-dropdown>
+        <span>{{selectedYear}}</span> <i nz-icon type="down"></i>
+      </button>
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let year of availableYears" (click)="onYearSelect(year)">
+          <a>{{year}}</a>
+        </li>
+      </ul>
+    </nz-dropdown>
+    <div class="canvas-container">
+      <canvas #canvas></canvas>
     </div>
-  </div>
+  </ng-container>
 
-  <div class="canvas-container">
-    <canvas #canvas></canvas>
-  </div>
-</ng-container>
-
-<div *ngIf="firstLoading || loading" class="ui active inverted dimmer">
-  <div class="ui loader"></div>
-</div>
+  <nz-alert *ngIf="!loading && !totalInMonth" nzType="info" nzMessage="No data"></nz-alert>
+</nz-spin>
