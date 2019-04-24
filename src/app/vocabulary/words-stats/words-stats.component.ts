@@ -15,10 +15,10 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
   @ViewChild('canvas') canvas: ElementRef;
 
   loading: boolean;
-  availableYears: any[];
-  selectedYear: any;
-  totalInMonth: any[];
-  chart: any;
+  availableYears: number[];
+  selectedYear: number;
+  totalInMonth: { month: number, total: number }[];
+  chart: Chart;
 
   constructor(
     private notificationService: NzNotificationService,
@@ -65,7 +65,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
     });
   }
 
-  createChart(data: any): void {
+  createChart(data: number[]): void {
     const ctx = this.canvas.nativeElement.getContext('2d');
     this.chart = new Chart(ctx, {
       type: 'bar',
@@ -84,7 +84,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateChart(data: any): void {
+  updateChart(data: number[]): void {
     this.chart.data.datasets[0].data = data;
     this.chart.update();
   }
