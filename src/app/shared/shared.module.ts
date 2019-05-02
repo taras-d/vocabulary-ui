@@ -24,6 +24,8 @@ import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, 
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { MessagePanelComponent } from './message-panel/message-panel.component';
 
+import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -80,11 +82,15 @@ import { MessagePanelComponent } from './message-panel/message-panel.component';
     SuiDropdownModule,
 
     PageLayoutComponent,
-    MessagePanelComponent
+    MessagePanelComponent,
+
+    NotEmptyValidatorDirective
   ],
   declarations: [
     PageLayoutComponent,
-    MessagePanelComponent
+    MessagePanelComponent,
+
+    NotEmptyValidatorDirective
   ]
 })
 export class SharedModule { }

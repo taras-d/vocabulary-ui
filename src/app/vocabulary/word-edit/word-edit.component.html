@@ -4,7 +4,7 @@
       <nz-form-label>Text</nz-form-label>
       <nz-form-control nzValidateStatus="success">
         <textarea nz-input name="text" type="text" rows="2" maxlength="200"
-          [(ngModel)]="word.text" required></textarea>
+          [(ngModel)]="word.text" notEmpty></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
