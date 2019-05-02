@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { AppStartService } from '@core/services';
+import { AppStartService } from './app.start.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

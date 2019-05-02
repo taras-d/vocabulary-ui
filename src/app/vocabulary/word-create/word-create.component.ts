@@ -3,7 +3,6 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
 import * as _ from 'lodash';
 
-import { notEmpty } from '@core/validators';
 import { ObserverManager, getErrorMsg } from '@core/utils';
 import { AppService, WordsService } from '@core/services';
 
@@ -101,7 +100,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
     _.times(count, () => {
       this.wordsForm.push(
         this.fb.group({
-          text: ['', notEmpty],
+          text: [''],
           translation: ''
         })
       );

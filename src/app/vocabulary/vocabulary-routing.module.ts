@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthenticatedGuard } from '@core/guards';
+import { AuthorizedGuard } from '@core/guards';
 import { PageLayoutComponent } from '@shared/page-layout/page-layout.component';
 import { VocabularyComponent } from './vocabulary.component';
 import { WordsComponent } from './words/words.component';
@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     component: PageLayoutComponent,
-    canActivate: [AuthenticatedGuard],
+    canActivate: [AuthorizedGuard],
     children: [
       {
         path: '',

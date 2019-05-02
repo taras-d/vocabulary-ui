@@ -8,15 +8,15 @@
     </div>
     
     <nz-button-group class="word-actions">
-      <a nz-button nzType="dashed" title="Open in Google Translate"
+      <a nz-button  title="Open in Google Translate"
         target="_blank" [href]="word.googleTranslateLink">
         <i nz-icon type="google"></i>
       </a>
-      <a nz-button nzType="dashed" title="Open in Google Images"
+      <a nz-button title="Open in Google Images"
         target="_blank" [href]="word.googleImagesLink">
         <i nz-icon type="search"></i>
       </a>
-      <button nz-button nzType="dashed" title="Edit word" (click)="edit()">
+      <button nz-button title="Edit word" (click)="edit()">
         <i nz-icon type="edit"></i> 
       </button>
     </nz-button-group>

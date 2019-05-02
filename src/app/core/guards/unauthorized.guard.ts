@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '@core/services';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticatedGuard implements CanActivate {
+export class UnauthorizedGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -21,13 +21,12 @@ export class AuthenticatedGuard implements CanActivate {
     return this.authService.user$.pipe(
       map(user => {
         if (user) {
-          return true;
-        } else {
-          this.router.navigate(['login']);
+          this.router.navigate(['']);
           return false;
+        } else {
+          return true;
         }
       })
     );
   }
-
 }
