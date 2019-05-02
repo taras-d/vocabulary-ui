@@ -1,26 +1,27 @@
-<ng-template #modalTemplate>
-  <div class="header">Edit word</div>
-  <div class="content">
-    <form class="ui form" [formGroup]="wordForm" #form>
-      <div class="field">
-        <label>Text</label>
-        <textarea formControlName="text" rows="2" maxlength="200"></textarea>
-      </div>
-      <div class="field">
-        <label>Translation</label>
-        <textarea formControlName="translation" rows="2" maxlength="200"></textarea>
-      </div>
-      <div class="field">
-        <button class="ui basic compact button" (click)="onCancel()">
-          <i class="arrow circle left icon"></i> Cancel
-        </button>
-        <button class="ui button compact right floated" [disabled]="wordForm.invalid" (click)="onSave()">
-          <i class="save outline icon"></i> Save
-        </button>
-      </div>
-    </form>
-    <div *ngIf="loading" class="ui active inverted dimmer">
-      <div class="ui medium loader"></div>
-    </div>
-  </div>
-</ng-template>
+<nz-modal nzTitle="Edit word" [(nzVisible)]="visible" (nzOnCancel)="close()" [nzFooter]="null">
+  <form nz-form *ngIf="word" #form="ngForm">
+    <nz-form-item>
+      <nz-form-label>Text</nz-form-label>
+      <nz-form-control nzValidateStatus="success">
+        <textarea nz-input name="text" type="text" rows="2" maxlength="200"
+          [(ngModel)]="word.text" required></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Translation</nz-form-label>
+      <nz-form-control>
+        <textarea nz-input name="translation" type="text" rows="2" maxlength="200"
+          [(ngModel)]="word.translation"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <button nz-button (click)="close()">
+        <i nz-icon nzType="left-circle"></i> Cancel
+      </button>
+      <button nz-button nzType="primary" (click)="updateWord()"
+        [nzLoading]="loading" [disabled]="form.invalid" class="save-btn">
+        <i nz-icon nzType="save"></i> Save
+      </button>
+    </nz-form-item>
+  </form> 
+</nz-modal>
