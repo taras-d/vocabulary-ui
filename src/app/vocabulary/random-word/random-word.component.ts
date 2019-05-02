@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { takeUntil } from 'rxjs/operators';
 
-import { AppService, WordsService } from '@core/services';
-import { ObserverManager, getErrorMsg } from '@core/utils';
+import { WordsService } from '@core/services';
+import { BaseComponent, getErrorMsg } from '@core/utils';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 
 @Component({
@@ -9,76 +11,58 @@ import { WordEditComponent } from '../word-edit/word-edit.component';
   templateUrl: './random-word.component.html',
   styleUrls: ['./random-word.component.less']
 })
-export class RandomWordComponent implements OnInit, OnDestroy {
-
+export class RandomWordComponent extends BaseComponent implements OnInit {
   @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
 
   loading: boolean;
-
   word: any;
-  wordCounter = 0;
-
-  om: ObserverManager;
+  wordCount = 0;
 
   constructor(
-    private appService: AppService,
+    private notificationService: NzNotificationService,
     private wordsService: WordsService
   ) {
-    this.om = new ObserverManager({
-
-      getRandomWord: {
-        create: () => {
-          this.loading = true;
-          return this.wordsService.getRandomWord();
-        },
-        next: res => {
-          this.word = res;
-          this.wordCounter += 1;
-          this.loading = false;
-        }
-      },
-
-      reloadWord: {
-        create: () => {
-          this.loading = true;
-          return this.wordsService.getWord(this.word._id);
-        },
-        next: res => {
-          this.word = res;
-          this.loading = false;
-        }
-      }
-
-    }, {
-
-      error: (name, err) => {
-        this.appService.pushMessage({
-          header: 'Error', text: getErrorMsg(err), type: 'error'
-        });
-        this.loading = false;
-      }
-
-    });
+    super();
   }
 
   ngOnInit(): void {
-    this.om.invoke('getRandomWord');
+    this.getRandomWord();
   }
 
-  ngOnDestroy(): void {
-    this.om.unsubAll();
+  getRandomWord(): void {
+    this.loading = true;
+    this.wordsService.getRandomWord().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(res => {
+      this.word = res;
+      this.wordCount += 1;
+      this.loading = false;
+    }, err => {
+      this.notificationService.error('Error', getErrorMsg(err));
+    });
   }
 
-  onNext(): void {
-    this.om.invoke('getRandomWord');
+  reloadWord(): void {
+    this.loading = true;
+    this.wordsService.getWord(this.word._id).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(res => {
+      this.word = res;
+      this.loading = false;
+    }, err => {
+      this.notificationService.error('Error', getErrorMsg(err));
+    });
   }
 
-  onEdit(): void {
+  next(): void {
+    this.getRandomWord();
+  }
+
+  edit(): void {
     this.wordEditRef.open(this.word);
   }
 
-  onEditComplete(): void {
-    this.om.invoke('reloadWord');
+  editComplete(): void {
+    this.reloadWord();
   }
-
 }

@@ -1,57 +1,40 @@
-<ng-template let-popup #hintTemplate>
-  <div class="word-hint">{{word.translation || 'no translation'}}</div>
+<nz-spin [nzSpinning]="loading">
+  <ng-container *ngIf="word">
+    <div class="word">
+      <span class="word-text" title="Click to show translation"
+        nz-popover nzTrigger="click" [nzContent]="hintTemplate">
+        {{word.text}}
+      </span>
+    </div>
+    
+    <nz-button-group class="word-actions">
+      <a nz-button nzSize="small" nzType="dashed" title="Open in Google Translate"
+        target="_blank" [href]="word.googleTranslateLink">
+        <i nz-icon type="google"></i>
+      </a>
+      <a nz-button nzSize="small" nzType="dashed" title="Open in Google Images"
+        target="_blank" [href]="word.googleImagesLink">
+        <i nz-icon type="search"></i>
+      </a>
+      <button nz-button nzSize="small" nzType="dashed"
+        title="Edit word" (click)="edit()">
+        <i nz-icon type="edit"></i> 
+      </button>
+    </nz-button-group>
+
+    <button nz-button (click)="next()" title="Next random word" class="next-word">
+      <i nz-icon type="interation"></i> Next
+    </button>
+
+    <nz-badge [nzCount]="wordCount" title="Words shown"
+      [nzStyle]="{ backgroundColor: '#fff', color: '#999', border: '1px solid #999' }"></nz-badge>
+  </ng-container>
+
+  <nz-alert *ngIf="!loading && !word" nzType="info" nzMessage="No data"></nz-alert>
+</nz-spin>
+
+<ng-template #hintTemplate>
+  <div class="word-hint">{{word?.translation}}</div>
 </ng-template>
 
-<sui-message *ngIf="!loading && !word" class="info" [isDismissable]="false">
-  <div>Cannot display random word</div>
-  <div>Try to add some words</div>
-</sui-message>
-
-<ng-container *ngIf="word">
-  <h1 class="ui header">
-    <span class="word-text"
-      title="Click to show translation"
-      suiPopup
-      popupTrigger="outsideClick"
-      popupPlacement="top"
-      [popupTemplate]="hintTemplate">
-      {{word.text}}
-    </span>
-  </h1>
-
-  <div class="word-actions">
-    <a class="ui basic compact button google-service"
-      target="_blank"
-      title="Open in Google translate"
-      [href]="word.googleTranslateLink">
-      <img src="assets/images/google-translate-icon.png">
-    </a>
-    <a class="ui basic compact button google-service"
-      target="_blank"
-      title="Open in Google images"
-      [href]="word.googleImagesLink">
-      <img src="assets/images/google-images-icon.png">
-    </a>
-    <button class="ui basic compact icon button"
-      title="Edit word"
-      (click)="onEdit(word)">
-      <i class="edit outline grey icon"></i>
-    </button>
-  </div>
-    
-  <button class="ui basic compact button" 
-    (click)="onNext()" 
-    title="Next random word">
-    <i class="icon random"></i> Next
-  </button>
-
-  <span class="ui small circular label word-counter" title="Words shown">
-    {{wordCounter}}
-  </span>
-</ng-container>
-
-<div *ngIf="loading" class="ui active inverted dimmer">
-  <div class="ui loader"></div>
-</div>
-
-<v-word-edit (complete)="onEditComplete()"></v-word-edit>
+<v-word-edit (complete)="editComplete()"></v-word-edit>

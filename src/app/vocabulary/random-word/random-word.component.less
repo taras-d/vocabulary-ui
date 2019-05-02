@@ -1,30 +1,36 @@
 :host {
   display: block;
-  position: relative;
   text-align: center;
-  min-height: 50px;
 }
 
-.ui.header {
-  margin: 0;
+nz-spin {
+  min-height: 40px;
+}
+nz-alert {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+.word {
+  font-size: 28px;
+  word-break: break-word;
   .word-text {
     cursor: pointer;
-    font-size: 28px;
-    word-break: break-word;
   }
 }
-
 .word-hint {
-  word-break: break-word;
   font-style: italic;
-  text-align: center;
+  word-break: break-word;
+  max-width: 500px;
 }
-
 .word-actions {
+  display: block;
   margin: 15px 0 22px;
 }
-
-.word-counter {
+.next-word {
+  margin-bottom: 5px;
+}
+nz-badge {
   position: absolute;
   bottom: 0;
   right: 0;
