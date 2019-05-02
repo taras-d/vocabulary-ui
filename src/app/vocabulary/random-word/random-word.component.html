@@ -8,16 +8,15 @@
     </div>
     
     <nz-button-group class="word-actions">
-      <a nz-button nzSize="small" nzType="dashed" title="Open in Google Translate"
+      <a nz-button nzType="dashed" title="Open in Google Translate"
         target="_blank" [href]="word.googleTranslateLink">
         <i nz-icon type="google"></i>
       </a>
-      <a nz-button nzSize="small" nzType="dashed" title="Open in Google Images"
+      <a nz-button nzType="dashed" title="Open in Google Images"
         target="_blank" [href]="word.googleImagesLink">
         <i nz-icon type="search"></i>
       </a>
-      <button nz-button nzSize="small" nzType="dashed"
-        title="Edit word" (click)="edit()">
+      <button nz-button nzType="dashed" title="Edit word" (click)="edit()">
         <i nz-icon type="edit"></i> 
       </button>
     </nz-button-group>
@@ -26,8 +25,7 @@
       <i nz-icon type="interation"></i> Next
     </button>
 
-    <nz-badge [nzCount]="wordCount" title="Words shown"
-      [nzStyle]="{ backgroundColor: '#fff', color: '#999', border: '1px solid #999' }"></nz-badge>
+    <div class="word-count" title="Words shown">{{wordCount}}</div>
   </ng-container>
 
   <nz-alert *ngIf="!loading && !word" nzType="info" nzMessage="No data"></nz-alert>
