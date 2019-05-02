@@ -9,14 +9,11 @@ export class WordsService {
   constructor(private http: HttpClient) {}
 
   createWord(words: any): Observable<any> {
-    return this.http.post(`words`, words, {
-      params: { _auth: 'true' }
-    });
+    return this.http.post(`words`, words);
   }
 
   getWords(search: string, paging: any): Observable<any> {
     const params: any = {
-      _auth: 'true',
       '$sort[createdAt]': '-1',
       $limit: (paging && paging.limit) || '10',
       $skip: (paging && paging.skip) || '0'
@@ -34,31 +31,23 @@ export class WordsService {
   }
 
   getWord(id: string): Observable<any> {
-    return this.http.get(`words/${id}`, {
-      params: { _auth: 'true' }
-    }).pipe(
+    return this.http.get(`words/${id}`).pipe(
       map(this.decorateWord)
     );
   }
 
   getRandomWord(): Observable<any> {
-    return this.http.get(`random-word`, {
-      params: { _auth: 'true' }
-    }).pipe(
+    return this.http.get(`random-word`).pipe(
       map(this.decorateWord)
     );
   }
 
   updateWord(id: number, data: any): Observable<any> {
-    return this.http.patch(`words/${id}`, data, {
-      params: { _auth: 'true' }
-    });
+    return this.http.patch(`words/${id}`, data);
   }
 
   deleteWord(id: number): Observable<any> {
-    return this.http.delete(`words/${id}`, {
-      params: { _auth: 'true' }
-    });
+    return this.http.delete(`words/${id}`);
   }
 
   private decorateWord = (word: any) => {

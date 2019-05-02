@@ -20,9 +20,7 @@ export class AppStartService {
       return of(null);
     }
 
-    return this.http.get(`me`, {
-      params: { _auth: 'true' }
-    }).pipe(
+    return this.http.get(`me`).pipe(
       catchError(() => of(null)),
       tap(user => this.preloadedData.user = user)
     );

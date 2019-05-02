@@ -8,13 +8,13 @@ export class WordsStatsService {
 
   getAvailableYears(): Observable<any> {
     return this.http.get(`words-stats`, {
-      params: { _auth: 'true', type: 'available-years' }
+      params: { type: 'available-years' }
     });
   }
 
   getTotalInMonth(year: number): Observable<any> {
     return this.http.get(`words-stats`, {
-      params: { _auth: 'true', type: 'total-in-month', year: `${year}` }
+      params: { type: 'total-in-month', year: `${year}` }
     });
   }
 }
