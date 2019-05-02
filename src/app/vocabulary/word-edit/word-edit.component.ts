@@ -41,11 +41,19 @@ export class WordEditComponent extends BaseComponent {
   open(word: any): void {
     this.word = Object.assign({}, word);
     this.visible = true;
+    this.focusFirstControl();
   }
 
   close(): void {
     this.word = null;
     this.loading = false;
     this.visible = false;
+  }
+
+  focusFirstControl(): void {
+    setTimeout(() => {
+      const el: HTMLElement = document.querySelector('.word-edit-modal form textarea:first-child');
+      el && el.focus();
+    });
   }
 }
