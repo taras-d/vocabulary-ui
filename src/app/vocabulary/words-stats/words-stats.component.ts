@@ -2,16 +2,17 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import Chart from 'chart.js';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { takeUntil } from 'rxjs/operators';
 
 import { WordsStatsService } from '@core/services';
-import { getErrorMessage } from '@core/utils';
+import { BaseComponent, getErrorMsg } from '@core/utils';
 
 @Component({
   selector: 'v-words-stats',
   templateUrl: './words-stats.component.html',
   styleUrls: ['./words-stats.component.less']
 })
-export class WordsStatsComponent implements OnInit, OnDestroy {
+export class WordsStatsComponent extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild('canvas') canvas: ElementRef;
 
   loading: boolean;
@@ -24,7 +25,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
     private notificationService: NzNotificationService,
     private wordsStatsService: WordsStatsService
   ) {
-
+    super();
   }
 
   ngOnInit(): void {
@@ -32,12 +33,15 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.destroyChart();
   }
 
   getAvailableYears(): void {
     this.loading = true;
-    this.wordsStatsService.getAvailableYears().subscribe(res => {
+    this.wordsStatsService.getAvailableYears().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(res => {
       this.availableYears = res;
       this.selectedYear = res[0];
       this.loading = !!this.selectedYear;
@@ -45,13 +49,15 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
         this.getTotalInMonth();
       }
     }, err => {
-      this.notificationService.error('Error', getErrorMessage(err));
+      this.notificationService.error('Error', getErrorMsg(err));
     });
   }
 
   getTotalInMonth(): void {
     this.loading = true;
-    this.wordsStatsService.getTotalInMonth(this.selectedYear).subscribe(res => {
+    this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(res => {
       this.totalInMonth = res;
       this.loading = false;
       const data = this.totalInMonth.map(i => i.total);
@@ -61,7 +67,7 @@ export class WordsStatsComponent implements OnInit, OnDestroy {
         setTimeout(() => this.createChart(data));
       }
     }, err => {
-      this.notificationService.error('Error', getErrorMessage(err));
+      this.notificationService.error('Error', getErrorMsg(err));
     });
   }
 

@@ -3,9 +3,9 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
 import * as _ from 'lodash';
 
-import { notEmpty } from '../../core/validators';
-import { ObserverManager, getErrorMessage } from '../../core/utils';
-import { AppService, WordsService } from '../../core/services';
+import { notEmpty } from '@core/validators';
+import { ObserverManager, getErrorMsg } from '@core/utils';
+import { AppService, WordsService } from '@core/services';
 
 @Component({
   selector: 'v-word-create',
@@ -55,7 +55,7 @@ export class WordCreateComponent implements OnInit, OnDestroy {
 
       error: (name, err) => {
         this.appService.pushMessage({
-          header: 'Error', text: getErrorMessage(err), type: 'error'
+          header: 'Error', text: getErrorMsg(err), type: 'error'
         });
         this.loading = false;
       }

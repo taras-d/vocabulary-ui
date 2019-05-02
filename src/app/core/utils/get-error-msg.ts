@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
-export const getErrorMessage = (error: any) => {
+export const getErrorMsg = (error: any) => {
   if (error instanceof Error) {
     return error.message;
   }

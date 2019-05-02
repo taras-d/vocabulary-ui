@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
-import { AppService, WordsService } from '../../core/services';
-import { ObserverManager, getErrorMessage } from '../../core/utils';
+import { AppService, WordsService } from '@core/services';
+import { ObserverManager, getErrorMsg } from '@core/utils';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 import { WordCreateComponent } from '../word-create/word-create.component';
 
@@ -67,7 +67,7 @@ export class WordsComponent implements OnInit, OnDestroy {
 
       error: (name, err) => {
         this.appService.pushMessage({
-          header: 'Error', text: getErrorMessage(err), type: 'error'
+          header: 'Error', text: getErrorMsg(err), type: 'error'
         });
         this.loading = false;
       }
