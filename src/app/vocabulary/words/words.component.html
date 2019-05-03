@@ -6,89 +6,63 @@
   </div>
 </ng-template>
 
-<form class="ui small form search-form">
-  <div class="field">
-    <div class="ui icon input">
-      <input type="text" placeholder="Search" name="search" title="Search in text or translation"
-        [(ngModel)]="search" (keyup.enter)="getWords()">
-      <i class="search link icon" (click)="getWords()"></i>
-    </div>
+<nz-spin [nzSpinning]="loading">
+  <div class="search">
+    <nz-input-group nzCompact>
+      <input type="text" nz-input placeholder="Search"
+        [(ngModel)]="search" (keyup.enter)="getWords()"/>
+      <button nz-button (click)="getWords()">
+        <i nz-icon type="search"></i>
+      </button>
+    </nz-input-group>
   </div>
-</form>
 
-<table class="ui compact fixed celled table">
-  <thead>
-    <tr>
-      <th>Word</th>
-      <th>Translation</th>
-      <th>Date</th>
-      <th style="width: 170px"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let word of words">
-      <td class="overflow-effect" [title]="word.text">{{word.text}}</td>
-      <td class="overflow-effect" [title]="word.translation">{{word.translation}}</td>
-      <td class="overflow-effect" title="{{word.createdAt|date:'dd.MM.yyyy HH:mm'}}">{{word.date}}</td>
-      <td class="word-actions">
-        <a class="ui basic compact button google-service"
-          target="_blank"
-          title="Open in Google translate"
-          [href]="word.googleTranslateLink">
-          <img src="assets/images/google-translate-icon.png">
-        </a>
-        <a class="ui basic compact button google-service"
-          target="_blank"
-          title="Open in Google images"
-          [href]="word.googleImagesLink">
-          <img src="assets/images/google-images-icon.png">
-        </a>
-        <button class="ui basic compact icon button"
-          title="Edit word"
-          (click)="wordEditCmp.openModal(word)">
-          <i class="edit outline grey icon"></i>
-        </button>
-        <button class="ui basic compact icon button"
-          title="Remove word"
-          suiPopup
-          popupPlacement="top"
-          popupTrigger="outsideClick"
-          [popupTemplate]="deleteWordTemplate"
-          [popupTemplateContext]="{ word: word }">
-          <i class="close grey icon"></i>
-        </button>
-      </td>
-    </tr>
-    <tr *ngIf="!words.length">
-      <td colspan="4" class="empty">no words</td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="paging.total">
-    <tr>
-      <th colspan="4">
-        <div class="paging-meta">{{paging.meta}}</div>
-        <sui-pagination
-          class="mini"
-          [collectionSize]="paging.total"
-          [pageSize]="paging.pageSize"
-          [page]="paging.page"
-          [maxSize]="5"
-          (pageChange)="pageChange($event)"> 
-        </sui-pagination>
-      </th>
-    </tr>
-  </tfoot>
-</table>
+  <nz-table #wordsTable nzSize="middle" nzBordered
+    [nzData]="words"
+    [nzFrontPagination]="false"
+    [nzTotal]="paging.total"
+    [nzPageSize]="paging.pageSize"
+    [(nzPageIndex)]="paging.page"
+    (nzPageIndexChange)="getWords()">
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Translation</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let word of wordsTable.data">
+        <td>{{word.text}}</td>
+        <td>{{word.translation}}</td>
+        <td class="word-actions">
+          <nz-button-group>
+            <a nz-button nzSize="small" title="Open in Google Translate"
+              target="_blank" [href]="word.googleTranslateLink">
+              <i nz-icon type="google"></i>
+            </a>
+            <a nz-button nzSize="small" title="Open in Google Images"
+              target="_blank" [href]="word.googleImagesLink">
+              <i nz-icon type="search"></i>
+            </a>
+            <button nz-button nzSize="small" title="Edit word" (click)="wordEditCmp.openModal(word)">
+              <i nz-icon type="edit"></i> 
+            </button>
+            <button nz-button nzSize="small" title="Delete word">
+              <i nz-icon type="delete"></i> 
+            </button>
+          </nz-button-group>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 
-<div class="add-word">
-  <button class="ui basic compact button" (click)="wordCreateCmp.openModal()">
-    <i class="plus icon"></i> Add word(s)
-  </button>
-</div>
+  <div class="add-word">
+    <button nz-button (click)="wordCreateCmp.openModal()">
+      <i nz-icon nzType="plus-circle"></i> Add word(s)
+    </button>
+  </div>
+</nz-spin>
 
-<div *ngIf="loading" class="ui active inverted dimmer">
-  <div class="ui medium loader"></div>
-</div>
-
-<v-word-edit #wordEditCmp (complete)="getWords()"></v-word-edit>
+<v-word-edit #wordEditCmp (complete)="editComplete($event)"></v-word-edit>
 <v-word-create #wordCreateCmp (complete)="getWords()"></v-word-create>

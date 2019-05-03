@@ -1,41 +1,21 @@
-:host {
-  display: block;
-  position: relative;
+nz-table {
+  margin-top: 15px;
 }
-
-.ui.table {
-  .word-actions {
-    padding: 2px;
-    text-align: center;
-  }
-  .empty {
-    text-align: center;
-    color: silver;
-  }
-}
-
-.paging-meta {
-  float: left;
-  padding-top: 7px;
-}
-
-sui-pagination {
-  float: right;
-}
-
-.delete-word-confirm {
-  text-align: center;
-  a {
-    margin: 0 4px;
-    cursor: pointer;
-  }
-}
-
-.add-word {
-  text-align: right;
-}
-
-.search-form {
+.search {
   max-width: 400px;
   margin: 0 auto;
+  @btnWidth: 32px;
+  input {
+    width: calc(100% - @btnWidth);
+  }
+  button {
+    width: @btnWidth;
+  }
+}
+.word-actions {
+  width: 145px;
+  text-align: center;
+}
+.add-word {
+  text-align: right;
 }

@@ -29,18 +29,16 @@ export class WordsComponent extends BaseComponent implements OnInit {
 
   getWords(): void {
     this.loading = true;
-    const paging = this.paging;
+    const { page, pageSize } = this.paging;
 
     this.wordsService.getWords(this.search, {
-      skip: paging.page * paging.pageSize - paging.pageSize,
-      limit: paging.pageSize
+      skip: (page * pageSize) - pageSize, limit: pageSize
     }).pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: any) => {
       this.words = res.data;
       this.paging = {
-        page: res.skip / res.limit + 1,
-        pageSize: res.limit,
+        page: res.skip / res.limit + 1, pageSize: res.limit,
         total: res.total,
         meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words`
       };
@@ -67,9 +65,12 @@ export class WordsComponent extends BaseComponent implements OnInit {
   }
 
   pageChange(page: number): void {
-    if (this.paging.page !== page) {
-      this.paging.page = page;
-      this.getWords();
-    }
+    this.paging.page = page;
+    this.getWords();
+  }
+
+  editComplete(res: any): void {
+    const word = this.words.find(w => w._id === res._id);
+    Object.assign(word, res);
   }
 }

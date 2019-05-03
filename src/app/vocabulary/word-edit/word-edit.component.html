@@ -1,4 +1,5 @@
-<nz-modal nzTitle="Edit word" [(nzVisible)]="open" [nzFooter]="null" nzClassName="word-edit-modal">
+<nz-modal nzTitle="Edit word" [(nzVisible)]="open" [nzFooter]="null"
+ (nzOnCancel)="closeModal()" nzClassName="word-edit-modal">
   <form nz-form *ngIf="word" #form="ngForm">
     <nz-form-item>
       <nz-form-label [nzSm]="5">Text</nz-form-label>
