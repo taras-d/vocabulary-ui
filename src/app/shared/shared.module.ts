@@ -19,7 +19,8 @@ import {
   NzBadgeModule,
   NzPopoverModule,
   NzGridModule,
-  NzTableModule
+  NzTableModule,
+  NzPopconfirmModule
 } from 'ng-zorro-antd';
 
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
@@ -47,7 +48,8 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzBadgeModule,
     NzPopoverModule,
     NzGridModule,
-    NzTableModule
+    NzTableModule,
+    NzPopconfirmModule
   ],
   exports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzPopoverModule,
     NzGridModule,
     NzTableModule,
+    NzPopconfirmModule,
 
     PageLayoutComponent,
 

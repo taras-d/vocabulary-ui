@@ -48,7 +48,12 @@
             <button nz-button nzSize="small" title="Edit word" (click)="wordEditCmp.openModal(word)">
               <i nz-icon type="edit"></i> 
             </button>
-            <button nz-button nzSize="small" title="Delete word">
+            <button nz-button nzSize="small" title="Delete word"
+              nz-popconfirm
+              nzTitle="Are you sure?"
+              (nzOnConfirm)="deleteWord(word)"
+              nzPlacement="topRight"
+              nzOkText="Yes" nzCancelText="No">
               <i nz-icon type="delete"></i> 
             </button>
           </nz-button-group>

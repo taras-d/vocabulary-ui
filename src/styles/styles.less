@@ -13,6 +13,7 @@
 @import "~ng-zorro-antd/badge/style/entry.less";
 @import "~ng-zorro-antd/popover/style/entry.less";
 @import "~ng-zorro-antd/table/style/entry.less";
+@import "~ng-zorro-antd/popconfirm/style/entry.less";
 
 v-page-layout {
   .ant-card-type-inner .ant-card-extra {
@@ -20,47 +21,5 @@ v-page-layout {
   }
   .ant-card-body {
     display: none;
-  }
-}
-
-
-
-.ui.button.google-service {
-  padding: 5px 4px;
-  height: 30px;
-  width: 32px;
-  img {
-    width: 20px;
-  }
-}
-
-.ui.table {
-  td, th {
-    &.overflow-effect {
-      position: relative;
-      text-overflow: clip;
-      white-space: nowrap;
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40px;
-        height: 100%;
-        background-image: linear-gradient(to right, transparent, white);
-      }
-    }
-  }
-}
-
-.word-actions {
-  .ui.button {
-    vertical-align: top;
-    height: 30px;
-    margin-right: 0;
-    &:not(:last-child) {
-      margin-right: 4px;
-    }
   }
 }
