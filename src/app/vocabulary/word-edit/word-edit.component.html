@@ -2,17 +2,29 @@
  (nzOnCancel)="closeModal()" nzClassName="word-edit-modal">
   <form nz-form *ngIf="word" #form="ngForm">
     <nz-form-item>
-      <nz-form-label [nzSm]="5">Text</nz-form-label>
+      <nz-form-label [nzSm]="5" [nzNoColon]="true">Text</nz-form-label>
       <nz-form-control [nzSm]="19" nzValidateStatus="success">
         <input nz-input name="text" type="text" maxlength="200"
           placeholder="Text" [(ngModel)]="word.text" notEmpty>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="5">Translation</nz-form-label>
+      <nz-form-label [nzSm]="5" [nzNoColon]="true">Translation</nz-form-label>
       <nz-form-control [nzSm]="19">
         <input nz-input name="translation" type="text" maxlength="200"
           placeholder="Translation" [(ngModel)]="word.translation">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="5" [nzNoColon]="true">Created</nz-form-label>
+      <nz-form-control [nzSm]="19">
+        <input nz-input value="{{word.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="5" [nzNoColon]="true">Updated</nz-form-label>
+      <nz-form-control [nzSm]="19">
+        <input nz-input value="{{word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

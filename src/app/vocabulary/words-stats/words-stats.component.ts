@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js';
-import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { takeUntil } from 'rxjs/operators';
 
@@ -76,7 +75,8 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     this.chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: moment.months(),
+        labels: ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
           label: 'New words', data,
           backgroundColor: 'rgba(118, 219, 255, 0.5)',

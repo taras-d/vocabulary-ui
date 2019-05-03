@@ -38,7 +38,10 @@ export class WordEditComponent extends BaseComponent {
 
   updateWord(): void {
     this.loading = true;
-    this.wordsService.updateWord(this.word._id, this.word).pipe(
+    this.wordsService.updateWord(this.word._id, {
+      text: this.word.text,
+      translation: this.word.translation
+    }).pipe(
       takeUntil(this.destroy$)
     ).subscribe(res => {
       this.closeModal();

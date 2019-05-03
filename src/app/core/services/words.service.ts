@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import * as moment from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class WordsService {
@@ -54,7 +53,6 @@ export class WordsService {
 
   private decorateWord = (word: any) => {
     if (word) {
-      word.date = moment(word.createdAt).fromNow();
       word.googleTranslateLink = `https://translate.google.com/?#en/auto/${word.text}`;
       word.googleImagesLink = `https://www.google.com/search?tbm=isch&q=${word.text}`;
     }
