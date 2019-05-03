@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthorizedGuard } from '@core/guards';
-import { PageLayoutComponent } from '@shared/page-layout/page-layout.component';
+import { PageLayoutComponent } from '@shared/components';
 import { VocabularyComponent } from './vocabulary.component';
 import { WordsComponent } from './words/words.component';
 import { RandomWordComponent } from './random-word/random-word.component';

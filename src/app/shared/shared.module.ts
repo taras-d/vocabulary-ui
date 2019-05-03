@@ -22,8 +22,8 @@ import {
 } from 'ng-zorro-antd';
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
-import { PageLayoutComponent } from './page-layout/page-layout.component';
 
+import { PageLayoutComponent } from './components/page-layout/page-layout.component';
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
 
 @NgModule({

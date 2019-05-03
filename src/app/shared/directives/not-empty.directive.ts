@@ -14,7 +14,9 @@ export class NotEmptyValidatorDirective implements Validator {
   @Input()
   set notEmpty(val: any) {
     this._notEmpty = !!(val || val === '');
-    this._onChange && this._onChange();
+    if (this._onChange) {
+      this._onChange();
+    }
   }
 
   private _notEmpty: boolean;
