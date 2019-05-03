@@ -16,12 +16,12 @@
         target="_blank" [href]="word.googleImagesLink">
         <i nz-icon type="search"></i>
       </a>
-      <button nz-button title="Edit word" (click)="edit()">
+      <button nz-button title="Edit word" (click)="wordEditCmp.openModal(word)">
         <i nz-icon type="edit"></i> 
       </button>
     </nz-button-group>
 
-    <button nz-button (click)="next()" title="Next random word" class="next-word">
+    <button nz-button (click)="getRandomWord()" title="Next random word" class="next-word">
       <i nz-icon type="interation"></i> Next
     </button>
 
@@ -35,4 +35,4 @@
   <div class="word-hint">{{word?.translation}}</div>
 </ng-template>
 
-<v-word-edit (complete)="editComplete()"></v-word-edit>
+<v-word-edit #wordEditCmp (complete)="reloadWord()"></v-word-edit>

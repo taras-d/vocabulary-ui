@@ -1,7 +1,7 @@
 <ng-template let-popup let-context="context" #deleteWordTemplate>
   <div class="delete-word-confirm">
     <div>Are you sure?</div>
-    <a (click)="popup.close(); onDelete(context.word)">Yes</a>
+    <a (click)="popup.close(); deleteWord(context.word)">Yes</a>
     <a (click)="popup.close()">No</a>
   </div>
 </ng-template>
@@ -10,8 +10,8 @@
   <div class="field">
     <div class="ui icon input">
       <input type="text" placeholder="Search" name="search" title="Search in text or translation"
-        [(ngModel)]="search" (keyup.enter)="onSearch()">
-      <i class="search link icon" (click)="onSearch()"></i>
+        [(ngModel)]="search" (keyup.enter)="getWords()">
+      <i class="search link icon" (click)="getWords()"></i>
     </div>
   </div>
 </form>
@@ -45,7 +45,7 @@
         </a>
         <button class="ui basic compact icon button"
           title="Edit word"
-          (click)="onEdit(word)">
+          (click)="wordEditCmp.openModal(word)">
           <i class="edit outline grey icon"></i>
         </button>
         <button class="ui basic compact icon button"
@@ -73,7 +73,7 @@
           [pageSize]="paging.pageSize"
           [page]="paging.page"
           [maxSize]="5"
-          (pageChange)="onPageChange($event)"> 
+          (pageChange)="pageChange($event)"> 
         </sui-pagination>
       </th>
     </tr>
@@ -81,7 +81,7 @@
 </table>
 
 <div class="add-word">
-  <button class="ui basic compact button" (click)="onCreate()">
+  <button class="ui basic compact button" (click)="wordCreateCmp.openModal()">
     <i class="plus icon"></i> Add word(s)
   </button>
 </div>
@@ -90,5 +90,5 @@
   <div class="ui medium loader"></div>
 </div>
 
-<v-word-edit (complete)="onEditComplete()"></v-word-edit>
-<v-word-create (complete)="onCreateComplete()"></v-word-create>
+<v-word-edit #wordEditCmp (complete)="getWords()"></v-word-edit>
+<v-word-create #wordCreateCmp (complete)="getWords()"></v-word-create>

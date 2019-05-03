@@ -101,7 +101,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     }
   }
 
-  onYearSelect(year: number): void {
+  yearClick(year: number): void {
     if (this.selectedYear !== year) {
       this.selectedYear = year;
       this.getTotalInMonth();

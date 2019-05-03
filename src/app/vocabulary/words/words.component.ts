@@ -1,117 +1,75 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { takeUntil } from 'rxjs/operators';
 
-import { AppService, WordsService } from '@core/services';
-import { ObserverManager, getErrorMsg } from '@core/utils';
-import { WordEditComponent } from '../word-edit/word-edit.component';
-import { WordCreateComponent } from '../word-create/word-create.component';
+import { WordsService } from '@core/services';
+import { BaseComponent, getErrorMsg } from '@core/utils';
 
 @Component({
   selector: 'v-words',
   templateUrl: './words.component.html',
   styleUrls: ['./words.component.less']
 })
-export class WordsComponent implements OnInit, OnDestroy {
-
-  @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
-  @ViewChild(WordCreateComponent) wordCreateRef: WordCreateComponent;
-
+export class WordsComponent extends BaseComponent implements OnInit {
   loading: boolean;
-
   search: string;
   words: any[] = [];
   paging = { page: 1, pageSize: 10, total: 0, meta: '' };
 
-  om: ObserverManager;
-
   constructor(
-    private appService: AppService,
+    private notificationService: NzNotificationService,
     private wordsService: WordsService
   ) {
-    this.om = new ObserverManager({
-
-      getWords: {
-        create: () => {
-          this.loading = true;
-          const paging = this.paging;
-          return this.wordsService.getWords(this.search, {
-            skip: paging.page * paging.pageSize - paging.pageSize,
-            limit: paging.pageSize
-          });
-        },
-        next: res => {
-          this.words = res.data;
-          this.paging = {
-            page: res.skip / res.limit + 1,
-            pageSize: res.limit,
-            total: res.total,
-            meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words`
-          };
-          this.loading = false;
-        }
-      },
-
-      deleteWord: {
-        create: word => {
-          this.loading = true;
-          return this.wordsService.deleteWord(word._id);
-        },
-        next: () => {
-          if (this.paging.page > 1 && this.words.length === 1) {
-            this.paging.page -= 1;
-          }
-          this.om.invoke('getWords');
-        }
-      }
-
-    }, {
-
-      error: (name, err) => {
-        this.appService.pushMessage({
-          header: 'Error', text: getErrorMsg(err), type: 'error'
-        });
-        this.loading = false;
-      }
-
-    });
+    super();
   }
 
   ngOnInit(): void {
-    this.om.invoke('getWords');
+    this.getWords();
   }
 
-  ngOnDestroy(): void {
-    this.om.unsubAll();
+  getWords(): void {
+    this.loading = true;
+    const paging = this.paging;
+
+    this.wordsService.getWords(this.search, {
+      skip: paging.page * paging.pageSize - paging.pageSize,
+      limit: paging.pageSize
+    }).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((res: any) => {
+      this.words = res.data;
+      this.paging = {
+        page: res.skip / res.limit + 1,
+        pageSize: res.limit,
+        total: res.total,
+        meta: `${res.skip + 1}-${res.skip + res.data.length} of ${res.total} words`
+      };
+      this.loading = false;
+    }, err => {
+      this.notificationService.error('Error', getErrorMsg(err));
+      this.loading = false;
+    });
   }
 
-  onPageChange(page: number): void {
+  deleteWord(word: any): void {
+    this.loading = true;
+    this.wordsService.deleteWord(word._id).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      if (this.paging.page > 1 && this.words.length === 1) {
+        this.paging.page -= 1;
+      }
+      this.getWords();
+    }, err => {
+      this.notificationService.error('Error', getErrorMsg(err));
+      this.loading = false;
+    });
+  }
+
+  pageChange(page: number): void {
     if (this.paging.page !== page) {
       this.paging.page = page;
-      this.om.invoke('getWords');
+      this.getWords();
     }
   }
-
-  onEdit(word: any): void {
-    this.wordEditRef.open(word);
-  }
-
-  onEditComplete(): void {
-    this.om.invoke('getWords');
-  }
-
-  onCreate(): void {
-    this.wordCreateRef.open();
-  }
-
-  onCreateComplete(): void {
-    this.om.invoke('getWords');
-  }
-
-  onDelete(word: any): void {
-    this.om.invoke('deleteWord', word);
-  }
-
-  onSearch(): void {
-    this.om.invoke('getWords');
-  }
-
 }

@@ -1,6 +1,0 @@
-<sui-message *ngFor="let msg of messages; index as msgIndex"
-  class="floating {{msg.type}}"
-  (dismiss)="onDismiss($event, msgIndex)">
-  <div *ngIf="msg.header" class="header" [innerHTML]="msg.header"></div>
-  <div *ngIf="msg.text" [innerHTML]="msg.text"></div>
-</sui-message>

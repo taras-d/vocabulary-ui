@@ -23,7 +23,6 @@ import {
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
-import { MessagePanelComponent } from './message-panel/message-panel.component';
 
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
 
@@ -85,13 +84,11 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     SuiDropdownModule,
 
     PageLayoutComponent,
-    MessagePanelComponent,
 
     NotEmptyValidatorDirective
   ],
   declarations: [
     PageLayoutComponent,
-    MessagePanelComponent,
 
     NotEmptyValidatorDirective
   ]

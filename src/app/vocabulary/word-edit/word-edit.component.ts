@@ -14,7 +14,7 @@ export class WordEditComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
   loading: boolean;
-  visible: boolean;
+  open: boolean;
   word: any;
 
   constructor(
@@ -24,13 +24,24 @@ export class WordEditComponent extends BaseComponent {
     super();
   }
 
+  openModal(word: any): void {
+    this.word = Object.assign({}, word);
+    this.open = true;
+    this.focusFirstControl();
+  }
+
+  closeModal(): void {
+    this.word = null;
+    this.loading = false;
+    this.open = false;
+  }
+
   updateWord(): void {
     this.loading = true;
     this.wordsService.updateWord(this.word._id, this.word).pipe(
       takeUntil(this.destroy$)
     ).subscribe(() => {
-      this.loading = false;
-      this.visible = false;
+      this.closeModal();
       this.complete.emit();
     }, err => {
       this.notificationService.error('Error', getErrorMsg(err));
@@ -38,22 +49,12 @@ export class WordEditComponent extends BaseComponent {
     });
   }
 
-  open(word: any): void {
-    this.word = Object.assign({}, word);
-    this.visible = true;
-    this.focusFirstControl();
-  }
-
-  close(): void {
-    this.word = null;
-    this.loading = false;
-    this.visible = false;
-  }
-
   focusFirstControl(): void {
     setTimeout(() => {
       const el: HTMLElement = document.querySelector('.word-edit-modal form textarea:first-child');
-      el && el.focus();
+      if (el) {
+        el.focus();
+      }
     });
   }
 }

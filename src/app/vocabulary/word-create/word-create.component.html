@@ -1,5 +1,4 @@
-<nz-modal nzTitle="Add word(s)" [(nzVisible)]="visible" (nzOnCancel)="close()"
-  [nzFooter]="null" nzClassName="word-create-modal">
+<nz-modal nzTitle="Add word(s)" [(nzVisible)]="open" [nzFooter]="null" nzClassName="word-create-modal">
   <form nz-form #form="ngForm">
     <div class="words-items">
       <nz-form-item *ngFor="let word of words; index as wordIndex">
@@ -16,7 +15,7 @@
     </div>
     <nz-form-item class="actions">
       <div nz-col [nzXs]="8">
-        <button nz-button (click)="close()">
+        <button nz-button (click)="closeModal()">
           <i nz-icon nzType="left-circle"></i> Cancel
         </button>
       </div>
@@ -26,7 +25,7 @@
         </a>
       </div>
       <div nz-col [nzXs]="8" class="save-btn">
-        <button nz-button nzType="primary" (click)="save()"
+        <button nz-button nzType="primary" (click)="saveWords()"
           [nzLoading]="loading" [disabled]="form.invalid">
           <i nz-icon nzType="save"></i> Save
         </button>

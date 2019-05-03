@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { takeUntil } from 'rxjs/operators';
 
 import { WordsService } from '@core/services';
 import { BaseComponent, getErrorMsg } from '@core/utils';
-import { WordEditComponent } from '../word-edit/word-edit.component';
 
 @Component({
   selector: 'v-random-word',
@@ -12,8 +11,6 @@ import { WordEditComponent } from '../word-edit/word-edit.component';
   styleUrls: ['./random-word.component.less']
 })
 export class RandomWordComponent extends BaseComponent implements OnInit {
-  @ViewChild(WordEditComponent) wordEditRef: WordEditComponent;
-
   loading: boolean;
   word: any;
   wordCount = 0;
@@ -52,17 +49,5 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
     }, err => {
       this.notificationService.error('Error', getErrorMsg(err));
     });
-  }
-
-  next(): void {
-    this.getRandomWord();
-  }
-
-  edit(): void {
-    this.wordEditRef.open(this.word);
-  }
-
-  editComplete(): void {
-    this.reloadWord();
   }
 }

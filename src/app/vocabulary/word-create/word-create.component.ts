@@ -14,7 +14,7 @@ export class WordCreateComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
   loading: boolean;
-  visible: boolean;
+  open: boolean;
   words: { text: string, translation: string }[] = [];
 
   constructor(
@@ -24,9 +24,15 @@ export class WordCreateComponent extends BaseComponent {
     super();
   }
 
-  open(): void {
+  openModal(): void {
     this.addWord();
-    this.visible = true;
+    this.open = true;
+  }
+
+  closeModal(): void {
+    this.words = [];
+    this.loading = false;
+    this.open = false;
   }
 
   addWord(): void {
@@ -37,23 +43,17 @@ export class WordCreateComponent extends BaseComponent {
     this.words.splice(index, 1);
   }
 
-  save(): void {
+  saveWords(): void {
     this.loading = true;
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
     ).subscribe(res => {
       this.notificationService.info(`Added: ${res.inserted}, duplicates: ${res.duplicates}`, '');
-      this.loading = false;
-      this.visible = false;
+      this.closeModal();
       this.complete.emit();
     }, err => {
       this.notificationService.error('Error', getErrorMsg(err));
       this.loading = false;
     });
-  }
-
-  close(): void {
-    this.words = [];
-    this.visible = false;
   }
 }
