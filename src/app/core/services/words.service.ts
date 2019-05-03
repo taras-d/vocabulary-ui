@@ -43,7 +43,9 @@ export class WordsService {
   }
 
   updateWord(id: number, data: any): Observable<any> {
-    return this.http.patch(`words/${id}`, data);
+    return this.http.patch(`words/${id}`, data).pipe(
+      map(this.decorateWord)
+    );
   }
 
   deleteWord(id: number): Observable<any> {

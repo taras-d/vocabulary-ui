@@ -39,15 +39,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
     });
   }
 
-  reloadWord(): void {
-    this.loading = true;
-    this.wordsService.getWord(this.word._id).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(res => {
-      this.word = res;
-      this.loading = false;
-    }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
-    });
+  editComplete(res: any): void {
+    this.word = res;
   }
 }

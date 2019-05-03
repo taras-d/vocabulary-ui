@@ -40,9 +40,9 @@ export class WordEditComponent extends BaseComponent {
     this.loading = true;
     this.wordsService.updateWord(this.word._id, this.word).pipe(
       takeUntil(this.destroy$)
-    ).subscribe(() => {
+    ).subscribe(res => {
       this.closeModal();
-      this.complete.emit();
+      this.complete.emit(res);
     }, err => {
       this.notificationService.error('Error', getErrorMsg(err));
       this.loading = false;
