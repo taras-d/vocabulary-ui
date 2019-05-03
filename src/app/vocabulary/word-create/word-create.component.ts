@@ -1,122 +1,59 @@
-import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
-import { TemplateModalConfig, SuiModalService, SuiActiveModal } from 'ng2-semantic-ui';
-import * as _ from 'lodash';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { NzNotificationService } from 'ng-zorro-antd';
 
-import { ObserverManager, getErrorMsg } from '@core/utils';
-import { AppService, WordsService } from '@core/services';
+import { BaseComponent, getErrorMsg } from '@core/utils';
+import { WordsService } from '@core/services';
 
 @Component({
   selector: 'v-word-create',
   templateUrl: './word-create.component.html',
   styleUrls: ['./word-create.component.less']
 })
-export class WordCreateComponent implements OnInit, OnDestroy {
-
+export class WordCreateComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
-  @ViewChild('modalTemplate') modalTemplateRef: TemplateRef<any>;
-
   loading: boolean;
-
-  wordsForm: FormArray;
-
-  modal: SuiActiveModal<any, any, any>;
-
-  om: ObserverManager;
+  visible: boolean;
+  words: { text: string, translation: string }[] = [];
 
   constructor(
-    private fb: FormBuilder,
-    private suiModalService: SuiModalService,
-    private appService: AppService,
+    private notificationService: NzNotificationService,
     private wordsService: WordsService
   ) {
-    this.om = new ObserverManager({
-
-      createWord: {
-        create: () => {
-          this.loading = true;
-          return this.wordsService.createWord(this.wordsForm.value);
-        },
-        next: res => {
-          this.appService.pushMessage({
-            text: `Added: ${res.inserted}, duplicates: ${res.duplicates}`,
-            type: 'success'
-          });
-
-          this.loading = false;
-          this.modal.approve(null);
-          this.complete.emit();
-        }
-      }
-
-    }, {
-
-      error: (name, err) => {
-        this.appService.pushMessage({
-          header: 'Error', text: getErrorMsg(err), type: 'error'
-        });
-        this.loading = false;
-      }
-
-    });
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  ngOnDestroy(): void {
-    this.om.unsubAll();
+    super();
   }
 
   open(): void {
-    this.buildForm();
+    this.addWord();
+    this.visible = true;
+  }
 
-    const config = new TemplateModalConfig(this.modalTemplateRef);
-    config.isInverted = true;
-    config.size = 'small';
-    config.mustScroll = true;
+  addWord(): void {
+    this.words.push({ text: '', translation: '' });
+  }
 
-    this.modal = this.suiModalService.open(config);
-    this.modal.onDeny(() => {
-      this.wordsForm = null;
-      this.om.unsubAll();
+  deleteWord(index: number): void {
+    this.words.splice(index, 1);
+  }
+
+  save(): void {
+    this.loading = true;
+    this.wordsService.createWord(this.words).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(res => {
+      this.notificationService.info(`Added: ${res.inserted}, duplicates: ${res.duplicates}`, '');
+      this.loading = false;
+      this.visible = false;
+      this.complete.emit();
+    }, err => {
+      this.notificationService.error('Error', getErrorMsg(err));
+      this.loading = false;
     });
   }
 
-  buildForm(): void {
-    this.wordsForm = this.fb.array([]);
-    this.onAdd(1);
+  close(): void {
+    this.words = [];
+    this.visible = false;
   }
-
-  onAdd(count: any): void {
-    count = +count;
-
-    if (!count || count < 0) {
-      return;
-    }
-
-    _.times(count, () => {
-      this.wordsForm.push(
-        this.fb.group({
-          text: [''],
-          translation: ''
-        })
-      );
-    });
-  }
-
-  onDelete(index: number): void {
-    this.wordsForm.removeAt(index);
-  }
-
-  onCancel(): void {
-    this.modal.deny(null);
-  }
-
-  onSave(): void {
-    this.om.invoke('createWord');
-  }
-
 }

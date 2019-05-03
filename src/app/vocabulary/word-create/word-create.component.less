@@ -1,52 +1,37 @@
-.content {
-  position: relative;
-}
-
-.ui.form {
-  max-height: 335px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  textarea {
-    resize: none;
-    padding: 8px 12px;
+nz-form-item {
+  margin-bottom: 10px;
+  &:last-child {
+    margin: 15px 0 0;
   }
-  .fields {
-    position: relative;
-    padding-right: 40px;
-    margin: 0 -3px 6px;
-    .field {
-      padding: 0 3px;
-    }
-    .button {
-      position: absolute;
-      top: 12px;
-      right: 3px;
-    }
+}
+nz-input-group {
+  @btnWidth: 32px;
+  input {
+    width: calc(50% - @btnWidth / 2);
+  }
+  button {
+    width: @btnWidth;
+  }
+}
+.words-items {
+  max-height: 286px;
+  overflow: auto;
+  padding: 1px 0;
+  margin-bottom: 10px;
+  nz-form-item { 
+    margin-bottom: 10px;
     &:last-child {
-      margin-bottom: 0;
+      margin: 0;
     }
   }
 }
-
 .actions {
-  .button {
-    margin: 0;
-  }
-  .add-n-rows {
-    padding-top: 20px;
-    text-align: center;
-    color: gray;
-    input {
-      padding: 2px 4px;
-      width: 24px;
-      text-align: center;
-    }
-    .button {
-      padding: 4px;
-    }
-  }
-  .save {
-    text-align: right;
-  }
+  margin: 15px 0 0;
+}
+.add-icon {
+  padding-top: 4px;
+  text-align: center;
+}
+.save-btn {
+  text-align: right;
 }

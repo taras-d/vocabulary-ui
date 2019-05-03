@@ -1,50 +1,36 @@
-<ng-template #modalTemplate>
-  <div class="header">Add word(s)</div>
-  <div class="content">
-
-    <form class="ui small form" [formGroup]="wordsForm">
-      <div *ngFor="let group of wordsForm.controls; index as controlIndex" class="two fields">
-        <div class="field">
-          <textarea [formControl]="group.get('text')" 
-            rows="2" maxlength="200" placeholder="Text"></textarea>
-        </div>
-        <div class="field">
-          <textarea [formControl]="group.get('translation')" 
-            rows="2" maxlength="200" placeholder="Translation"></textarea>
-        </div>
-        <button *ngIf="controlIndex !== 0"
-          class="ui basic small compact icon button"
-          (click)="onDelete(controlIndex)">
-          <i class="close grey icon"></i>
-        </button>
-      </div>
-    </form>
-
-    <div class="ui grid actions">
-      <div class="four wide column">
-        <button class="ui basic compact button" (click)="onCancel()">
-          <i class="arrow circle left icon"></i> Cancel
-        </button>
-      </div>
-      <div class="eight wide column add-n-rows">
-        Add 
-        <div class="ui mini input">
-          <input type="text" maxlength="2" value="1" #nRows>
-        </div> 
-        row(s) 
-        <button class="ui basic compact icon button" (click)="onAdd(nRows.value)">
-          <i class="plus icon"></i>
-        </button>
-      </div>
-      <div class="four wide column save">
-        <button class="ui compact button" [disabled]="wordsForm.invalid" (click)="onSave()">
-          <i class="save outline icon"></i> Save
-        </button>
-      </div>
+<nz-modal nzTitle="Add word(s)" [(nzVisible)]="visible" (nzOnCancel)="close()"
+  [nzFooter]="null" nzClassName="word-create-modal">
+  <form nz-form #form="ngForm">
+    <div class="words-items">
+      <nz-form-item *ngFor="let word of words; index as wordIndex">
+        <nz-input-group nzCompact [nzAddOnAfter]="rowDelTpl">
+          <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
+            [(ngModel)]="word.text" notEmpty/>
+          <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
+            [(ngModel)]="word.translation"/>
+          <button nz-button (click)="deleteWord(wordIndex)" [disabled]="words.length === 1">
+            <i nz-icon type="delete"></i>
+          </button>
+        </nz-input-group>
+      </nz-form-item>
     </div>
-
-    <div *ngIf="loading" class="ui active inverted dimmer">
-      <div class="ui medium loader"></div>
-    </div>
-  </div>
-</ng-template>
+    <nz-form-item class="actions">
+      <div nz-col [nzXs]="8">
+        <button nz-button (click)="close()">
+          <i nz-icon nzType="left-circle"></i> Cancel
+        </button>
+      </div>
+      <div nz-col [nzXs]="8" class="add-icon">
+        <a (click)="addWord()">
+          <i nz-icon nzType="plus"></i> add word
+        </a>
+      </div>
+      <div nz-col [nzXs]="8" class="save-btn">
+        <button nz-button nzType="primary" (click)="save()"
+          [nzLoading]="loading" [disabled]="form.invalid">
+          <i nz-icon nzType="save"></i> Save
+        </button>
+      </div>
+    </nz-form-item>
+  </form>
+</nz-modal>

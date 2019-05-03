@@ -17,7 +17,8 @@ import {
   NzEmptyModule,
   NzNotificationModule,
   NzBadgeModule,
-  NzPopoverModule
+  NzPopoverModule,
+  NzGridModule
 } from 'ng-zorro-antd';
 
 import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
@@ -47,6 +48,7 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzNotificationModule,
     NzBadgeModule,
     NzPopoverModule,
+    NzGridModule,
 
     SuiMessageModule,
     SuiPopupModule,
@@ -74,6 +76,7 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzNotificationModule,
     NzBadgeModule,
     NzPopoverModule,
+    NzGridModule,
 
     SuiMessageModule,
     SuiPopupModule,
