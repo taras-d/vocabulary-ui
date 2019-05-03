@@ -3,15 +3,15 @@
     <nz-form-item>
       <nz-form-label [nzSm]="5">Text</nz-form-label>
       <nz-form-control [nzSm]="19" nzValidateStatus="success">
-        <textarea nz-input name="text" type="text" rows="2" maxlength="200"
-         [(ngModel)]="word.text" notEmpty></textarea>
+        <input nz-input name="text" type="text" maxlength="200"
+          placeholder="Text" [(ngModel)]="word.text" notEmpty>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSm]="5">Translation</nz-form-label>
       <nz-form-control [nzSm]="19">
-        <textarea nz-input name="translation" type="text" rows="2" maxlength="200"
-          [(ngModel)]="word.translation"></textarea>
+        <input nz-input name="translation" type="text" maxlength="200"
+          placeholder="Translation" [(ngModel)]="word.translation">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

@@ -4,9 +4,9 @@
       <nz-form-item *ngFor="let word of words; index as wordIndex">
         <nz-input-group nzCompact [nzAddOnAfter]="rowDelTpl">
           <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
-            [(ngModel)]="word.text" notEmpty/>
+            [(ngModel)]="word.text" maxlength="200" notEmpty/>
           <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
-            [(ngModel)]="word.translation"/>
+            [(ngModel)]="word.translation" maxlength="200"/>
           <button nz-button (click)="deleteWord(wordIndex)" [disabled]="words.length === 1">
             <i nz-icon type="delete"></i>
           </button>
