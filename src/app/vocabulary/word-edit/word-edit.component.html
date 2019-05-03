@@ -2,15 +2,15 @@
   [nzFooter]="null" nzClassName="word-edit-modal">
   <form nz-form *ngIf="word" #form="ngForm">
     <nz-form-item>
-      <nz-form-label>Text</nz-form-label>
-      <nz-form-control nzValidateStatus="success">
+      <nz-form-label [nzSm]="5">Text</nz-form-label>
+      <nz-form-control [nzSm]="19" nzValidateStatus="success">
         <textarea nz-input name="text" type="text" rows="2" maxlength="200"
-          [(ngModel)]="word.text" notEmpty></textarea>
+         [(ngModel)]="word.text" notEmpty></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label>Translation</nz-form-label>
-      <nz-form-control>
+      <nz-form-label [nzSm]="5">Translation</nz-form-label>
+      <nz-form-control [nzSm]="19">
         <textarea nz-input name="translation" type="text" rows="2" maxlength="200"
           [(ngModel)]="word.translation"></textarea>
       </nz-form-control>
