@@ -22,8 +22,6 @@ import {
   NzTableModule
 } from 'ng-zorro-antd';
 
-import { SuiMessageModule, SuiPopupModule, SuiPaginationModule, SuiModalModule, SuiDropdownModule } from 'ng2-semantic-ui';
-
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
 
@@ -49,13 +47,7 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzBadgeModule,
     NzPopoverModule,
     NzGridModule,
-    NzTableModule,
-
-    SuiMessageModule,
-    SuiPopupModule,
-    SuiPaginationModule,
-    SuiModalModule,
-    SuiDropdownModule
+    NzTableModule
   ],
   exports: [
     CommonModule,
@@ -79,12 +71,6 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzPopoverModule,
     NzGridModule,
     NzTableModule,
-
-    SuiMessageModule,
-    SuiPopupModule,
-    SuiPaginationModule,
-    SuiModalModule,
-    SuiDropdownModule,
 
     PageLayoutComponent,
 
