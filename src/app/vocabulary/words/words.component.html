@@ -1,12 +1,7 @@
-<ng-template let-popup let-context="context" #deleteWordTemplate>
-  <div class="delete-word-confirm">
-    <div>Are you sure?</div>
-    <a (click)="popup.close(); deleteWord(context.word)">Yes</a>
-    <a (click)="popup.close()">No</a>
-  </div>
-</ng-template>
-
+<!-- Spinner -->
 <nz-spin [nzSpinning]="loading">
+
+  <!-- Search -->
   <div class="search">
     <nz-input-group nzCompact>
       <input type="text" nz-input placeholder="Search"
@@ -17,25 +12,25 @@
     </nz-input-group>
   </div>
 
+  <!-- Table -->
   <nz-table #wordsTable nzSize="middle" nzBordered
     [nzData]="words"
+    [nzShowPagination]="false"
     [nzFrontPagination]="false"
-    [nzTotal]="paging.total"
-    [nzPageSize]="paging.pageSize"
-    [(nzPageIndex)]="paging.page"
-    (nzPageIndexChange)="getWords()">
+    [nzFooter]="tableFooterTpl"
+    [nzNoResult]="'No data'">
     <thead>
       <tr>
-        <th>Word</th>
-        <th>Translation</th>
-        <th></th>
+        <th style="width: 40%">Word</th>
+        <th >Translation</th>
+        <th style="width: 145px"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let word of wordsTable.data">
         <td>{{word.text}}</td>
         <td>{{word.translation}}</td>
-        <td class="word-actions">
+        <td nzAlign="center">
           <nz-button-group>
             <a nz-button nzSize="small" title="Open in Google Translate"
               target="_blank" [href]="word.googleTranslateLink">
@@ -62,12 +57,30 @@
     </tbody>
   </nz-table>
 
-  <div class="add-word">
-    <button nz-button (click)="wordCreateCmp.openModal()">
-      <i nz-icon nzType="plus-circle"></i> Add word(s)
-    </button>
-  </div>
+  <!-- Table footer -->
+  <ng-template #tableFooterTpl>
+    <div class="footer" nz-row>
+      <div nz-col [nzSm]="12" class="paging">
+        <nz-pagination [nzSize]="'small'"
+          [nzTotal]="paging.total"
+          [nzPageSize]="paging.pageSize"
+          [nzShowTotal]="totalTpl"
+          [(nzPageIndex)]="paging.page"
+          (nzPageIndexChange)="getWords()">
+        </nz-pagination>
+        <ng-template #totalTpl let-range="range" let-total>
+          {{range[0]}}-{{range[1]}} of {{total}} words
+        </ng-template>
+      </div>
+      <div nz-col [nzSm]="12" class="add-words">
+        <button nz-button (click)="wordCreateCmp.openModal()">
+          <i nz-icon nzType="plus-circle"></i> Add word(s)
+        </button>
+      </div>
+    </div>
+  </ng-template>
 </nz-spin>
 
+<!-- Word edit & create modals -->
 <v-word-edit #wordEditCmp (complete)="editComplete($event)"></v-word-edit>
 <v-word-create #wordCreateCmp (complete)="getWords()"></v-word-create>

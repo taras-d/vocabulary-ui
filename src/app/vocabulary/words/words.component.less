@@ -1,11 +1,13 @@
 nz-table {
-  margin-top: 15px;
+  max-width: 700px;
+  margin: 15px auto 0;
   td, th {
     padding: 8px !important;
+    word-break: break-word;
   }
 }
 .search {
-  max-width: 400px;
+  max-width: 350px;
   margin: 0 auto;
   @btnWidth: 32px;
   input {
@@ -16,9 +18,22 @@ nz-table {
   }
 }
 .word-actions {
-  width: 145px;
   text-align: center;
 }
-.add-word {
-  text-align: right;
+.footer {
+  .paging {
+    padding: 3px 0 0 0;
+  }
+  .add-words {
+    text-align: right;
+  }
+  @media(max-width: 575px) {
+    .paging {
+      padding: 0 0 10px 0;
+      text-align: center;
+    }
+    .add-words {
+      text-align: center;
+    }
+  }
 }

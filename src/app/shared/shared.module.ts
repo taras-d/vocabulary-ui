@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {
   NzCardModule,
@@ -20,7 +20,8 @@ import {
   NzPopoverModule,
   NzGridModule,
   NzTableModule,
-  NzPopconfirmModule
+  NzPopconfirmModule,
+  NzPaginationModule
 } from 'ng-zorro-antd';
 
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
@@ -31,31 +32,6 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule,
-
-    NzCardModule,
-    NzButtonModule,
-    NzIconModule,
-    NzFormModule,
-    NzInputModule,
-    NzAlertModule,
-    NzDropDownModule,
-    NzModalModule,
-    NzMenuModule,
-    NzSpinModule,
-    NzEmptyModule,
-    NzNotificationModule,
-    NzBadgeModule,
-    NzPopoverModule,
-    NzGridModule,
-    NzTableModule,
-    NzPopconfirmModule
-  ],
-  exports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
 
     NzCardModule,
     NzButtonModule,
@@ -74,6 +50,31 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
     NzGridModule,
     NzTableModule,
     NzPopconfirmModule,
+    NzPaginationModule
+  ],
+  exports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+
+    NzCardModule,
+    NzButtonModule,
+    NzIconModule,
+    NzFormModule,
+    NzInputModule,
+    NzAlertModule,
+    NzDropDownModule,
+    NzModalModule,
+    NzMenuModule,
+    NzSpinModule,
+    NzEmptyModule,
+    NzNotificationModule,
+    NzBadgeModule,
+    NzPopoverModule,
+    NzGridModule,
+    NzTableModule,
+    NzPopconfirmModule,
+    NzPaginationModule,
 
     PageLayoutComponent,
 
