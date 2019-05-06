@@ -8,7 +8,6 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { VocabularyModule } from './vocabulary/vocabulary.module';
 import { AppComponent } from './app.component';
 
 registerLocaleData(en);
@@ -22,7 +21,6 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
-    VocabularyModule,
     AppRoutingModule
   ],
   providers: [

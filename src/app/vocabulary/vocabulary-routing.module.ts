@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthorizedGuard } from '@core/guards';
 import { PageLayoutComponent } from '@shared/components';
-import { VocabularyComponent } from './vocabulary.component';
-import { WordsComponent } from './words/words.component';
-import { RandomWordComponent } from './random-word/random-word.component';
-import { WordsStatsComponent } from './words-stats/words-stats.component';
+import { VocabularyComponent } from './components/vocabulary/vocabulary.component';
+import { WordsListComponent } from './components/words-list/words-list.component';
+import { RandomWordComponent } from './components/random-word/random-word.component';
+import { WordsStatsComponent } from './components/words-stats/words-stats.component';
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: WordsComponent
+            component: WordsListComponent
           },
           {
             path: 'random-word',

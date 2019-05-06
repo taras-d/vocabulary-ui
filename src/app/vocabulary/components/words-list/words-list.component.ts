@@ -6,10 +6,10 @@ import { BaseComponent } from '@core/utils';
 
 @Component({
   selector: 'v-words',
-  templateUrl: './words.component.html',
-  styleUrls: ['./words.component.less']
+  templateUrl: './words-list.component.html',
+  styleUrls: ['./words-list.component.less']
 })
-export class WordsComponent extends BaseComponent implements OnInit {
+export class WordsListComponent extends BaseComponent implements OnInit {
   loading: boolean;
   search: string;
   words: any[] = [];

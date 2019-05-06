@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: 'src/app/auth/auth.module#AuthModule'
+  },
+  {
+    path: '',
+    loadChildren: 'src/app/vocabulary/vocabulary.module#VocabularyModule'
   }
 ];
 
