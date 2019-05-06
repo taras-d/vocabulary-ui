@@ -6,7 +6,7 @@ import { WordsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
 
 @Component({
-  selector: 'v-words',
+  selector: 'v-words-list',
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.less']
 })

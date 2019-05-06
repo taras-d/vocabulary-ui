@@ -60,7 +60,7 @@
   <!-- Table footer -->
   <ng-template #tableFooterTpl>
     <div class="footer" nz-row>
-      <div nz-col [nzSm]="12" class="paging">
+      <div nz-col [nzSm]="18" class="paging">
         <nz-pagination *ngIf="words?.length"
           [nzSize]="'small'"
           [nzTotal]="paging.total"
@@ -73,7 +73,7 @@
           {{range[0]}}-{{range[1]}} of {{total}} words
         </ng-template>
       </div>
-      <div nz-col [nzSm]="12" class="add-words">
+      <div nz-col [nzSm]="6" class="add-words">
         <button nz-button (click)="wordCreateCmp.openModal()">
           <i nz-icon nzType="plus-circle"></i> Add word(s)
         </button>
