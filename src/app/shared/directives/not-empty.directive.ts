@@ -12,7 +12,7 @@ import { Validator, NG_VALIDATORS, AbstractControl,
 })
 export class NotEmptyValidatorDirective implements Validator {
   @Input()
-  set notEmpty(val: any) {
+  set vNotEmpty(val: any) {
     this._notEmpty = !!(val || val === '');
     if (this._onChange) {
       this._onChange();

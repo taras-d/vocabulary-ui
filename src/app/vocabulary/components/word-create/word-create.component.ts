@@ -27,7 +27,7 @@ export class WordCreateComponent extends BaseComponent {
   openModal(): void {
     this.addWord();
     this.open = true;
-    this.focusFirstControl();
+    this.focusControl('.word-create-modal .items-wrapper input:first-child');
   }
 
   closeModal(): void {
@@ -38,6 +38,8 @@ export class WordCreateComponent extends BaseComponent {
 
   addWord(): void {
     this.words.push({ text: '', translation: '' });
+    this.focusControl('.word-create-modal .items-wrapper nz-form-item:last-child input');
+    this.scrollToBottom();
   }
 
   deleteWord(index: number): void {
@@ -49,7 +51,10 @@ export class WordCreateComponent extends BaseComponent {
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
     ).subscribe(res => {
-      this.notificationService.info(`Added: ${res.inserted}, duplicates: ${res.duplicates}`, '');
+      this.notificationService.info(
+        'Info',
+        `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
+      );
       this.closeModal();
       this.complete.emit();
     }, err => {
@@ -58,11 +63,20 @@ export class WordCreateComponent extends BaseComponent {
     });
   }
 
-  focusFirstControl(): void {
+  private focusControl(selector: string): void {
     setTimeout(() => {
-      const el: HTMLElement = document.querySelector('.word-create-modal form input:first-child');
+      const el: HTMLElement = document.querySelector(selector);
       if (el) {
         el.focus();
+      }
+    });
+  }
+
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      const el: HTMLElement = document.querySelector('.word-create-modal .items-wrapper');
+      if (el) {
+        el.scrollTop = el.scrollHeight;
       }
     });
   }

@@ -1,7 +1,7 @@
 <nz-modal nzTitle="Add word(s)" [(nzVisible)]="open" [nzFooter]="null"
   (nzOnCancel)="closeModal()" nzClassName="word-create-modal">
   <form nz-form #form="ngForm">
-    <div class="words-items">
+    <div class="items-wrapper">
       <nz-form-item *ngFor="let word of words; index as wordIndex">
         <nz-input-group nzCompact>
           <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
