@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import Chart from 'chart.js';
 import { takeUntil } from 'rxjs/operators';
 
-import { WordsStatsService, NotificationService } from '@core/services';
+import { NotificationService } from '@core/services';
+import { WordsStatsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
 
 @Component({

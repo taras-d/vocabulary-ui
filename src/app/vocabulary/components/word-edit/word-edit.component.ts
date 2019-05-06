@@ -2,7 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@core/utils';
-import { WordsService, NotificationService } from '@core/services';
+import { WordsService } from '@vocabulary/services';
+import { NotificationService } from '@core/services';
 
 @Component({
   selector: 'v-word-edit',

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd';
 
 import { AuthService } from '@core/services';
 
@@ -9,19 +8,10 @@ import { AuthService } from '@core/services';
   styleUrls: ['./page-layout.component.less']
 })
 export class PageLayoutComponent {
-  user: any;
   constructor(
-    private modalService: NzModalService,
-    public authService: AuthService
+    private authService: AuthService
   ) {
 
-  }
-
-  openProfile(): void {
-    this.modalService.info({
-      nzTitle: 'Profile page is under construction',
-      nzContent: 'Please try again later'
-    });
   }
 
   logout(): void {

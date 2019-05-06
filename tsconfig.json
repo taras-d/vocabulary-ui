@@ -21,6 +21,7 @@
       "@core/*": ["src/app/core/*"],
       "@shared/*": ["src/app/shared/*"],
       "@auth/*": ["src/app/auth/*"],
+      "@vocabulary/*": ["src/app/vocabulary/*"],
       "@env/*": ["src/environments/*"]
     }
   }

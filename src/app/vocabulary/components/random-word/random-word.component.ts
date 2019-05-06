@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
-import { WordsService, NotificationService } from '@core/services';
+import { NotificationService } from '@core/services';
+import { WordsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
 
 @Component({
