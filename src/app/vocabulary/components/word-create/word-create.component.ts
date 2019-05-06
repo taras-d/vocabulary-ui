@@ -27,6 +27,7 @@ export class WordCreateComponent extends BaseComponent {
   openModal(): void {
     this.addWord();
     this.open = true;
+    this.focusFirstControl();
   }
 
   closeModal(): void {
@@ -54,6 +55,15 @@ export class WordCreateComponent extends BaseComponent {
     }, err => {
       this.notificationService.defaultErrorHandler(err);
       this.loading = false;
+    });
+  }
+
+  focusFirstControl(): void {
+    setTimeout(() => {
+      const el: HTMLElement = document.querySelector('.word-create-modal form input:first-child');
+      if (el) {
+        el.focus();
+      }
     });
   }
 }

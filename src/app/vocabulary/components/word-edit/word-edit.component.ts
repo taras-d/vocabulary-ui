@@ -54,7 +54,7 @@ export class WordEditComponent extends BaseComponent {
 
   focusFirstControl(): void {
     setTimeout(() => {
-      const el: HTMLElement = document.querySelector('.word-edit-modal form textarea:first-child');
+      const el: HTMLElement = document.querySelector('.word-edit-modal form input:first-child');
       if (el) {
         el.focus();
       }
