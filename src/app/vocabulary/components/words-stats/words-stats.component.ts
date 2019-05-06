@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { of } from 'rxjs';
+import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import Chart from 'chart.js';
-import { takeUntil } from 'rxjs/operators';
 
 import { NotificationService } from '@core/services';
 import { WordsStatsService } from '@vocabulary/services';
@@ -15,9 +16,9 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   @ViewChild('canvas') canvas: ElementRef;
 
   loading: boolean;
-  availableYears: number[];
+  years: number[];
   selectedYear: number;
-  totalInMonth: { month: number, total: number }[];
+  totalInMonth: number[];
   chart: Chart;
 
   constructor(
@@ -28,7 +29,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   ngOnInit(): void {
-    this.getAvailableYears();
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -36,33 +37,34 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     this.destroyChart();
   }
 
-  getAvailableYears(): void {
-    this.loading = true;
-    this.wordsStatsService.getAvailableYears().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(res => {
-      this.availableYears = res;
-      this.selectedYear = res[0];
-      this.loading = !!this.selectedYear;
-      if (this.selectedYear) {
-        this.getTotalInMonth();
-      }
-    }, this.notificationService.defaultErrorHandler);
-  }
+  loadData(): void {
+    const getYears = this.years ? of(null) : this.wordsStatsService.getAvailableYears().pipe(
+      tap((years: number[]) => {
+        this.years = years;
+        this.selectedYear = years[0];
+      })
+    );
 
-  getTotalInMonth(): void {
+    const getTotalInMonth = this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
+      tap((res: any) => {
+        this.totalInMonth = res.map(i => i.total);
+        if (this.chart) {
+          this.updateChart(this.totalInMonth);
+        } else {
+          setTimeout(() => this.createChart(this.totalInMonth));
+        }
+      })
+    );
+
     this.loading = true;
-    this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
+
+    getYears.pipe(
+      mergeMap(() => {
+        return this.selectedYear ? getTotalInMonth : of(null);
+      }),
       takeUntil(this.destroy$)
-    ).subscribe(res => {
-      this.totalInMonth = res;
+    ).subscribe(() => {
       this.loading = false;
-      const data = this.totalInMonth.map(i => i.total);
-      if (this.chart) {
-        this.updateChart(data);
-      } else {
-        setTimeout(() => this.createChart(data));
-      }
     }, this.notificationService.defaultErrorHandler);
   }
 
@@ -100,7 +102,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   yearClick(year: number): void {
     if (this.selectedYear !== year) {
       this.selectedYear = year;
-      this.getTotalInMonth();
+      this.loadData();
     }
   }
 }

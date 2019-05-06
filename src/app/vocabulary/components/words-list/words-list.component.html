@@ -61,7 +61,8 @@
   <ng-template #tableFooterTpl>
     <div class="footer" nz-row>
       <div nz-col [nzSm]="12" class="paging">
-        <nz-pagination [nzSize]="'small'"
+        <nz-pagination *ngIf="words?.length"
+          [nzSize]="'small'"
           [nzTotal]="paging.total"
           [nzPageSize]="paging.pageSize"
           [nzShowTotal]="totalTpl"

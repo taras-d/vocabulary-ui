@@ -5,7 +5,7 @@
         <span>{{selectedYear}}</span> <i nz-icon type="down"></i>
       </button>
       <ul nz-menu>
-        <li nz-menu-item *ngFor="let year of availableYears" (click)="yearClick(year)">
+        <li nz-menu-item *ngFor="let year of years" (click)="yearClick(year)">
           <a>{{year}}</a>
         </li>
       </ul>
