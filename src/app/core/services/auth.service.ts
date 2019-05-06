@@ -33,7 +33,7 @@ export class AuthService {
   logout(): Observable<any> {
     delete localStorage[environment.authTokenKey];
     this.user.next(null);
-    this.router.navigate(['login']);
+    this.router.navigate(['auth', 'login']);
     return of(null);
   }
 }
