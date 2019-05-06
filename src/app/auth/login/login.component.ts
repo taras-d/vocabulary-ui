@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '@core/services';
 import { BaseComponent } from '@core/utils';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'v-login',
@@ -38,8 +39,11 @@ export class LoginComponent extends BaseComponent {
       takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigate(['/']);
-    }, () => {
-      this.message = { type: 'error', text: 'Incorrect email or password' };
+    }, (err) => {
+      this.message = {
+        type: 'error',
+        text: (err.status === 401) ? 'Incorrect email or password' : environment.defaultError.content
+      };
       this.loading = false;
     });
   }

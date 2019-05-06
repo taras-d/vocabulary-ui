@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ApiInterceptor } from '@core/interceptors/api.interceptor';
-import { AppStartService } from '@core/services/app.start.service';
+import { AppStartService, NotificationService } from '@core/services';
 
 @NgModule({
   imports: [
@@ -12,6 +12,7 @@ import { AppStartService } from '@core/services/app.start.service';
   ],
   declarations: [],
   providers: [
+    NotificationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,

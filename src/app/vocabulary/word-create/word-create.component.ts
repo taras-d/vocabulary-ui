@@ -1,9 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { NzNotificationService } from 'ng-zorro-antd';
 
-import { BaseComponent, getErrorMsg } from '@core/utils';
-import { WordsService } from '@core/services';
+import { BaseComponent } from '@core/utils';
+import { WordsService, NotificationService } from '@core/services';
 
 @Component({
   selector: 'v-word-create',
@@ -18,7 +17,7 @@ export class WordCreateComponent extends BaseComponent {
   words: { text: string, translation: string }[] = [];
 
   constructor(
-    private notificationService: NzNotificationService,
+    private notificationService: NotificationService,
     private wordsService: WordsService
   ) {
     super();
@@ -52,7 +51,7 @@ export class WordCreateComponent extends BaseComponent {
       this.closeModal();
       this.complete.emit();
     }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
+      this.notificationService.defaultErrorHandler(err);
       this.loading = false;
     });
   }

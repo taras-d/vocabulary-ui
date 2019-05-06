@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd';
 import { takeUntil } from 'rxjs/operators';
 
-import { WordsService } from '@core/services';
-import { BaseComponent, getErrorMsg } from '@core/utils';
+import { WordsService, NotificationService } from '@core/services';
+import { BaseComponent } from '@core/utils';
 
 @Component({
   selector: 'v-random-word',
@@ -16,7 +15,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
   wordCount = 0;
 
   constructor(
-    private notificationService: NzNotificationService,
+    private notificationService: NotificationService,
     private wordsService: WordsService
   ) {
     super();
@@ -34,9 +33,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
       this.word = res;
       this.wordCount += 1;
       this.loading = false;
-    }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
-    });
+    }, this.notificationService.defaultErrorHandler);
   }
 
   editComplete(res: any): void {

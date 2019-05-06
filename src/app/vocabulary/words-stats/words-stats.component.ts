@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js';
-import { NzNotificationService } from 'ng-zorro-antd';
 import { takeUntil } from 'rxjs/operators';
 
-import { WordsStatsService } from '@core/services';
-import { BaseComponent, getErrorMsg } from '@core/utils';
+import { WordsStatsService, NotificationService } from '@core/services';
+import { BaseComponent } from '@core/utils';
 
 @Component({
   selector: 'v-words-stats',
@@ -21,7 +20,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   chart: Chart;
 
   constructor(
-    private notificationService: NzNotificationService,
+    private notificationService: NotificationService,
     private wordsStatsService: WordsStatsService
   ) {
     super();
@@ -47,9 +46,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
       if (this.selectedYear) {
         this.getTotalInMonth();
       }
-    }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
-    });
+    }, this.notificationService.defaultErrorHandler);
   }
 
   getTotalInMonth(): void {
@@ -65,9 +62,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
       } else {
         setTimeout(() => this.createChart(data));
       }
-    }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
-    });
+    }, this.notificationService.defaultErrorHandler);
   }
 
   createChart(data: number[]): void {

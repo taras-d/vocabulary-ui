@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd';
 import { takeUntil } from 'rxjs/operators';
 
-import { WordsService } from '@core/services';
-import { BaseComponent, getErrorMsg } from '@core/utils';
+import { WordsService, NotificationService } from '@core/services';
+import { BaseComponent } from '@core/utils';
 
 @Component({
   selector: 'v-words',
@@ -17,7 +16,7 @@ export class WordsComponent extends BaseComponent implements OnInit {
   paging = { page: 1, pageSize: 10, total: 0, meta: '' };
 
   constructor(
-    private notificationService: NzNotificationService,
+    private notificationService: NotificationService,
     private wordsService: WordsService
   ) {
     super();
@@ -44,7 +43,7 @@ export class WordsComponent extends BaseComponent implements OnInit {
       };
       this.loading = false;
     }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
+      this.notificationService.defaultErrorHandler(err);
       this.loading = false;
     });
   }
@@ -59,7 +58,7 @@ export class WordsComponent extends BaseComponent implements OnInit {
       }
       this.getWords();
     }, err => {
-      this.notificationService.error('Error', getErrorMsg(err));
+      this.notificationService.defaultErrorHandler(err);
       this.loading = false;
     });
   }
