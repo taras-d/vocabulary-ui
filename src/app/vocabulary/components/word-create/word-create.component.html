@@ -5,7 +5,7 @@
       <nz-form-item *ngFor="let word of words; index as wordIndex">
         <nz-input-group nzCompact>
           <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
-            [(ngModel)]="word.text" maxlength="200" notEmpty/>
+            [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
           <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
             [(ngModel)]="word.translation" maxlength="200"/>
           <button nz-button (click)="deleteWord(wordIndex)" [disabled]="words.length === 1">

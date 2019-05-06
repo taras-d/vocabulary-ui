@@ -3,7 +3,7 @@ import { Validator, NG_VALIDATORS, AbstractControl,
   ValidationErrors } from '@angular/forms';
 
 @Directive({
-  selector: '[notEmpty]',
+  selector: '[vNotEmpty]',
   providers: [{
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => NotEmptyValidatorDirective),
