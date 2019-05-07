@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
-import { NotificationService } from '@core/services';
-import { WordsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
+import { ErrorService } from '@core/services';
+import { WordsService } from '@vocabulary/services';
 
 @Component({
   selector: 'v-random-word',
@@ -16,7 +16,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
   wordCount = 0;
 
   constructor(
-    private notificationService: NotificationService,
+    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -34,7 +34,9 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
       this.word = res;
       this.wordCount += 1;
       this.loading = false;
-    }, this.notificationService.defaultErrorHandler);
+    }, err => {
+      this.errorService.handleError(err);
+    });
   }
 
   editComplete(res: any): void {

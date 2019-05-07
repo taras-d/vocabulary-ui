@@ -3,9 +3,9 @@ import { of } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import Chart from 'chart.js';
 
-import { NotificationService } from '@core/services';
-import { WordsStatsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
+import { ErrorService } from '@core/services';
+import { WordsStatsService } from '@vocabulary/services';
 
 @Component({
   selector: 'v-words-stats',
@@ -22,7 +22,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   chart: Chart;
 
   constructor(
-    private notificationService: NotificationService,
+    private errorService: ErrorService,
     private wordsStatsService: WordsStatsService
   ) {
     super();
@@ -65,7 +65,9 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
       takeUntil(this.destroy$)
     ).subscribe(() => {
       this.loading = false;
-    }, this.notificationService.defaultErrorHandler);
+    }, err => {
+      this.errorService.handleError(err);
+    });
   }
 
   createChart(data: number[]): void {

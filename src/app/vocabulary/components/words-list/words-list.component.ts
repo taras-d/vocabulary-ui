@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { takeUntil, tap, mergeMap, merge } from 'rxjs/operators';
+import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 
-import { NotificationService } from '@core/services';
-import { WordsService } from '@vocabulary/services';
 import { BaseComponent } from '@core/utils';
+import { ErrorService } from '@core/services';
+import { WordsService } from '@vocabulary/services';
 
 @Component({
   selector: 'v-words-list',
@@ -18,7 +18,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   paging = { page: 1, pageSize: 10, total: 0 };
 
   constructor(
-    private notificationService: NotificationService,
+    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -34,8 +34,8 @@ export class WordsListComponent extends BaseComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe({
       error: err => {
+        this.errorService.handleError(err);
         this.loading = false;
-        this.notificationService.defaultErrorHandler(err);
       }
     });
   }
@@ -52,7 +52,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe({
       error: err => {
-        this.notificationService.defaultErrorHandler(err);
+        this.errorService.handleError(err);
         this.loading = false;
       }
     });

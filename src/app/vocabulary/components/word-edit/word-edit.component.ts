@@ -2,8 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@core/utils';
+import { ErrorService } from '@core/services';
 import { WordsService } from '@vocabulary/services';
-import { NotificationService } from '@core/services';
 
 @Component({
   selector: 'v-word-edit',
@@ -18,7 +18,7 @@ export class WordEditComponent extends BaseComponent {
   word: any;
 
   constructor(
-    private notificationService: NotificationService,
+    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -47,7 +47,7 @@ export class WordEditComponent extends BaseComponent {
       this.closeModal();
       this.complete.emit(res);
     }, err => {
-      this.notificationService.defaultErrorHandler(err);
+      this.errorService.handleError(err);
       this.loading = false;
     });
   }
