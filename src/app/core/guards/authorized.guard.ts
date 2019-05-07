@@ -7,7 +7,6 @@ import { AuthService } from '@core/services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizedGuard implements CanActivate {
-
   constructor(
     private router: Router,
     private authService: AuthService
@@ -29,5 +28,4 @@ export class AuthorizedGuard implements CanActivate {
       })
     );
   }
-
 }

@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: 'src/app/vocabulary/vocabulary.module#VocabularyModule'
+  },
+  {
+    path: '**',
+    redirectTo: 'words'
   }
 ];
 
