@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import Chart from 'chart.js';
 
@@ -38,16 +38,36 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   }
 
   loadData(): void {
-    const getYears = this.years ? of(null) : this.wordsStatsService.getAvailableYears().pipe(
+    this.loading = true;
+    this.loadYears().pipe(
+      mergeMap(() => this.loadTotalInMonth()),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.loading = false;
+    }, err => {
+      this.errorService.handleError(err);
+    });
+  }
+
+  private loadYears(): Observable<any> {
+    if (this.years) {
+      return of(null);
+    }
+    return this.wordsStatsService.getAvailableYears().pipe(
       tap((years: number[]) => {
         this.years = years;
         this.selectedYear = years[0];
       })
     );
+  }
 
-    const getTotalInMonth = this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
-      tap((res: any) => {
-        this.totalInMonth = res.map(i => i.total);
+  private loadTotalInMonth(): Observable<any> {
+    if (!this.selectedYear) {
+      return of(null);
+    }
+    return this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
+      tap((totalInMonth: number[]) => {
+        this.totalInMonth = totalInMonth;
         if (this.chart) {
           this.updateChart(this.totalInMonth);
         } else {
@@ -55,19 +75,6 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
         }
       })
     );
-
-    this.loading = true;
-
-    getYears.pipe(
-      mergeMap(() => {
-        return this.selectedYear ? getTotalInMonth : of(null);
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe(() => {
-      this.loading = false;
-    }, err => {
-      this.errorService.handleError(err);
-    });
   }
 
   createChart(data: number[]): void {
