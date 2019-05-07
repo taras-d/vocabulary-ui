@@ -9,6 +9,6 @@ export class NotificationService extends NzNotificationService {
     if (!environment.production) {
       console.error(err);
     }
-    this.error(environment.defaultError.title, environment.defaultError.content);
+    this.error('Error', 'Service is unavailable. Please try again later.');
   }
 }

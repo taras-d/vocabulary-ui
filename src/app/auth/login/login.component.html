@@ -1,6 +1,7 @@
 <nz-card nzType="inner" [nzTitle]="cardTitleTpl">
   <nz-alert *ngIf="message" [nzType]="message.type"
-    [nzMessage]="message.text"></nz-alert>
+    [nzMessage]="messageTpl"></nz-alert>
+  <ng-template #messageTpl><span [innerHTML]="message?.text"></span></ng-template>
   
   <form nz-form #loginForm="ngForm" (ngSubmit)="onSubmit()">
     <nz-form-item>

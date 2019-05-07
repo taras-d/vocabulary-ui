@@ -42,7 +42,7 @@ export class LoginComponent extends BaseComponent {
     }, (err) => {
       this.message = {
         type: 'error',
-        text: (err.status === 401) ? 'Incorrect email or password' : environment.defaultError.content
+        text: (err.status === 401) ? 'Incorrect email or password' : 'Service is unavailable.<br>Please try again later.'
       };
       this.loading = false;
     });
