@@ -1,6 +1,9 @@
 <nz-spin [nzSpinning]="loading">
   <ng-container *ngIf="word">
     <div class="word">
+      <ng-template #hintTemplate>
+        <div class="word-hint">{{word?.translation || 'no translation'}}</div>
+      </ng-template>
       <span class="word-text" title="Click to show translation"
         nz-popover nzTrigger="click" [nzContent]="hintTemplate">
         {{word.text}}
@@ -30,9 +33,5 @@
 
   <nz-alert *ngIf="!loading && !word" nzType="info" nzMessage="No data"></nz-alert>
 </nz-spin>
-
-<ng-template #hintTemplate>
-  <div class="word-hint">{{word?.translation}}</div>
-</ng-template>
 
 <v-word-edit #wordEditCmp (complete)="editComplete($event)"></v-word-edit>
