@@ -14,8 +14,11 @@
       <i nz-icon type="user"></i>
     </button>
     <ul nz-menu>
-      <li nz-menu-item nzDisabled>
-        <i nz-icon type="profile"></i> Profile
+      <li nz-menu-item routerLink="/">
+        <i nz-icon type="read"></i> Vocabulary
+      </li>
+      <li nz-menu-item routerLink="/profile">
+        <i nz-icon type="user"></i> Profile
       </li>
       <li nz-menu-divider></li>
       <li nz-menu-item (click)="logout()">
