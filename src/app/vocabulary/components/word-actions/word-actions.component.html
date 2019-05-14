@@ -1,4 +1,4 @@
-<nz-button-group>
+<nz-button-group *ngIf="!isSmallScreen">
   <a nz-button nzSize="small" title="Open in Google Translate"
     target="_blank" [href]="word.googleTranslateLink">
     <i nz-icon type="google"></i>
@@ -19,3 +19,28 @@
     <i nz-icon type="delete"></i> 
   </button>
 </nz-button-group>
+
+<nz-dropdown *ngIf="isSmallScreen" nzPlacement="bottomRight" nzTrigger="click">
+  <button nz-button nz-dropdown nzSize="small">
+    <i nz-icon type="setting"></i>
+  </button>
+  <ul nz-menu>
+    <li nz-menu-item>
+      <a [href]="word.googleTranslateLink" target="_blank">
+        Open in Google Translate
+      </a>
+    </li>
+    <li nz-menu-item>
+      <a [href]="word.googleImagesLink" target="_blank">
+        Open in Google Images
+      </a>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="edit.emit()">
+      Edit
+    </li>
+    <li nz-menu-item (click)="deleteConfirm()">
+      Delete
+    </li>
+  </ul>
+</nz-dropdown>
