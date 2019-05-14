@@ -27,7 +27,6 @@ export class WordEditComponent extends BaseComponent {
   openModal(word: any): void {
     this.word = Object.assign({}, word);
     this.open = true;
-    this.focusFirstControl();
   }
 
   closeModal(): void {
@@ -49,15 +48,6 @@ export class WordEditComponent extends BaseComponent {
     }, err => {
       this.errorService.handleError(err);
       this.loading = false;
-    });
-  }
-
-  focusFirstControl(): void {
-    setTimeout(() => {
-      const el: HTMLElement = document.querySelector('.word-edit-modal form input:first-child');
-      if (el) {
-        el.focus();
-      }
     });
   }
 }

@@ -29,7 +29,6 @@ export class WordCreateComponent extends BaseComponent {
   openModal(): void {
     this.addWord();
     this.open = true;
-    this.focusControl('.word-create-modal .items-wrapper input:first-child');
   }
 
   closeModal(): void {
@@ -40,7 +39,6 @@ export class WordCreateComponent extends BaseComponent {
 
   addWord(): void {
     this.words.push({ text: '', translation: '' });
-    this.focusControl('.word-create-modal .items-wrapper nz-form-item:last-child input');
     this.scrollToBottom();
   }
 
@@ -62,15 +60,6 @@ export class WordCreateComponent extends BaseComponent {
     }, err => {
       this.errorService.handleError(err);
       this.loading = false;
-    });
-  }
-
-  private focusControl(selector: string): void {
-    setTimeout(() => {
-      const el: HTMLElement = document.querySelector(selector);
-      if (el) {
-        el.focus();
-      }
     });
   }
 
