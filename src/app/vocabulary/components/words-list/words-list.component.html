@@ -23,35 +23,18 @@
       <tr>
         <th style="width: 50%">Word</th>
         <th style="width: 50%">Translation</th>
-        <th style="width: 145px; min-width: 145px"></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let word of wordsTable.data">
         <td>{{word.text}}</td>
         <td>{{word.translation}}</td>
-        <td nzAlign="center">
-          <nz-button-group>
-            <a nz-button nzSize="small" title="Open in Google Translate"
-              target="_blank" [href]="word.googleTranslateLink">
-              <i nz-icon type="google"></i>
-            </a>
-            <a nz-button nzSize="small" title="Open in Google Images"
-              target="_blank" [href]="word.googleImagesLink">
-              <i nz-icon type="search"></i>
-            </a>
-            <button nz-button nzSize="small" title="Edit word" (click)="wordEditCmp.openModal(word)">
-              <i nz-icon type="edit"></i> 
-            </button>
-            <button nz-button nzSize="small" title="Delete word"
-              nz-popconfirm
-              nzTitle="Are you sure?"
-              (nzOnConfirm)="deleteWord(word)"
-              nzPlacement="topRight"
-              nzOkText="Yes" nzCancelText="No">
-              <i nz-icon type="delete"></i> 
-            </button>
-          </nz-button-group>
+        <td>
+          <v-word-actions [word]="word"
+            (edit)="wordEditCmp.openModal(word)"
+            (delete)="deleteWord(word)">
+          </v-word-actions>
         </td>
       </tr>
     </tbody>

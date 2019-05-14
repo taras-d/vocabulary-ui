@@ -1,0 +1,21 @@
+<nz-button-group>
+  <a nz-button nzSize="small" title="Open in Google Translate"
+    target="_blank" [href]="word.googleTranslateLink">
+    <i nz-icon type="google"></i>
+  </a>
+  <a nz-button nzSize="small" title="Open in Google Images"
+    target="_blank" [href]="word.googleImagesLink">
+    <i nz-icon type="search"></i>
+  </a>
+  <button nz-button nzSize="small" title="Edit word" (click)="edit.emit()">
+    <i nz-icon type="edit"></i> 
+  </button>
+  <button nz-button nzSize="small" title="Delete word"
+    nz-popconfirm
+    nzTitle="Are you sure?"
+    (nzOnConfirm)="delete.emit()"
+    nzPlacement="topRight"
+    nzOkText="Yes" nzCancelText="No">
+    <i nz-icon type="delete"></i> 
+  </button>
+</nz-button-group>
