@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: 'src/app/vocabulary/vocabulary.module#VocabularyModule'
   },
   {
+    path: 'profile',
+    loadChildren: 'src/app/profile/profile.module#ProfileModule'
+  },
+  {
     path: '**',
     redirectTo: '/'
   }

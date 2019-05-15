@@ -1,0 +1,28 @@
+<ul class="page-tabs" nz-menu nzMode="horizontal">
+  <li nz-menu-item [nzSelected]="true">
+    <i nz-icon type="user"></i> Profile
+  </li>
+</ul>
+
+<div class="page-tabs-content">
+  <form *ngIf="user" nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6">Email</nz-form-label>
+      <nz-form-control [nzSm]="18">
+        <input nz-input [value]="user.email" disabled>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6">Created at</nz-form-label>
+      <nz-form-control [nzSm]="18">
+        <input nz-input value="{{user.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6">Updated at</nz-form-label>
+      <nz-form-control [nzSm]="18">
+        <input nz-input value="{{user.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
