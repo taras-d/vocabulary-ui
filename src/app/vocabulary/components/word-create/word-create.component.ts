@@ -27,12 +27,13 @@ export class WordCreateComponent extends BaseComponent {
   }
 
   openModal(): void {
-    this.addWord();
+    if (!this.words.length) {
+      this.addWord();
+    }
     this.open = true;
   }
 
   closeModal(): void {
-    this.words = [];
     this.loading = false;
     this.open = false;
   }
@@ -55,6 +56,7 @@ export class WordCreateComponent extends BaseComponent {
         'Info',
         `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
       );
+      this.words = [];
       this.closeModal();
       this.complete.emit();
     }, err => {
