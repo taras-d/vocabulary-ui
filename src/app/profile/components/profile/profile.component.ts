@@ -10,7 +10,7 @@ import { BaseComponent } from '@core/utils';
   styleUrls: ['./profile.component.less']
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
-  private user: any;
+  user: any;
 
   constructor(private authService: AuthService) {
     super();
