@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '@core/services';
+import { User } from '@core/models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizedGuard implements CanActivate {
@@ -18,7 +19,7 @@ export class AuthorizedGuard implements CanActivate {
     next: ActivatedRouteSnapshot, state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.user$.pipe(
-      map(user => {
+      map((user: User) => {
         if (user) {
           return true;
         } else {

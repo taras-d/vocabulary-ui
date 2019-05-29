@@ -4,10 +4,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
+import { User } from '@core/models';
 
 @Injectable({ providedIn: 'root' })
 export class AppStartService {
-  preloadedData: {[key: string]: any} = {};
+  preloadedData: {
+    user?: User;
+  } = {};
 
   constructor(private http: HttpClient) {}
 

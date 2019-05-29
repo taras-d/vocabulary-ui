@@ -6,11 +6,12 @@ import { tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { AppStartService } from './app.start.service';
+import { User, AuthResult } from '@core/models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user$: Observable<any>;
-  private user: BehaviorSubject<any>;
+  user$: Observable<User>;
+  private user: BehaviorSubject<User>;
 
   constructor(
     private http: HttpClient,
@@ -23,14 +24,14 @@ export class AuthService {
 
   login(data: any): Observable<any> {
     return this.http.post(`authentication`, data).pipe(
-      tap(res => {
+      tap((res: AuthResult) => {
         this.user.next(res.user);
         localStorage[environment.authTokenKey] = res.accessToken;
       })
     );
   }
 
-  logout(): Observable<any> {
+  logout(): Observable<null> {
     delete localStorage[environment.authTokenKey];
     this.user.next(null);
     this.router.navigate(['auth', 'login']);

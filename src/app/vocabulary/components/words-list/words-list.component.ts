@@ -64,7 +64,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   }
 
   trackWord(index: number, word: any): any {
-    return word.id;
+    return word._id;
   }
 
   private getWordsRequest(): Observable<any> {
