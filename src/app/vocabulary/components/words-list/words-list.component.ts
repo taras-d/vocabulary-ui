@@ -63,6 +63,10 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     Object.assign(word, res);
   }
 
+  trackWord(index: number, word: any): any {
+    return word.id;
+  }
+
   private getWordsRequest(): Observable<any> {
     const { page, pageSize } = this.paging;
     return this.wordsService.getWords(this.search, {

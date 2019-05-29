@@ -65,6 +65,10 @@ export class WordCreateComponent extends BaseComponent {
     });
   }
 
+  trackWord(index: number, word: any): any {
+    return `${index}-${word.text}`;
+  }
+
   private scrollToBottom(): void {
     setTimeout(() => {
       const el: HTMLElement = document.querySelector('.word-create-modal .items-wrapper');

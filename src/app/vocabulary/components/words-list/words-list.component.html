@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let word of wordsTable.data">
+      <tr *ngFor="let word of wordsTable.data; trackBy: trackWord">
         <td>{{word.text}}</td>
         <td>{{word.translation}}</td>
         <td>

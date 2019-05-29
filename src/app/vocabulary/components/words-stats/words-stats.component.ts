@@ -37,7 +37,18 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     this.destroyChart();
   }
 
-  loadData(): void {
+  trackYear(index: number, year: number): any {
+    return year;
+  }
+
+  yearClick(year: number): void {
+    if (this.selectedYear !== year) {
+      this.selectedYear = year;
+      this.loadData();
+    }
+  }
+
+  private loadData(): void {
     this.loading = true;
     this.loadYears().pipe(
       mergeMap(() => this.loadTotalInMonth()),
@@ -77,7 +88,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     );
   }
 
-  createChart(data: number[]): void {
+  private createChart(data: number[]): void {
     const ctx = this.canvas.nativeElement.getContext('2d');
     this.chart = new Chart(ctx, {
       type: 'bar',
@@ -97,21 +108,14 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     });
   }
 
-  updateChart(data: number[]): void {
+  private updateChart(data: number[]): void {
     this.chart.data.datasets[0].data = data;
     this.chart.update();
   }
 
-  destroyChart(): void {
+  private destroyChart(): void {
     if (this.chart) {
       this.chart.destroy();
-    }
-  }
-
-  yearClick(year: number): void {
-    if (this.selectedYear !== year) {
-      this.selectedYear = year;
-      this.loadData();
     }
   }
 }
