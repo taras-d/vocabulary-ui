@@ -13,7 +13,7 @@ import { WordsStatsService } from '@vocabulary/services';
   styleUrls: ['./words-stats.component.less']
 })
 export class WordsStatsComponent extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
   loading: boolean;
   years: number[];
