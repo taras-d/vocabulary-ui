@@ -5,6 +5,7 @@ import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import { BaseComponent } from '@core/utils';
 import { ErrorService } from '@core/services';
 import { WordsService } from '@vocabulary/services';
+import { Word } from '@core/models';
 
 @Component({
   selector: 'v-words-list',
@@ -14,7 +15,7 @@ import { WordsService } from '@vocabulary/services';
 export class WordsListComponent extends BaseComponent implements OnInit {
   loading: boolean;
   search: string;
-  words: any[] = [];
+  words: Word[] = [];
   paging = { page: 1, pageSize: 10, total: 0 };
 
   constructor(
@@ -58,7 +59,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     });
   }
 
-  editComplete(res: any): void {
+  editComplete(res: Word): void {
     const word = this.words.find(w => w._id === res._id);
     Object.assign(word, res);
   }

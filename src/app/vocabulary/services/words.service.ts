@@ -3,15 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
+import { Word, WordList, WordCreateResult } from '@core/models';
+
 @Injectable({ providedIn: 'root' })
 export class WordsService {
   constructor(private http: HttpClient) {}
 
-  createWord(words: any): Observable<any> {
-    return this.http.post(`words`, words);
+  createWord(words: Word[]): Observable<WordCreateResult> {
+    return this.http.post<WordCreateResult>(`words`, words);
   }
 
-  getWords(search: string, paging: any): Observable<any> {
+  getWords(search: string, paging: any): Observable<WordList> {
     const params: any = {
       '$sort[createdAt]': '-1',
       $limit: (paging && paging.limit) || '10',
@@ -23,35 +25,35 @@ export class WordsService {
     }
 
     return this.http.get(`words`, { params }).pipe(
-      tap(res => {
+      tap((res: WordList) => {
         res.data.forEach(this.decorateWord);
       })
     );
   }
 
-  getWord(id: string): Observable<any> {
+  getWord(id: string): Observable<Word> {
     return this.http.get(`words/${id}`).pipe(
       map(this.decorateWord)
     );
   }
 
-  getRandomWord(): Observable<any> {
+  getRandomWord(): Observable<Word> {
     return this.http.get(`random-word`).pipe(
       map(this.decorateWord)
     );
   }
 
-  updateWord(id: number, data: any): Observable<any> {
+  updateWord(id: string, data: Word): Observable<any> {
     return this.http.patch(`words/${id}`, data).pipe(
       map(this.decorateWord)
     );
   }
 
-  deleteWord(id: number): Observable<any> {
-    return this.http.delete(`words/${id}`);
+  deleteWord(id: number): Observable<Word> {
+    return this.http.delete<Word>(`words/${id}`);
   }
 
-  private decorateWord = (word: any) => {
+  private decorateWord = (word: Word) => {
     if (word) {
       word.googleTranslateLink = `https://translate.google.com/?#en/auto/${word.text}`;
       word.googleImagesLink = `https://www.google.com/search?tbm=isch&q=${word.text}`;

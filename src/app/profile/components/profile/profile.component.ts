@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '@core/services';
 import { BaseComponent } from '@core/utils';
+import { User } from '@core/models';
 
 @Component({
   selector: 'v-profile',
@@ -10,7 +11,7 @@ import { BaseComponent } from '@core/utils';
   styleUrls: ['./profile.component.less']
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
-  user: any;
+  user: User;
 
   constructor(private authService: AuthService) {
     super();
@@ -19,6 +20,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(user => this.user = user);
+    ).subscribe((user: User) => this.user = user);
   }
 }

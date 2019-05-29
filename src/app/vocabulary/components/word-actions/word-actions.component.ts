@@ -1,13 +1,15 @@
 import { Component, Output, EventEmitter, Input, HostListener, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 
+import { Word } from '@core/models';
+
 @Component({
   selector: 'v-word-actions',
   templateUrl: './word-actions.component.html',
   styleUrls: ['./word-actions.component.less']
 })
 export class WordActionsComponent implements OnInit {
-  @Input() word: any;
+  @Input() word: Word;
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
 

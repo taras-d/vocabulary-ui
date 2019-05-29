@@ -1,2 +1,2 @@
 export { User, AuthResult } from './auth';
-export { Word } from './word';
+export { Word, WordList, WordCreateResult } from './word';

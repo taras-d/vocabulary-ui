@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@core/utils';
 import { ErrorService } from '@core/services';
 import { WordsService } from '@vocabulary/services';
+import { Word } from '@core/models';
 
 @Component({
   selector: 'v-random-word',
@@ -12,7 +13,7 @@ import { WordsService } from '@vocabulary/services';
 })
 export class RandomWordComponent extends BaseComponent implements OnInit {
   loading: boolean;
-  word: any;
+  word: Word;
   wordCount = 0;
 
   constructor(
@@ -30,7 +31,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.wordsService.getRandomWord().pipe(
       takeUntil(this.destroy$)
-    ).subscribe(res => {
+    ).subscribe((res: Word) => {
       this.word = res;
       this.wordCount += 1;
       this.loading = false;
@@ -39,7 +40,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
     });
   }
 
-  editComplete(res: any): void {
+  editComplete(res: Word): void {
     this.word = res;
   }
 }

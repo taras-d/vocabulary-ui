@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@core/utils';
 import { ErrorService } from '@core/services';
 import { WordsService } from '@vocabulary/services';
+import { Word } from '@core/models';
 
 @Component({
   selector: 'v-word-edit',
@@ -15,7 +16,7 @@ export class WordEditComponent extends BaseComponent {
 
   loading: boolean;
   open: boolean;
-  word: any;
+  word: Word;
 
   constructor(
     private errorService: ErrorService,
@@ -24,7 +25,7 @@ export class WordEditComponent extends BaseComponent {
     super();
   }
 
-  openModal(word: any): void {
+  openModal(word: Word): void {
     this.word = Object.assign({}, word);
     this.open = true;
   }
@@ -42,7 +43,7 @@ export class WordEditComponent extends BaseComponent {
       translation: this.word.translation
     }).pipe(
       takeUntil(this.destroy$)
-    ).subscribe(res => {
+    ).subscribe((res: Word) => {
       this.closeModal();
       this.complete.emit(res);
     }, err => {

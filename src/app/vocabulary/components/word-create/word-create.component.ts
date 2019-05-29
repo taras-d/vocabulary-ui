@@ -5,6 +5,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { BaseComponent } from '@core/utils';
 import { ErrorService } from '@core/services';
 import { WordsService } from '@vocabulary/services';
+import { Word, WordCreateResult } from '@core/models';
 
 @Component({
   selector: 'v-word-create',
@@ -16,7 +17,7 @@ export class WordCreateComponent extends BaseComponent {
 
   loading: boolean;
   open: boolean;
-  words: { text: string, translation: string }[] = [];
+  words: Word[] = [];
 
   constructor(
     private notificationService: NzNotificationService,
@@ -51,7 +52,7 @@ export class WordCreateComponent extends BaseComponent {
     this.loading = true;
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
-    ).subscribe(res => {
+    ).subscribe((res: WordCreateResult) => {
       this.notificationService.info(
         'Info',
         `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
@@ -65,7 +66,7 @@ export class WordCreateComponent extends BaseComponent {
     });
   }
 
-  trackWord(index: number, word: any): any {
+  trackWord(index: number, word: Word): any {
     return `${index}-${word.text}`;
   }
 

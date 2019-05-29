@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 export class WordsStatsService {
   constructor(private http: HttpClient) {}
 
-  getAvailableYears(): Observable<any> {
-    return this.http.get(`words-stats`, {
+  getAvailableYears(): Observable<number[]> {
+    return this.http.get<number[]>(`words-stats`, {
       params: { type: 'available-years' }
     });
   }
 
-  getTotalInMonth(year: number): Observable<any> {
-    return this.http.get(`words-stats`, {
+  getTotalInMonth(year: number): Observable<number[]> {
+    return this.http.get<number[]>(`words-stats`, {
       params: { type: 'total-in-month', year: `${year}` }
     });
   }
