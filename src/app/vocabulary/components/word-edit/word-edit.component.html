@@ -1,6 +1,6 @@
 <nz-modal nzTitle="Edit word" [(nzVisible)]="open" [nzFooter]="null"
  (nzOnCancel)="closeModal()" nzClassName="word-edit-modal">
-  <form nz-form *ngIf="word" #form="ngForm">
+  <form nz-form *ngIf="word" #form="ngForm" (ngSubmit)="updateWord()">
     <nz-form-item>
       <nz-form-label [nzSm]="5" [nzNoColon]="true">Text</nz-form-label>
       <nz-form-control [nzSm]="19" nzValidateStatus="success">
@@ -28,11 +28,11 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <button nz-button (click)="closeModal()">
+      <button nz-button (click)="closeModal()" type="button">
         <i nz-icon nzType="left-circle"></i> Cancel
       </button>
-      <button nz-button nzType="primary" (click)="updateWord()"
-        [nzLoading]="loading" [disabled]="form.invalid" class="save-btn">
+      <button nz-button nzType="primary" class="save-btn"
+        [nzLoading]="loading" [disabled]="form.invalid">
         <i nz-icon nzType="save"></i> Save
       </button>
     </nz-form-item>

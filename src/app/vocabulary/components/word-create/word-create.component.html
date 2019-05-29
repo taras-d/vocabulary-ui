@@ -1,6 +1,6 @@
 <nz-modal nzTitle="Add word(s)" [(nzVisible)]="open" [nzFooter]="null"
   (nzOnCancel)="closeModal()" nzClassName="word-create-modal">
-  <form nz-form #form="ngForm">
+  <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
     <div class="items-wrapper">
       <nz-form-item *ngFor="let word of words; index as wordIndex">
         <nz-input-group nzCompact>
@@ -8,7 +8,8 @@
             [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
           <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
             [(ngModel)]="word.translation" maxlength="200"/>
-          <button nz-button (click)="deleteWord(wordIndex)" [disabled]="words.length === 1">
+          <button nz-button (click)="deleteWord(wordIndex)"
+            [disabled]="words.length === 1" type="button">
             <i nz-icon type="delete"></i>
           </button>
         </nz-input-group>
@@ -16,7 +17,7 @@
     </div>
     <nz-form-item class="actions">
       <div nz-col [nzXs]="8">
-        <button nz-button (click)="closeModal()">
+        <button nz-button (click)="closeModal()" type="button">
           <i nz-icon nzType="left-circle"></i> Cancel
         </button>
       </div>
@@ -26,8 +27,7 @@
         </a>
       </div>
       <div nz-col [nzXs]="8" class="save-btn">
-        <button nz-button nzType="primary" (click)="saveWords()"
-          [nzLoading]="loading" [disabled]="form.invalid">
+        <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="form.invalid">
           <i nz-icon nzType="save"></i> Save
         </button>
       </div>

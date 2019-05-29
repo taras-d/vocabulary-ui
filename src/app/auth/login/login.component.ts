@@ -1,11 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '@core/services';
 import { BaseComponent } from '@core/utils';
-import { environment } from '@env/environment';
 
 @Component({
   selector: 'v-login',
@@ -17,8 +15,6 @@ export class LoginComponent extends BaseComponent {
   loginData = { email: '', password: '' };
   message: { type: string, text: string };
 
-  @ViewChild('loginForm') loginForm: NgForm;
-
   constructor(
     private router: Router,
     private authService: AuthService
@@ -28,11 +24,6 @@ export class LoginComponent extends BaseComponent {
 
   onSubmit(): void {
     this.message = null;
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
     this.loading = true;
 
     this.authService.login(this.loginData).pipe(
