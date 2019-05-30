@@ -66,8 +66,8 @@ export class WordCreateComponent extends BaseComponent {
     });
   }
 
-  trackWord(index: number, word: Word): any {
-    return `${index}-${word.text}`;
+  trackWord(index: number): any {
+    return index;
   }
 
   private scrollToBottom(): void {
