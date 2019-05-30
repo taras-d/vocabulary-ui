@@ -3,7 +3,7 @@
 
   <!-- Search -->
   <div class="search">
-    <nz-input-group nzCompact>
+    <nz-input-group [nzCompact]="true">
       <input type="text" nz-input placeholder="Search"
         [(ngModel)]="search" (keyup.enter)="getWords()"/>
       <button nz-button (click)="getWords()">
@@ -13,12 +13,13 @@
   </div>
 
   <!-- Table -->
-  <nz-table #wordsTable nzSize="middle" nzBordered
+  <nz-table #wordsTable nzSize="middle"
     [nzData]="words"
     [nzShowPagination]="false"
     [nzFrontPagination]="false"
     [nzFooter]="tableFooterTpl"
-    [nzNoResult]="'No data'">
+    [nzNoResult]="'No data'"
+    [nzBordered]="true">
     <thead>
       <tr>
         <th style="width: 50%">Word</th>

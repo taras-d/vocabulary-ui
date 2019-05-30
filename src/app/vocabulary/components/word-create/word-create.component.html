@@ -3,7 +3,7 @@
   <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
     <div class="items-wrapper">
       <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
-        <nz-input-group nzCompact>
+        <nz-input-group [nzCompact]="true">
           <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
             [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
           <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
