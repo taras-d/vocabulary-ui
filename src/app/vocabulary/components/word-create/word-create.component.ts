@@ -53,9 +53,9 @@ export class WordCreateComponent extends BaseComponent {
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: WordCreateResult) => {
-      this.notificationService.info(
-        'Info',
-        `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
+      const method = res.duplicates ? 'info' : 'success';
+      this.notificationService[method](
+        'Info', `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
       );
       this.words = [];
       this.closeModal();
