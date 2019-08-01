@@ -1,10 +1,8 @@
 <nz-button-group *ngIf="!isSmallScreen">
-  <a nz-button nzSize="small" title="Open in Google Translate"
-    target="_blank" [href]="word.googleTranslateLink">
+  <a nz-button nzSize="small" title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
     <i nz-icon type="google"></i>
   </a>
-  <a nz-button nzSize="small" title="Open in Google Images"
-    target="_blank" [href]="word.googleImagesLink">
+  <a nz-button nzSize="small" title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
     <i nz-icon type="picture"></i>
   </a>
   <button nz-button nzSize="small" title="Edit word" (click)="edit.emit()">
@@ -26,21 +24,13 @@
   </button>
   <ul nz-menu>
     <li nz-menu-item>
-      <a [href]="word.googleTranslateLink" target="_blank">
-        Open in Google Translate
-      </a>
+      <a [vOpenUrl]="word.googleTranslateLink">Open in Google Translate</a>
     </li>
     <li nz-menu-item>
-      <a [href]="word.googleImagesLink" target="_blank">
-        Open in Google Images
-      </a>
+      <a [vOpenUrl]="word.googleImagesLink">Open in Google Images</a>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="edit.emit()">
-      Edit
-    </li>
-    <li nz-menu-item (click)="deleteConfirm()">
-      Delete
-    </li>
+    <li nz-menu-item (click)="edit.emit()">Edit</li>
+    <li nz-menu-item (click)="deleteConfirm()">Delete</li>
   </ul>
 </nz-dropdown>

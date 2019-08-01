@@ -21,7 +21,9 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
+
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
+import { OpenUrlDirective } from './directives/open-url.directive';
 
 @NgModule({
   imports: [
@@ -70,12 +72,14 @@ import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
 
     PageLayoutComponent,
 
-    NotEmptyValidatorDirective
+    NotEmptyValidatorDirective,
+    OpenUrlDirective
   ],
   declarations: [
     PageLayoutComponent,
 
-    NotEmptyValidatorDirective
+    NotEmptyValidatorDirective,
+    OpenUrlDirective
   ]
 })
 export class SharedModule { }

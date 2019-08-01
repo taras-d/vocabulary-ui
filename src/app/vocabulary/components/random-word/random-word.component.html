@@ -11,12 +11,10 @@
     </div>
     
     <nz-button-group class="word-actions">
-      <a nz-button  title="Open in Google Translate"
-        target="_blank" [href]="word.googleTranslateLink">
+      <a nz-button  title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
         <i nz-icon type="google"></i>
       </a>
-      <a nz-button title="Open in Google Images"
-        target="_blank" [href]="word.googleImagesLink">
+      <a nz-button title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
         <i nz-icon type="picture"></i>
       </a>
       <button nz-button title="Edit word" (click)="wordEditCmp.openModal(word)">
