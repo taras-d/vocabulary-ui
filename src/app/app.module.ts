@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
+import { ClarityModule } from '@clr/angular';
 
 registerLocaleData(en);
 
@@ -21,7 +22,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ClarityModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

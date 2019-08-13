@@ -20,11 +20,15 @@
     "@angular/platform-browser": "^8.0.0",
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
+    "@clr/angular": "^2.1.1",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
     "ng-zorro-antd": "^7.3.1",
     "rxjs": "^6.5.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@clr/ui": "2.1.1",
+    "@clr/icons": "2.1.1",
+    "@webcomponents/custom-elements": "^1.0.0"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^8.0.0",
