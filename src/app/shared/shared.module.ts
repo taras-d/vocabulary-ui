@@ -20,6 +20,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 
+import { ClarityModule } from '@clr/angular';
+
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
 
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
@@ -46,7 +48,9 @@ import { OpenUrlDirective } from './directives/open-url.directive';
     NzGridModule,
     NzTableModule,
     NzPopconfirmModule,
-    NzPaginationModule
+    NzPaginationModule,
+
+    ClarityModule
   ],
   exports: [
     CommonModule,

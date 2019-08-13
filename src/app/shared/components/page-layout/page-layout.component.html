@@ -1,31 +1,29 @@
-<nz-card  nzType="inner" [nzTitle]="cardTitleTpl"
-  [nzExtra]="cardExtraTpl" class="page-layout-card"></nz-card>
-
-<ng-template #cardTitleTpl>
-  <a class="card-title" routerLink="/">
-    <i nz-icon nzType="read" nzTheme="outline"></i>
-    <span>Vocabulary</span>
-  </a>
-</ng-template>
-
-<ng-template #cardExtraTpl>
-  <nz-dropdown nzPlacement="bottomRight" nzTrigger="click">
-    <button nz-button nz-dropdown class="user-button">
-      <i nz-icon type="user"></i>
-    </button>
-    <ul nz-menu>
-      <li nz-menu-item routerLink="/">
-        <i nz-icon type="read"></i> Vocabulary
-      </li>
-      <li nz-menu-item routerLink="/profile">
-        <i nz-icon type="user"></i> Profile
-      </li>
-      <li nz-menu-divider></li>
-      <li nz-menu-item (click)="logout()">
-        <i nz-icon type="poweroff"></i> Logout
-      </li>
-    </ul>
-  </nz-dropdown>
-</ng-template>
+<header class="header-6">
+  <div class="branding">
+    <a routerLink="/" class="nav-link">
+      <clr-icon shape="book" size="22"></clr-icon>
+      <span class="title">Vocabulary</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown>
+      <button class="nav-icon" clrDropdownTrigger>
+        <clr-icon shape="user"></clr-icon>
+        <clr-icon shape="caret down"></clr-icon>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <a clrDropdownItem routerLink="/">
+          <clr-icon shape="book"></clr-icon> Vocabulary
+        </a>
+        <a clrDropdownItem routerLink="/profile">
+          <clr-icon shape="user"></clr-icon> Profile
+        </a>
+        <a clrDropdownItem (click)="logout()">
+          <clr-icon shape="logout"></clr-icon> Log out
+        </a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+</header>
 
 <router-outlet></router-outlet>
