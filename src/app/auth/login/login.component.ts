@@ -24,6 +24,10 @@ export class LoginComponent extends BaseComponent {
   }
 
   login(): void {
+    if (!this.loginData.email || !this.loginData.password) {
+      return;
+    }
+
     this.message = null;
     this.loading = ClrLoadingState.LOADING;
 
@@ -34,7 +38,7 @@ export class LoginComponent extends BaseComponent {
     }, (err) => {
       this.message = {
         type: 'danger',
-        text: (err.status === 401) ? 'Incorrect email or password' : 'Service is unavailable.<br>Please try again later.'
+        text: (err.status === 401) ? 'Incorrect email or password' : 'Service temporarily unavailable'
       };
       this.loading = ClrLoadingState.DEFAULT;
     });

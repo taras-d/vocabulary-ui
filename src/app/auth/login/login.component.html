@@ -15,8 +15,7 @@
     <input clrPassword type="password" [(ngModel)]="loginData.password"
       name="password" placeholder="Password" class="clr-col-12"/>
   </clr-password-container>
-  <button class="btn btn-primary btn-block login-btn" (click)="login()"
-    [clrLoading]="loading" [disabled]="!loginData.email || !loginData.password">
+  <button class="btn btn-primary btn-block login-btn" (click)="login()" [clrLoading]="loading">
     <clr-icon shape="login"></clr-icon> Login
   </button>
 </form>
