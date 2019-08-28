@@ -1,13 +1,19 @@
-<ul class="page-tabs" nz-menu nzMode="horizontal">
-  <li nz-menu-item routerLink="/" routerLinkActive="ant-menu-item-selected"
-    [routerLinkActiveOptions]="{ exact: true }">
-    <i nz-icon type="bars"></i> Words
+<ul class="nav">
+  <li class="nav-item">
+    <button class="btn btn-link nav-link" routerLink="/" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      <clr-icon shape="book" size="14"></clr-icon> Words
+    </button>
   </li>
-  <li nz-menu-item routerLink="/random-word" routerLinkActive="ant-menu-item-selected">
-    <i nz-icon type="interation"></i> Random word
+  <li class="nav-item">
+    <button class="btn btn-link nav-link" routerLink="/random-word" routerLinkActive="active">
+      <clr-icon shape="shuffle" size="14"></clr-icon> Random word
+    </button>
   </li>
-  <li nz-menu-item routerLink="/stats" routerLinkActive="ant-menu-item-selected">
-    <i nz-icon type="bar-chart"></i> Stats
+  <li class="nav-item">
+    <button class="btn btn-link nav-link" routerLink="/stats" routerLinkActive="active">
+      <clr-icon shape="bar-chart" size="14"></clr-icon> Stats
+    </button>
   </li>
 </ul>
 
