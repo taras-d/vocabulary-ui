@@ -1,19 +1,26 @@
-<nz-spin [nzSpinning]="loading">
-  <ng-container *ngIf="totalInMonth">
-    <nz-dropdown nzTrigger="click">
-      <button nz-button nz-dropdown>
-        <span>{{selectedYear}}</span> <i nz-icon type="down"></i>
-      </button>
-      <ul nz-menu>
-        <li nz-menu-item *ngFor="let year of years; trackBy: trackYear" (click)="yearClick(year)">
-          <a>{{year}}</a>
-        </li>
-      </ul>
-    </nz-dropdown>
-    <div class="canvas-container">
-      <canvas #canvas></canvas>
-    </div>
-  </ng-container>
+<ng-container *ngIf="totalInMonth">
+  <clr-dropdown>
+    <button class="btn btn-outline-primary" clrDropdownTrigger>
+      {{selectedYear}} <clr-icon shape="caret down"></clr-icon>
+    </button>
+    <clr-dropdown-menu *clrIfOpen>
+      <div clrDropdownItem *ngFor="let year of years; trackBy: trackYear" (click)="yearClick(year)">
+        {{year}}
+      </div>
+    </clr-dropdown-menu>
+  </clr-dropdown>
+  <div class="canvas-container">
+    <canvas #canvas></canvas>
+  </div>
+</ng-container>
 
-  <nz-alert *ngIf="!loading && !totalInMonth" nzType="info" nzMessage="No data"></nz-alert>
-</nz-spin>
+<clr-alert *ngIf="!loading && !totalInMonth"
+  [clrAlertType]="'info'" [clrAlertClosable]="false">
+    <clr-alert-item>
+        <span class="alert-text">No data</span>
+    </clr-alert-item>
+</clr-alert>
+
+<div *ngIf="loading" class="spinner-cover">
+  <div class="spinner spinner-md"></div>
+</div>
