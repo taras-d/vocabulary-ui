@@ -74,6 +74,8 @@ import { OpenUrlDirective } from './directives/open-url.directive';
     NzPopconfirmModule,
     NzPaginationModule,
 
+    ClarityModule,
+
     PageLayoutComponent,
 
     NotEmptyValidatorDirective,

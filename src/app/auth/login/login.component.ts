@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
+import { ClrLoadingState } from '@clr/angular';
 
 import { AuthService } from '@core/services';
 import { BaseComponent } from '@core/utils';
@@ -11,7 +12,7 @@ import { BaseComponent } from '@core/utils';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent extends BaseComponent {
-  loading: boolean;
+  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   loginData = { email: '', password: '' };
   message: { type: string, text: string };
 
@@ -22,9 +23,9 @@ export class LoginComponent extends BaseComponent {
     super();
   }
 
-  onSubmit(): void {
+  login(): void {
     this.message = null;
-    this.loading = true;
+    this.loading = ClrLoadingState.LOADING;
 
     this.authService.login(this.loginData).pipe(
       takeUntil(this.destroy$)
@@ -32,10 +33,10 @@ export class LoginComponent extends BaseComponent {
       this.router.navigate(['/']);
     }, (err) => {
       this.message = {
-        type: 'error',
+        type: 'danger',
         text: (err.status === 401) ? 'Incorrect email or password' : 'Service is unavailable.<br>Please try again later.'
       };
-      this.loading = false;
+      this.loading = ClrLoadingState.DEFAULT;
     });
   }
 }

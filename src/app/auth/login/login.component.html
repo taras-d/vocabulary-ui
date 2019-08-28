@@ -1,43 +1,22 @@
-<nz-card nzType="inner" [nzTitle]="cardTitleTpl">
-  <nz-alert *ngIf="message" [nzType]="message.type"
-    [nzMessage]="messageTpl"></nz-alert>
-  <ng-template #messageTpl><span [innerHTML]="message?.text"></span></ng-template>
-  
-  <form nz-form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-    <nz-form-item>
-      <nz-form-control nzValidateStatus="success">
-        <nz-input-group [nzPrefix]="prefixEmailTpl">
-          <input type="text" nz-input placeholder="Email" name="email"
-            [(ngModel)]="loginData.email" required/>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzValidateStatus="success">
-        <nz-input-group [nzPrefix]="prefixPasswordTpl">
-          <input type="password" nz-input placeholder="Password" name="password"
-            [(ngModel)]="loginData.password" required/>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item class="login-item">
-      <nz-form-control>
-        <button nz-button [nzType]="'primary'" [nzLoading]="loading"
-          [disabled]="loginForm.invalid">
-          <i nz-icon type="login"></i>  Login
-        </button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-</nz-card>
-
-<ng-template #cardTitleTpl>
-  <div class="card-title">
-    <i nz-icon nzType="read" nzTheme="outline"></i>
-    <span>Vocabulary</span>
-  </div>
-</ng-template>
-
-<ng-template #prefixEmailTpl><i nz-icon type="user"></i></ng-template>
-
-<ng-template #prefixPasswordTpl><i nz-icon type="lock"></i></ng-template>
+<form clrForm>
+  <h4 class="login-header">
+    <clr-icon shape="book" size="18"></clr-icon> Vocabulary
+  </h4>
+  <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
+    <clr-alert-item>
+      <span class="alert-text">{{message.text}}</span>
+    </clr-alert-item>
+  </clr-alert>
+  <clr-input-container>
+    <input clrInput type="text" [(ngModel)]="loginData.email"
+      name="email" placeholder="Email" class="clr-col-12"/>
+  </clr-input-container>
+  <clr-password-container>
+    <input clrPassword type="password" [(ngModel)]="loginData.password"
+      name="password" placeholder="Password" class="clr-col-12"/>
+  </clr-password-container>
+  <button class="btn btn-primary btn-block login-btn" (click)="login()"
+    [clrLoading]="loading" [disabled]="!loginData.email || !loginData.password">
+    <clr-icon shape="login"></clr-icon> Login
+  </button>
+</form>
