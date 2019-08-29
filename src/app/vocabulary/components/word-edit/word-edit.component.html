@@ -8,7 +8,7 @@
       </clr-alert-item>
     </clr-alert>
 
-    <form *ngIf="word" clrForm #form="ngForm">
+    <form *ngIf="word" clrForm #form="ngForm" (ngSubmit)="updateWord()">
       <clr-input-container>
         <label>Text</label>
         <input clrInput type="text" name="text" maxlength="200"
@@ -32,11 +32,11 @@
       </clr-input-container>
       <div class="actions">
         <button class="btn btn-outline" type="button" (click)="open = false">
-          Cancel
+          <clr-icon shape="undo"></clr-icon> Cancel
         </button>
-        <button class="btn btn-primary" type="button" (click)="updateWord()"
-          [disabled]="form?.invalid" [clrLoading]="loading">
-          Save
+        <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
+          [clrLoading]="loading">
+          <clr-icon shape="floppy"></clr-icon> Save
         </button>
       </div>
     </form>

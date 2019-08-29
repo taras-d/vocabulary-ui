@@ -1,36 +1,41 @@
-<nz-modal nzTitle="Add word(s)" [(nzVisible)]="open" [nzFooter]="null"
-  (nzOnCancel)="closeModal()" nzClassName="word-create-modal">
-  <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
-    <div class="items-wrapper">
-      <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
-        <nz-input-group [nzCompact]="true">
-          <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
-            [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
-          <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
-            [(ngModel)]="word.translation" maxlength="200"/>
-          <button nz-button (click)="deleteWord(wordIndex)"
-            [disabled]="words.length === 1" type="button">
-            <i nz-icon type="delete"></i>
+<clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="false">
+  <div class="modal-title">Add word(s)</div>
+
+  <div class="modal-body">
+    <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
+      <div class="items-wrapper">
+        <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
+          <nz-input-group [nzCompact]="true">
+            <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
+              [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
+            <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
+              [(ngModel)]="word.translation" maxlength="200"/>
+            <button nz-button (click)="deleteWord(wordIndex)"
+              [disabled]="words.length === 1" type="button">
+              <i nz-icon type="delete"></i>
+            </button>
+          </nz-input-group>
+        </nz-form-item>
+      </div>
+
+      <div class="actions clr-row">
+        <div class="clr-col-4">
+          <button class="btn btn-outline" type="button" (click)="open = false">
+            <clr-icon shape="undo"></clr-icon> Cancel
           </button>
-        </nz-input-group>
-      </nz-form-item>
-    </div>
-    <nz-form-item class="actions">
-      <div nz-col [nzXs]="8">
-        <button nz-button (click)="closeModal()" type="button">
-          <i nz-icon nzType="left-circle"></i> Cancel
-        </button>
+        </div>
+        <div class="clr-col-4 add-btn">
+          <button class="btn btn-link" type="button" (click)="addWord()">
+            <clr-icon shape="plus"></clr-icon> Add word
+          </button>
+        </div>
+        <div class="clr-col-4 save-btn">
+          <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
+            [clrLoading]="loading">
+            <clr-icon shape="floppy"></clr-icon> Save
+          </button>
+        </div>
       </div>
-      <div nz-col [nzXs]="8" class="add-icon">
-        <a (click)="addWord()">
-          <i nz-icon nzType="plus"></i> add word
-        </a>
-      </div>
-      <div nz-col [nzXs]="8" class="save-btn">
-        <button nz-button nzType="primary" [nzLoading]="loading" [disabled]="form.invalid">
-          <i nz-icon nzType="save"></i> Save
-        </button>
-      </div>
-    </nz-form-item>
-  </form>
-</nz-modal>
+    </form>
+  </div>
+</clr-modal>
