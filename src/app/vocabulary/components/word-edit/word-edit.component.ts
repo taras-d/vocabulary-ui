@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { ClrLoadingState } from '@clr/angular';
 
 import { BaseComponent } from '@shared/components/base/base-component';
-import { ErrorService } from '@core/services/error.service';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 
@@ -14,12 +14,12 @@ import { Word } from '@core/models/word';
 export class WordEditComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
-  loading: boolean;
+  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
   word: Word;
+  message: { type: string; text: string };
 
   constructor(
-    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -27,28 +27,27 @@ export class WordEditComponent extends BaseComponent {
 
   openModal(word: Word): void {
     this.word = Object.assign({}, word);
+    this.message = null;
+    this.loading = ClrLoadingState.DEFAULT;
     this.open = true;
   }
 
-  closeModal(): void {
-    this.word = null;
-    this.loading = false;
-    this.open = false;
-  }
-
   updateWord(): void {
-    this.loading = true;
+    this.loading = ClrLoadingState.LOADING;
+    this.message = null;
+
     this.wordsService.updateWord(this.word._id, {
       text: this.word.text,
       translation: this.word.translation
     }).pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: Word) => {
-      this.closeModal();
+      this.open = false;
+      this.loading = ClrLoadingState.DEFAULT;
       this.complete.emit(res);
-    }, err => {
-      this.errorService.handleError(err);
-      this.loading = false;
+    }, () => {
+      this.message = { type: 'danger', text: 'Error' };
+      this.loading = ClrLoadingState.DEFAULT;
     });
   }
 }

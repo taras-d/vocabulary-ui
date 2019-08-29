@@ -1,40 +1,44 @@
-<nz-modal nzTitle="Edit word" [(nzVisible)]="open" [nzFooter]="null"
- (nzOnCancel)="closeModal()" nzClassName="word-edit-modal">
-  <form nz-form *ngIf="word" #form="ngForm" (ngSubmit)="updateWord()">
-    <nz-form-item>
-      <nz-form-label [nzSm]="5" [nzNoColon]="true">Text</nz-form-label>
-      <nz-form-control [nzSm]="19" nzValidateStatus="success">
-        <input nz-input name="text" type="text" maxlength="200"
-          placeholder="Text" [(ngModel)]="word.text" vNotEmpty>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="5" [nzNoColon]="true">Translation</nz-form-label>
-      <nz-form-control [nzSm]="19">
-        <input nz-input name="translation" type="text" maxlength="200"
-          placeholder="Translation" [(ngModel)]="word.translation">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="5" [nzNoColon]="true">Created</nz-form-label>
-      <nz-form-control [nzSm]="19">
-        <input nz-input value="{{word.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="5" [nzNoColon]="true">Updated</nz-form-label>
-      <nz-form-control [nzSm]="19">
-        <input nz-input value="{{word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}" disabled>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <button nz-button (click)="closeModal()" type="button">
-        <i nz-icon nzType="left-circle"></i> Cancel
-      </button>
-      <button nz-button nzType="primary" class="save-btn"
-        [nzLoading]="loading" [disabled]="form.invalid">
-        <i nz-icon nzType="save"></i> Save
-      </button>
-    </nz-form-item>
-  </form> 
-</nz-modal>
+<clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="false">
+  <h3 class="modal-title">Edit word</h3>
+
+  <div class="modal-body">
+    <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
+      <clr-alert-item>
+        <span class="alert-text">{{message.text}}</span>
+      </clr-alert-item>
+    </clr-alert>
+
+    <form *ngIf="word" clrForm #form="ngForm">
+      <clr-input-container>
+        <label>Text</label>
+        <input clrInput type="text" name="text" maxlength="200"
+          placeholder="Text" [(ngModel)]="word.text" vNotEmpty/>
+        <clr-control-error>Text cannot be empty</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Translation</label>
+        <input clrInput type="text" name="translation" maxlength="200"
+          placeholder="Translation" [(ngModel)]="word.translation"/>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Created</label>
+        <input clrInput type="text" name="created" disabled
+          value="{{word.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+      </clr-input-container>
+      <clr-input-container>
+        <label>Updated</label>
+        <input clrInput type="text" name="updated" disabled
+          value="{{word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+      </clr-input-container>
+      <div class="actions">
+        <button class="btn btn-outline" type="button" (click)="open = false">
+          Cancel
+        </button>
+        <button class="btn btn-primary" type="button" (click)="updateWord()"
+          [disabled]="form?.invalid" [clrLoading]="loading">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</clr-modal>
