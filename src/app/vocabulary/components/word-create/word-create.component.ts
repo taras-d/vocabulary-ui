@@ -20,10 +20,9 @@ export class WordCreateComponent extends BaseComponent {
   open: boolean;
   words: Word[] = [];
   message: { type: string; text: string };
+  extraInfo: boolean;
 
   constructor(
-    private notificationService: NzNotificationService,
-    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -36,6 +35,7 @@ export class WordCreateComponent extends BaseComponent {
     this.open = true;
     this.loading = ClrLoadingState.DEFAULT;
     this.message = null;
+    this.extraInfo = false;
   }
 
   addWord(): void {
@@ -54,10 +54,13 @@ export class WordCreateComponent extends BaseComponent {
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: WordCreateResult) => {
-      console.log(res);
       this.words = [];
-      this.open = false;
-      this.complete.emit();
+      if (res.duplicates) {
+        this.extraInfo = true;
+      } else {
+        this.open = false;
+        this.complete.emit();
+      }
     }, () => {
       this.message = { type: 'danger', text: 'Error' };
       this.loading = ClrLoadingState.DEFAULT;

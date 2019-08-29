@@ -8,7 +8,7 @@
       </clr-alert-item>
     </clr-alert>
 
-    <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
+    <form *ngIf="!extraInfo" nz-form #form="ngForm" (ngSubmit)="saveWords()">
       <div class="items-wrapper">
         <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
           <nz-input-group [nzCompact]="true">
@@ -26,7 +26,7 @@
 
       <div class="actions clr-row">
         <div class="clr-col-4">
-          <button class="btn btn-outline" type="button" (click)="open = false">
+          <button class="btn" type="button" (click)="open = false">
             <clr-icon shape="undo"></clr-icon> Cancel
           </button>
         </div>
@@ -43,5 +43,24 @@
         </div>
       </div>
     </form>
+
+    <div *ngIf="extraInfo" class="extra-info">
+      <clr-alert [clrAlertType]="'warning'" [clrAlertClosable]="false">
+        <clr-alert-item>
+          <span class="alert-text">
+            <div>Following words were not added because they are already in the database:</div>
+            <ul class="list">
+              <li>word1</li>
+              <li>word2</li>
+            </ul>
+          </span>
+        </clr-alert-item>
+      </clr-alert>
+      <div class="btn-ok">
+        <button class="btn" type="button" (click)="open = false">
+          <clr-icon shape="check"></clr-icon> Ok
+        </button>
+      </div>
+    </div>
   </div>
 </clr-modal>
