@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { ClrLoadingState } from '@clr/angular';
 
 import { BaseComponent } from '@shared/components/base/base-component';
 import { ErrorService } from '@core/services/error.service';
@@ -15,9 +16,10 @@ import { Word, WordCreateResult } from '@core/models/word';
 export class WordCreateComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
-  loading: boolean;
+  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
   words: Word[] = [];
+  message: { type: string; text: string };
 
   constructor(
     private notificationService: NzNotificationService,
@@ -32,11 +34,8 @@ export class WordCreateComponent extends BaseComponent {
       this.addWord();
     }
     this.open = true;
-  }
-
-  closeModal(): void {
-    this.loading = false;
-    this.open = false;
+    this.loading = ClrLoadingState.DEFAULT;
+    this.message = null;
   }
 
   addWord(): void {
@@ -49,20 +48,19 @@ export class WordCreateComponent extends BaseComponent {
   }
 
   saveWords(): void {
-    this.loading = true;
+    this.loading = ClrLoadingState.LOADING;
+    this.message = null;
+
     this.wordsService.createWord(this.words).pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: WordCreateResult) => {
-      const method = res.duplicates ? 'info' : 'success';
-      this.notificationService[method](
-        'Info', `New words - <b>${res.inserted}</b>, duplicated words - <b>${res.duplicates}</b>`
-      );
+      console.log(res);
       this.words = [];
-      this.closeModal();
+      this.open = false;
       this.complete.emit();
-    }, err => {
-      this.errorService.handleError(err);
-      this.loading = false;
+    }, () => {
+      this.message = { type: 'danger', text: 'Error' };
+      this.loading = ClrLoadingState.DEFAULT;
     });
   }
 

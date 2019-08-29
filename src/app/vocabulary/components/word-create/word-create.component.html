@@ -2,6 +2,12 @@
   <div class="modal-title">Add word(s)</div>
 
   <div class="modal-body">
+    <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
+      <clr-alert-item>
+        <span class="alert-text">{{message.text}}</span>
+      </clr-alert-item>
+    </clr-alert>
+
     <form nz-form #form="ngForm" (ngSubmit)="saveWords()">
       <div class="items-wrapper">
         <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
