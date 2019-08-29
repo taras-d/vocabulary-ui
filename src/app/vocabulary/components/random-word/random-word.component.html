@@ -1,35 +1,36 @@
-<nz-spin [nzSpinning]="loading">
-  <ng-container *ngIf="word">
-    <div class="word">
-      <ng-template #hintTemplate>
-        <div class="word-hint">{{word?.translation || 'no translation'}}</div>
-      </ng-template>
-      <span class="word-text" title="Click to show translation"
-        nz-popover nzTrigger="click" [nzContent]="hintTemplate">
-        {{word.text}}
-      </span>
-    </div>
-    
-    <nz-button-group class="word-actions">
-      <a nz-button  title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
-        <i nz-icon type="google"></i>
-      </a>
-      <a nz-button title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
-        <i nz-icon type="picture"></i>
-      </a>
-      <button nz-button title="Edit word" (click)="wordEditCmp.openModal(word)">
-        <i nz-icon type="edit"></i> 
-      </button>
-    </nz-button-group>
+<ng-container *ngIf="word">
+  <h1 class="word-text">
+    {{word.text}}
+  </h1>
 
-    <button nz-button (click)="getRandomWord()" title="Next random word" class="next-word">
-      <i nz-icon type="interation"></i> Next
+  <div class="btn-group btn-icon word-actions">
+    <button class="btn" title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
+      <clr-icon shape="text"></clr-icon>
     </button>
+    <button class="btn" title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
+      <clr-icon shape="image"></clr-icon>
+    </button>
+    <button class="btn" title="Edit word" (click)="wordEditCmp.openModal(word)">
+      <clr-icon shape="pencil"></clr-icon>
+    </button>
+  </div>
 
-    <div class="word-count" title="Words shown">{{wordCount}}</div>
-  </ng-container>
+  <button (click)="getRandomWord()" title="Next random word" class="btn next-word">
+    <clr-icon shape="shuffle"></clr-icon> Next
+  </button>
 
-  <nz-alert *ngIf="!loading && !word" nzType="info" nzMessage="No data"></nz-alert>
-</nz-spin>
+  <div class="badge bedge-5 word-count" title="Words shown">{{wordCount}}</div>
+</ng-container>
+
+<clr-alert *ngIf="message" class="page-alert"
+  [clrAlertType]="message.type" [clrAlertClosable]="false">
+  <clr-alert-item>
+    <span class="alert-text">{{message.text}}</span>
+  </clr-alert-item>
+</clr-alert>
+
+<div *ngIf="loading" class="spinner-cover">
+  <div class="spinner spinner-md"></div>
+</div>
 
 <v-word-edit #wordEditCmp (complete)="editComplete($event)"></v-word-edit>

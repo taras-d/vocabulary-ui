@@ -2,44 +2,28 @@
 
 :host {
   display: block;
+  position: relative;
   text-align: center;
+  min-height: 36px;
 }
 
-nz-spin {
-  min-height: 40px;
-}
-nz-alert {
-  max-width: 300px;
-  margin: 0 auto;
-  text-align: center;
-}
-.word {
-  font-size: 30px;
-  font-weight: 500;
+.word-text {
   word-break: break-word;
-  .word-text {
-    cursor: pointer;
-  }
-}
-.word-hint {
-  font-style: italic;
-  word-break: break-word;
-  max-width: 500px;
 }
 .word-actions {
   display: block;
-  margin: 15px 0 22px;
+  margin: 12px 0 24px;
 }
 .next-word {
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 .word-count {
   position: absolute;
   bottom: 0;
   right: 0;
-  min-width: 22px;
-  border: 1px solid @border-color-base;
-  border-radius: 50%;
-  font-size: 11px;
-  padding: 2px;
+}
+
+// TODO: Remove after migration
+.word-text {
+  margin-bottom: 0;
 }

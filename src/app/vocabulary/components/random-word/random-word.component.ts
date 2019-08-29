@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/components/base/base-component';
-import { ErrorService } from '@core/services/error.service';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 
@@ -15,9 +14,9 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
   loading: boolean;
   word: Word;
   wordCount = 0;
+  message: { type: string, text: string };
 
   constructor(
-    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
@@ -29,14 +28,21 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
 
   getRandomWord(): void {
     this.loading = true;
+    this.message = null;
+
     this.wordsService.getRandomWord().pipe(
       takeUntil(this.destroy$)
     ).subscribe((res: Word) => {
       this.word = res;
-      this.wordCount += 1;
+      if (this.word) {
+        this.wordCount += 1;
+      } else {
+        this.message = { type: 'info', text: 'No data' };
+      }
       this.loading = false;
-    }, err => {
-      this.errorService.handleError(err);
+    }, () => {
+      this.message = { type: 'danger', text: 'Service temporarely unavailable' };
+      this.loading = false;
     });
   }
 
