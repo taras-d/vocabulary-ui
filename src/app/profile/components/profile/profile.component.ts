@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/services/auth.service';
 import { BaseComponent } from '@core/utils';
-import { User } from '@core/models';
+import { User } from '@core/models/auth';
 
 @Component({
   selector: 'v-profile',

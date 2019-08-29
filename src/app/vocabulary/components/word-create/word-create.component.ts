@@ -3,9 +3,9 @@ import { takeUntil } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd';
 
 import { BaseComponent } from '@core/utils';
-import { ErrorService } from '@core/services';
-import { WordsService } from '@vocabulary/services';
-import { Word, WordCreateResult } from '@core/models';
+import { ErrorService } from '@core/services/error.service';
+import { WordsService } from '@vocabulary/services/words.service';
+import { Word, WordCreateResult } from '@core/models/word';
 
 @Component({
   selector: 'v-word-create',

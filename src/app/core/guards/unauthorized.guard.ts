@@ -3,8 +3,8 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '@core/services';
-import { User } from '@core/models';
+import { AuthService } from '@core/services/auth.service';
+import { User } from '@core/models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class UnauthorizedGuard implements CanActivate {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { Word, WordList, WordCreateResult } from '@core/models';
+import { Word, WordList, WordCreateResult } from '@core/models/word';
 
 @Injectable({ providedIn: 'root' })
 export class WordsService {

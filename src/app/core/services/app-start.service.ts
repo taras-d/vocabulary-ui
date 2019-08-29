@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { User } from '@core/models';
+import { User } from '@core/models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AppStartService {

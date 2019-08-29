@@ -5,8 +5,8 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { AppStartService } from './app.start.service';
-import { User, AuthResult } from '@core/models';
+import { AppStartService } from './app-start.service';
+import { User, AuthResult } from '@core/models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ApiInterceptor } from '@core/interceptors/api.interceptor';
-import { AppStartService } from '@core/services';
+import { AppStartService } from '@core/services/app-start.service';
 
 @NgModule({
   imports: [

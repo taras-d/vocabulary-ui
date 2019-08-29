@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, HostListener, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 
-import { Word } from '@core/models';
+import { Word } from '@core/models/word';
 
 @Component({
   selector: 'v-word-actions',

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthorizedGuard } from '@core/guards';
+import { AuthorizedGuard } from '@core/guards/authorized.guard';
 import { PageLayoutComponent } from '@shared/components';
 import { ProfileComponent } from './components/profile/profile.component';
 

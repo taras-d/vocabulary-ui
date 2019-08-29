@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 
 import { BaseComponent } from '@core/utils';
-import { ErrorService } from '@core/services';
-import { WordsService } from '@vocabulary/services';
-import { Word } from '@core/models';
+import { ErrorService } from '@core/services/error.service';
+import { WordsService } from '@vocabulary/services/words.service';
+import { Word } from '@core/models/word';
 
 @Component({
   selector: 'v-words-list',

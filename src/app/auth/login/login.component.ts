@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/services/auth.service';
 import { BaseComponent } from '@core/utils';
 
 @Component({
