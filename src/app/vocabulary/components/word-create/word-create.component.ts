@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd';
 
-import { BaseComponent } from '@core/utils';
+import { BaseComponent } from '@shared/components/base/base-component';
 import { ErrorService } from '@core/services/error.service';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word, WordCreateResult } from '@core/models/word';
