@@ -4,8 +4,7 @@ import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import Chart from 'chart.js';
 
 import { BaseComponent } from '@core/utils';
-import { ErrorService } from '@core/services';
-import { WordsStatsService } from '@vocabulary/services';
+import { WordsStatsService } from '@vocabulary/services/words-stats.service';
 
 @Component({
   selector: 'v-words-stats',
@@ -20,9 +19,9 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   selectedYear: number;
   totalInMonth: number[];
   chart: Chart;
+  message: { type: string, text: string };
 
   constructor(
-    private errorService: ErrorService,
     private wordsStatsService: WordsStatsService
   ) {
     super();
@@ -50,13 +49,19 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
 
   private loadData(): void {
     this.loading = true;
+    this.message = null;
+
     this.loadYears().pipe(
       mergeMap(() => this.loadTotalInMonth()),
       takeUntil(this.destroy$)
     ).subscribe(() => {
+      if (!this.totalInMonth) {
+        this.message = { type: 'info', text: 'No data' };
+      }
       this.loading = false;
-    }, err => {
-      this.errorService.handleError(err);
+    }, () => {
+      this.message = { type: 'danger', text: 'Service temporarely unavailable' };
+      this.loading = false;
     });
   }
 
@@ -64,6 +69,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     if (this.years) {
       return of(null);
     }
+
     return this.wordsStatsService.getAvailableYears().pipe(
       tap((years: number[]) => {
         this.years = years;
@@ -76,6 +82,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
     if (!this.selectedYear) {
       return of(null);
     }
+
     return this.wordsStatsService.getTotalInMonth(this.selectedYear).pipe(
       tap((totalInMonth: number[]) => {
         this.totalInMonth = totalInMonth;

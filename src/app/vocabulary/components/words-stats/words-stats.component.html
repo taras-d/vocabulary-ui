@@ -14,10 +14,9 @@
   </div>
 </ng-container>
 
-<clr-alert *ngIf="!loading && !totalInMonth"
-  [clrAlertType]="'info'" [clrAlertClosable]="false">
+<clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
     <clr-alert-item>
-        <span class="alert-text">No data</span>
+        <span class="alert-text">{{message.text}}</span>
     </clr-alert-item>
 </clr-alert>
 
