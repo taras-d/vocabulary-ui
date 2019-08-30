@@ -9,33 +9,33 @@
     </clr-alert>
 
     <form *ngIf="!extraInfo" nz-form #form="ngForm" (ngSubmit)="saveWords()">
-      <div class="items-wrapper">
-        <nz-form-item *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
-          <nz-input-group [nzCompact]="true">
-            <input type="text" nz-input name="text-{{wordIndex}}" placeholder="Text"
-              [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
-            <input type="text" nz-input name="translation-{{wordIndex}}" placeholder="Translation"
-              [(ngModel)]="word.translation" maxlength="200"/>
-            <button nz-button (click)="deleteWord(wordIndex)"
-              [disabled]="words.length === 1" type="button">
-              <i nz-icon type="delete"></i>
-            </button>
-          </nz-input-group>
-        </nz-form-item>
+      <div class="items-wrapper" #itemsWrapper>
+        <div class="item" *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
+          <div class="item-text">
+            <input type="text" class="clr-input" placeholder="Text"
+              name="text-{{wordIndex}}" [(ngModel)]="word.text" maxlength="200" vNotEmpty/>
+          </div>
+          <div class="item-translation">
+            <input type="translation" class="clr-input" placeholder="Translation"
+              name="text-{{wordIndex}}" [(ngModel)]="word.translation" maxlength="200"/>
+          </div>
+          <div class="item-delete">
+            <clr-icon shape="trash" (click)="deleteWord(wordIndex)"
+              [class.disabled]="words.length === 1"></clr-icon>
+          </div>
+        </div>
       </div>
 
       <div class="actions clr-row">
         <div class="clr-col-4">
+          <a (click)="addWord()">
+            <clr-icon shape="plus"></clr-icon> Add word
+          </a>
+        </div>
+        <div class="clr-col-8 text-right">
           <button class="btn" type="button" (click)="open = false">
             <clr-icon shape="undo"></clr-icon> Cancel
           </button>
-        </div>
-        <div class="clr-col-4 add-btn">
-          <button class="btn btn-link" type="button" (click)="addWord()">
-            <clr-icon shape="plus"></clr-icon> Add word
-          </button>
-        </div>
-        <div class="clr-col-4 save-btn">
           <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
             [clrLoading]="loading">
             <clr-icon shape="floppy"></clr-icon> Save
@@ -45,10 +45,10 @@
     </form>
 
     <div *ngIf="extraInfo" class="extra-info">
-      <clr-alert [clrAlertType]="'warning'" [clrAlertClosable]="false">
+      <clr-alert [clrAlertType]="'info'" [clrAlertClosable]="false">
         <clr-alert-item>
           <span class="alert-text">
-            <div>Following words were not added because they are already in the database:</div>
+            <div>Following words were not saved because they are already in the database:</div>
             <ul class="list">
               <li>word1</li>
               <li>word2</li>
@@ -56,7 +56,7 @@
           </span>
         </clr-alert-item>
       </clr-alert>
-      <div class="btn-ok">
+      <div class="text-center">
         <button class="btn" type="button" (click)="open = false">
           <clr-icon shape="check"></clr-icon> Ok
         </button>

@@ -1,10 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { NzNotificationService } from 'ng-zorro-antd';
 import { ClrLoadingState } from '@clr/angular';
 
 import { BaseComponent } from '@shared/components/base/base-component';
-import { ErrorService } from '@core/services/error.service';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word, WordCreateResult } from '@core/models/word';
 
@@ -15,6 +13,8 @@ import { Word, WordCreateResult } from '@core/models/word';
 })
 export class WordCreateComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
+
+  @ViewChild('itemsWrapper', { static: false }) itemsWrapper: ElementRef;
 
   loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
@@ -44,7 +44,9 @@ export class WordCreateComponent extends BaseComponent {
   }
 
   deleteWord(index: number): void {
-    this.words.splice(index, 1);
+    if (this.words.length > 1) {
+      this.words.splice(index, 1);
+    }
   }
 
   saveWords(): void {
@@ -73,7 +75,7 @@ export class WordCreateComponent extends BaseComponent {
 
   private scrollToBottom(): void {
     setTimeout(() => {
-      const el: HTMLElement = document.querySelector('.word-create-modal .items-wrapper');
+      const el: HTMLElement = this.itemsWrapper && this.itemsWrapper.nativeElement;
       if (el) {
         el.scrollTop = el.scrollHeight;
       }
