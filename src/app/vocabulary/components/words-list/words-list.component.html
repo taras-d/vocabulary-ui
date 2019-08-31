@@ -1,15 +1,10 @@
 <!-- Spinner -->
 <nz-spin [nzSpinning]="loading">
 
-  <!-- Search -->
   <div class="search">
-    <nz-input-group [nzCompact]="true">
-      <input type="text" nz-input placeholder="Search"
-        [(ngModel)]="search" (keyup.enter)="getWords()"/>
-      <button nz-button (click)="getWords()">
-        <i nz-icon type="search"></i>
-      </button>
-    </nz-input-group>
+    <input class="clr-input" placeholder="Search" name="search"
+      [(ngModel)]="search" (keyup.enter)="getWords()"/>
+    <clr-icon shape="search" (click)="getWords()"></clr-icon>
   </div>
 
   <!-- Table -->

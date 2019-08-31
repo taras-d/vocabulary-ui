@@ -11,14 +11,17 @@ nz-table {
   }
 }
 .search {
-  max-width: 350px;
+  max-width: 300px;
   margin: 0 auto;
-  @btnWidth: 32px;
-  input {
-    width: calc(100% - @btnWidth);
+  position: relative;
+  .clr-input {
+    width: 100%;
   }
-  button {
-    width: @btnWidth;
+  clr-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    cursor: pointer;
   }
 }
 .footer {
