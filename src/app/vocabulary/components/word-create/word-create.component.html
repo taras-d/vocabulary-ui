@@ -8,7 +8,7 @@
       </clr-alert-item>
     </clr-alert>
 
-    <form *ngIf="!extraInfo" nz-form #form="ngForm" (ngSubmit)="saveWords()">
+    <form *ngIf="!extraInfo" #form="ngForm" (ngSubmit)="saveWords()">
       <div class="items-wrapper" #itemsWrapper>
         <div class="item" *ngFor="let word of words; index as wordIndex; trackBy: trackWord">
           <div class="item-text">
