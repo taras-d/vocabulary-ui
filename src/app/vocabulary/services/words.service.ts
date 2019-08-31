@@ -49,7 +49,7 @@ export class WordsService {
     );
   }
 
-  deleteWord(id: number): Observable<Word> {
+  deleteWord(id: string): Observable<Word> {
     return this.http.delete<Word>(`words/${id}`);
   }
 

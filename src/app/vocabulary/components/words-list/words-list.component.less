@@ -1,14 +1,6 @@
-nz-table {
-  max-width: 700px;
-  margin: 15px auto 0;
-  td, th {
-    padding: 8px !important;
-    word-break: break-word;
-    line-height: normal;
-  }
-  .ant-table-tbody tr:hover td {
-    background-color: transparent;
-  }
+:host {
+  display: block;
+  position: relative;
 }
 .search {
   max-width: 300px;
@@ -24,20 +16,23 @@ nz-table {
     cursor: pointer;
   }
 }
-.footer {
-  .paging {
-    padding: 3px 0 0 0;
+.actions {
+  padding: 4px 12px;
+  flex-grow: 0;
+  min-width: 0;
+  .btn-group {
+    margin: 0;
   }
-  .add-words {
-    text-align: right;
-  }
-  @media(max-width: 575px) {
-    .paging {
-      padding: 0 0 10px 0;
-      text-align: center;
+  .btn {
+    padding: 4px 6px;
+    line-height: normal;
+    height: auto;
+    clr-icon {
+      transform: none;
     }
-    .add-words {
-      text-align: center;
-    }
   }
+}
+clr-datagrid {
+  max-width: 700px;
+  margin: 0 auto;
 }

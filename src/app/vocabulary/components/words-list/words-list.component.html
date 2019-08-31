@@ -1,66 +1,66 @@
-<!-- Spinner -->
-<nz-spin [nzSpinning]="loading">
+<div class="search">
+  <input class="clr-input" placeholder="Search" name="search"
+    [(ngModel)]="search" (keyup.enter)="getWords()"/>
+  <clr-icon shape="search" (click)="getWords()"></clr-icon>
+</div>
 
-  <div class="search">
-    <input class="clr-input" placeholder="Search" name="search"
-      [(ngModel)]="search" (keyup.enter)="getWords()"/>
-    <clr-icon shape="search" (click)="getWords()"></clr-icon>
-  </div>
+<clr-datagrid>
+  <clr-dg-column>Text</clr-dg-column>
+  <clr-dg-column>Translation</clr-dg-column>
+  <clr-dg-column *ngIf="!actionMenuVisible" class="actions"></clr-dg-column>
 
-  <!-- Table -->
-  <nz-table #wordsTable nzSize="middle"
-    [nzData]="words"
-    [nzShowPagination]="false"
-    [nzFrontPagination]="false"
-    [nzFooter]="tableFooterTpl"
-    [nzNoResult]="'No data'"
-    [nzBordered]="true">
-    <thead>
-      <tr>
-        <th style="width: 50%">Word</th>
-        <th style="width: 50%">Translation</th>
-        <th style="min-width: 40px"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let word of wordsTable.data; trackBy: trackWord">
-        <td>{{word.text}}</td>
-        <td>{{word.translation}}</td>
-        <td>
-          <v-word-actions [word]="word"
-            (edit)="wordEditCmp.openModal(word)"
-            (delete)="deleteWord(word)">
-          </v-word-actions>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
-
-  <!-- Table footer -->
-  <ng-template #tableFooterTpl>
-    <div class="footer" nz-row>
-      <div nz-col [nzSm]="18" class="paging">
-        <nz-pagination *ngIf="words?.length"
-          [nzSize]="'small'"
-          [nzTotal]="paging.total"
-          [nzPageSize]="paging.pageSize"
-          [nzShowTotal]="totalTpl"
-          [(nzPageIndex)]="paging.page"
-          (nzPageIndexChange)="getWords()">
-        </nz-pagination>
-        <ng-template #totalTpl let-range="range" let-total>
-          {{range[0]}}-{{range[1]}} of {{total}} words
-        </ng-template>
-      </div>
-      <div nz-col [nzSm]="6" class="add-words">
-        <button nz-button (click)="wordCreateCmp.openModal()">
-          <i nz-icon nzType="plus-circle"></i> Add word(s)
+  <clr-dg-row *ngFor="let word of words">
+    <clr-dg-cell>{{word.text}}</clr-dg-cell>
+    <clr-dg-cell>{{word.translation}}</clr-dg-cell>
+    <clr-dg-cell *ngIf="!actionMenuVisible" class="actions">
+      <div class="btn-group btn-icon">
+        <button class="btn" [title]="actions.openGoogleTranslate" [vOpenUrl]="word.googleTranslateLink">
+          <clr-icon shape="text"></clr-icon>
+        </button>
+        <button class="btn" [title]="actions.openGoogleImages" [vOpenUrl]="word.googleImagesLink">
+          <clr-icon shape="image"></clr-icon>
+        </button>
+        <button class="btn" [title]="actions.editWord" (click)="editClick(word)">
+          <clr-icon shape="pencil"></clr-icon>
+        </button>
+        <button class="btn" [title]="actions.deleteWord" (click)="deleteClick(word)">
+          <clr-icon shape="trash"></clr-icon>
         </button>
       </div>
-    </div>
-  </ng-template>
-</nz-spin>
+    </clr-dg-cell>
+    <clr-dg-action-overflow *ngIf="actionMenuVisible">
+      <button class="action-item" [vOpenUrl]="word.googleTranslateLink">
+        {{actions.openGoogleTranslate}}
+      </button>
+      <button class="action-item" [vOpenUrl]="word.googleImagesLink">
+        {{actions.openGoogleImages}}
+      </button>
+      <button class="action-item" (click)="editClick(word)">
+        {{actions.editWord}}
+      </button>
+      <button class="action-item" (click)="deleteClick(word)">
+        {{actions.deleteWord}}
+      </button>
+    </clr-dg-action-overflow>
+  </clr-dg-row>
 
-<!-- Word edit & create modals -->
-<v-word-edit #wordEditCmp (complete)="editComplete($event)"></v-word-edit>
-<v-word-create #wordCreateCmp (complete)="getWords()"></v-word-create>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination
+      [clrDgPage]="paging.page"
+      [clrDgPageSize]="paging.pageSize"
+      [clrDgTotalItems]="paging.total"
+      (clrDgPageChange)="pageChanged($event)">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} words
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>
+
+<v-word-edit (complete)="editComplete($event)"></v-word-edit>
+
+<v-word-create (complete)="createComplete()"></v-word-create>
+
+<v-word-delete (complete)="deleteComplete($event)"></v-word-delete>
+
+<div *ngIf="loading" class="spinner-cover">
+  <div class="spinner spinner-md"></div>
+</div>

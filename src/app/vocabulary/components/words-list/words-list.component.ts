@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/components/base/base-component';
-import { ErrorService } from '@core/services/error.service';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
+import { WordEditComponent } from '../word-edit/word-edit.component';
+import { WordCreateComponent } from '../word-create/word-create.component';
+import { WordDeleteComponent } from '../word-delete/word-delete.component';
+
+const actions = {
+  openGoogleTranslate: 'Open in Google Translate',
+  openGoogleImages: 'Open in Google Images',
+  editWord: 'Edit word',
+  deleteWord: 'Delete word'
+};
 
 @Component({
   selector: 'v-words-list',
@@ -13,50 +22,31 @@ import { Word } from '@core/models/word';
   styleUrls: ['./words-list.component.less']
 })
 export class WordsListComponent extends BaseComponent implements OnInit {
+  @ViewChild(WordEditComponent, { static: true }) wordEditRef: WordEditComponent;
+  @ViewChild(WordCreateComponent, { static: true }) wordCreateRef: WordCreateComponent;
+  @ViewChild(WordDeleteComponent, { static: true }) wordDeleteRef: WordDeleteComponent;
+
   loading: boolean;
+  actionMenuVisible: boolean;
   search: string;
   words: Word[] = [];
   paging = { page: 1, pageSize: 10, total: 0 };
 
+  actions = actions;
+
   constructor(
-    private errorService: ErrorService,
     private wordsService: WordsService
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.setActionMenuVisible();
     this.getWords();
   }
 
-  getWords(): void {
-    this.loading = true;
-    this.getWordsRequest().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
-      error: err => {
-        this.errorService.handleError(err);
-        this.loading = false;
-      }
-    });
-  }
-
-  deleteWord(word: any): void {
-    this.loading = true;
-    this.wordsService.deleteWord(word._id).pipe(
-      mergeMap(() => {
-        if (this.paging.page > 1 && this.words.length === 1) {
-          this.paging.page -= 1;
-        }
-        return this.getWordsRequest();
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe({
-      error: err => {
-        this.errorService.handleError(err);
-        this.loading = false;
-      }
-    });
+  editClick(word: Word): void {
+    this.wordEditRef.openModal(word);
   }
 
   editComplete(res: Word): void {
@@ -64,13 +54,31 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     Object.assign(word, res);
   }
 
-  trackWord(index: number, word: any): any {
-    return word._id;
+  deleteClick(word: Word): void {
+    this.wordDeleteRef.openModal(word);
   }
 
-  private getWordsRequest(): Observable<any> {
+  deleteComplete(): void {
+    if (this.paging.page > 1 && this.words.length === 1) {
+      this.paging.page -= 1;
+    }
+    this.getWords();
+  }
+
+  createClick(): void {
+    this.wordCreateRef.openModal();
+  }
+
+  createComplete(): void {
+    this.getWords();
+  }
+
+  getWords(): void {
+    this.loading = true;
+
     const { page, pageSize } = this.paging;
-    return this.wordsService.getWords(this.search, {
+
+    this.wordsService.getWords(this.search, {
       skip: (page * pageSize) - pageSize, limit: pageSize
     }).pipe(
       tap((res: any) => {
@@ -82,6 +90,27 @@ export class WordsListComponent extends BaseComponent implements OnInit {
         };
         this.loading = false;
       })
-    );
+    ).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      error: err => {
+        // TODO: Show error message
+        console.log(err);
+      }
+    });
+  }
+
+  pageChanged(page: number): void {
+    this.paging.page = page;
+    this.getWords();
+  }
+
+  trackWord(index: number, word: any): any {
+    return word._id;
+  }
+  
+  @HostListener('window:resize')
+  private setActionMenuVisible(): void {
+    this.actionMenuVisible = window.innerWidth <= 600;
   }
 }
