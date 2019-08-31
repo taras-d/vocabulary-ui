@@ -1,7 +1,13 @@
 import { Component, Output, EventEmitter, Input, HostListener, OnInit } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd';
 
 import { Word } from '@core/models/word';
+
+const actions = {
+  openGoogleTranslate: 'Open in Google Translate',
+  openGoogleImages: 'Open in Google Images',
+  editWord: 'Edit word',
+  deleteWord: 'Delete word'
+};
 
 @Component({
   selector: 'v-word-actions',
@@ -14,23 +20,25 @@ export class WordActionsComponent implements OnInit {
   @Output() delete = new EventEmitter();
 
   isSmallScreen: boolean;
+  isDeleteConfirmOpen: boolean;
 
-  constructor(private modalService: NzModalService) {
-
-  }
+  actions = actions;
 
   ngOnInit(): void {
     this.detectScreen();
   }
 
+  editClick(): void {
+    this.edit.emit();
+  }
+
+  deleteClick(): void {
+    this.isDeleteConfirmOpen = true;
+  }
+
   deleteConfirm(): void {
-    this.modalService.confirm({
-      nzTitle: 'Delete word',
-      nzContent: 'Are you sure?',
-      nzOkText: 'Yes',
-      nzCancelText: 'No',
-      nzOnOk: () => this.delete.emit()
-    });
+    this.isDeleteConfirmOpen = false;
+    this.delete.emit();
   }
 
   @HostListener('window:resize')

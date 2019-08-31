@@ -1,36 +1,50 @@
-<nz-button-group *ngIf="!isSmallScreen">
-  <a nz-button nzSize="small" title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
-    <i nz-icon type="google"></i>
-  </a>
-  <a nz-button nzSize="small" title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
-    <i nz-icon type="picture"></i>
-  </a>
-  <button nz-button nzSize="small" title="Edit word" (click)="edit.emit()">
-    <i nz-icon type="edit"></i> 
+<div *ngIf="!isSmallScreen" class="btn-group btn-icon">
+  <button class="btn" [title]="actions.openGoogleTranslate" [vOpenUrl]="word.googleTranslateLink">
+    <clr-icon shape="text"></clr-icon>
   </button>
-  <button nz-button nzSize="small" title="Delete word"
-    nz-popconfirm
-    nzTitle="Are you sure?"
-    (nzOnConfirm)="delete.emit()"
-    nzPlacement="topRight"
-    nzOkText="Yes" nzCancelText="No">
-    <i nz-icon type="delete"></i> 
+  <button class="btn" [title]="actions.openGoogleImages" [vOpenUrl]="word.googleImagesLink">
+    <clr-icon shape="image"></clr-icon>
   </button>
-</nz-button-group>
+  <button class="btn" [title]="actions.editWord" (click)="editClick()">
+    <clr-icon shape="pencil"></clr-icon>
+  </button>
+  <button class="btn" [title]="actions.deleteWord" (click)="deleteClick()">
+    <clr-icon shape="trash"></clr-icon>
+  </button>
+</div>
 
-<nz-dropdown *ngIf="isSmallScreen" nzPlacement="bottomRight" nzTrigger="click">
-  <button nz-button nz-dropdown nzSize="small">
-    <i nz-icon type="setting"></i>
+<clr-dropdown *ngIf="isSmallScreen">
+  <button class="btn btn-icon" clrDropdownTrigger>
+    <clr-icon shape="cog"></clr-icon>
   </button>
-  <ul nz-menu>
-    <li nz-menu-item>
-      <a [vOpenUrl]="word.googleTranslateLink">Open in Google Translate</a>
-    </li>
-    <li nz-menu-item>
-      <a [vOpenUrl]="word.googleImagesLink">Open in Google Images</a>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="edit.emit()">Edit</li>
-    <li nz-menu-item (click)="deleteConfirm()">Delete</li>
-  </ul>
-</nz-dropdown>
+  <clr-dropdown-menu *clrIfOpen [clrPosition]="'bottom-right'">
+    <div clrDropdownItem [vOpenUrl]="word.googleTranslateLink">
+      {{actions.openGoogleTranslate}}
+    </div>
+    <div clrDropdownItem [vOpenUrl]="word.googleImagesLink">
+      {{actions.openGoogleImages}}
+    </div>
+    <div class="dropdown-divider" role="separator"></div>
+    <div clrDropdownItem (click)="editClick()">
+      {{actions.editWord}}
+    </div>
+    <div clrDropdownItem (click)="deleteClick()">
+      {{actions.deleteWord}}
+    </div>
+  </clr-dropdown-menu>
+</clr-dropdown>
+
+<clr-modal [(clrModalOpen)]="isDeleteConfirmOpen" [clrModalStaticBackdrop]="false">
+  <div class="modal-title">Delete word</div>
+  <div class="modal-body">
+    Are you really want to delete word <b>{{word?.text}}</b>?
+  </div>
+  <div class="modal-footer">
+    <button class="btn" (click)="isDeleteConfirmOpen = false">
+      <clr-icon shape="undo"></clr-icon> Cancel
+    </button>
+    <button class="btn btn-warning" (click)="deleteConfirm()">
+      <clr-icon shape="trash"></clr-icon> Delete
+    </button>
+  </div>
+</clr-modal>
