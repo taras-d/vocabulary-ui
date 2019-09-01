@@ -26,7 +26,6 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   @ViewChild(WordCreateComponent, { static: true }) wordCreateRef: WordCreateComponent;
   @ViewChild(WordDeleteComponent, { static: true }) wordDeleteRef: WordDeleteComponent;
 
-  loading: boolean;
   actionMenuVisible: boolean;
   search: string;
   words: Word[] = [];

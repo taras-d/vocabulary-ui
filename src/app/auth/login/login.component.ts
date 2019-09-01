@@ -12,9 +12,7 @@ import { BaseComponent } from '@shared/components/base/base.component';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent extends BaseComponent {
-  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
-  loginData = { email: '', password: '' };
-  message: { type: string, text: string };
+  user = { email: '', password: '' };
 
   constructor(
     private router: Router,
@@ -24,14 +22,14 @@ export class LoginComponent extends BaseComponent {
   }
 
   login(): void {
-    if (!this.loginData.email || !this.loginData.password) {
+    if (!this.user.email || !this.user.password) {
       return;
     }
 
     this.message = null;
     this.loading = ClrLoadingState.LOADING;
 
-    this.authService.login(this.loginData).pipe(
+    this.authService.login(this.user).pipe(
       takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigate(['/']);

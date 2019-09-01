@@ -16,10 +16,8 @@ export class WordCreateComponent extends BaseComponent {
 
   @ViewChild('itemsWrapper', { static: false }) itemsWrapper: ElementRef;
 
-  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
   words: Word[] = [];
-  message: { type: string; text: string };
   extraInfo: boolean;
 
   constructor(

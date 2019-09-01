@@ -14,10 +14,8 @@ import { Word } from '@core/models/word';
 export class WordEditComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
-  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
   word: Word;
-  message: { type: string; text: string };
 
   constructor(
     private wordsService: WordsService

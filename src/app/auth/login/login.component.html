@@ -8,11 +8,11 @@
     </clr-alert-item>
   </clr-alert>
   <clr-input-container>
-    <input clrInput type="text" [(ngModel)]="loginData.email"
+    <input clrInput type="text" [(ngModel)]="user.email"
       name="email" placeholder="Email" class="clr-col-12"/>
   </clr-input-container>
   <clr-password-container>
-    <input clrPassword type="password" [(ngModel)]="loginData.password"
+    <input clrPassword type="password" [(ngModel)]="user.password"
       name="password" placeholder="Password" class="clr-col-12"/>
   </clr-password-container>
   <button class="btn btn-primary btn-block login-btn" (click)="login()" [clrLoading]="loading">

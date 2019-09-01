@@ -14,12 +14,10 @@ import { WordsStatsService } from '@vocabulary/services/words-stats.service';
 export class WordsStatsComponent extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  loading: boolean;
   years: number[];
   selectedYear: number;
   totalInMonth: number[];
   chart: Chart;
-  message: { type: string, text: string };
 
   constructor(
     private wordsStatsService: WordsStatsService

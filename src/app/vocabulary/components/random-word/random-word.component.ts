@@ -11,10 +11,8 @@ import { Word } from '@core/models/word';
   styleUrls: ['./random-word.component.less']
 })
 export class RandomWordComponent extends BaseComponent implements OnInit {
-  loading: boolean;
   word: Word;
   wordCount = 0;
-  message: { type: string, text: string };
 
   constructor(
     private wordsService: WordsService

@@ -15,7 +15,6 @@ export class WordDeleteComponent extends BaseComponent {
   @Input() word: Word;
   @Output() complete = new EventEmitter();
 
-  loading: ClrLoadingState = ClrLoadingState.DEFAULT;
   open: boolean;
 
   constructor(
