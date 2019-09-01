@@ -58,6 +58,10 @@ export class WordCreateComponent extends BaseComponent {
     ).subscribe((res: WordCreateResult) => {
       this.words = [];
       if (res.duplicates) {
+        this.message = {
+          type: 'info',
+          text: 'Words added: <b>5 of 10</b><br/>Duplicated words: <b>word1, word2</b>'
+        };
         this.extraInfo = true;
       } else {
         this.open = false;

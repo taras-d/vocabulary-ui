@@ -40,23 +40,10 @@
       </div>
     </form>
 
-    <div *ngIf="extraInfo" class="extra-info">
-      <clr-alert [clrAlertType]="'info'" [clrAlertClosable]="false">
-        <clr-alert-item>
-          <span class="alert-text">
-            <div>Following words were not saved because they are already in the database:</div>
-            <ul class="list">
-              <li>word1</li>
-              <li>word2</li>
-            </ul>
-          </span>
-        </clr-alert-item>
-      </clr-alert>
-      <div class="text-center">
-        <button class="btn" type="button" (click)="open = false">
-          <clr-icon shape="check"></clr-icon> Ok
-        </button>
-      </div>
+    <div *ngIf="extraInfo" class="extra-info-ok">
+      <button class="btn" type="button" (click)="open = false">
+        <clr-icon shape="check"></clr-icon> Ok
+      </button>
     </div>
   </div>
 </clr-modal>
