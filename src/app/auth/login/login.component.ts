@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
 import { AuthService } from '@core/services/auth.service';
-import { BaseComponent } from '@shared/components/base/base-component';
+import { BaseComponent } from '@shared/components/base/base.component';
 
 @Component({
   selector: 'v-login',

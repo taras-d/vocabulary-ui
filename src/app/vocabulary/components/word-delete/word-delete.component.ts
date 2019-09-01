@@ -4,7 +4,7 @@ import { ClrLoadingState } from '@clr/angular';
 
 import { Word } from '@core/models/word';
 import { WordsService } from '@vocabulary/services/words.service';
-import { BaseComponent } from '@shared/components/base/base-component';
+import { BaseComponent } from '@shared/components/base/base.component';
 
 @Component({
   selector: 'v-word-delete',

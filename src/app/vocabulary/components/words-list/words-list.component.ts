@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 
-import { BaseComponent } from '@shared/components/base/base-component';
+import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { WordEditComponent } from '../word-edit/word-edit.component';

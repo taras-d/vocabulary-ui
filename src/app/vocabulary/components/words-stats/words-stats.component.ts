@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { takeUntil, tap, mergeMap } from 'rxjs/operators';
 import Chart from 'chart.js';
 
-import { BaseComponent } from '@shared/components/base/base-component';
+import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsStatsService } from '@vocabulary/services/words-stats.service';
 
 @Component({

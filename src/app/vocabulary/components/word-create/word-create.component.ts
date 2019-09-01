@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular
 import { takeUntil } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
-import { BaseComponent } from '@shared/components/base/base-component';
+import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word, WordCreateResult } from '@core/models/word';
 
