@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
+import { AlertMessageComponent } from './components/alert-message/alert-message.component';
 
 import { NotEmptyValidatorDirective } from './directives/not-empty.directive';
 import { OpenUrlDirective } from './directives/open-url.directive';
@@ -26,12 +27,14 @@ import { OpenUrlDirective } from './directives/open-url.directive';
     ClarityModule,
 
     PageLayoutComponent,
+    AlertMessageComponent,
 
     NotEmptyValidatorDirective,
     OpenUrlDirective
   ],
   declarations: [
     PageLayoutComponent,
+    AlertMessageComponent,
 
     NotEmptyValidatorDirective,
     OpenUrlDirective

@@ -2,11 +2,7 @@
   <div class="modal-title">Edit word</div>
 
   <div class="modal-body">
-    <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
-      <clr-alert-item>
-        <span class="alert-text">{{message.text}}</span>
-      </clr-alert-item>
-    </clr-alert>
+    <v-alert-message *ngIf="message" [message]="message" class="in-modal"></v-alert-message>
 
     <form *ngIf="word" clrForm #form="ngForm" (ngSubmit)="updateWord()">
       <clr-input-container>

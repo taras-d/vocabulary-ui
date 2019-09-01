@@ -1,3 +1,5 @@
+<v-alert-message *ngIf="message" [message]="message"></v-alert-message>
+
 <ng-container *ngIf="word">
   <h1 class="word-text">
     {{word.text}}
@@ -21,13 +23,6 @@
 
   <div class="badge bedge-5 word-count" title="Words shown">{{wordCount}}</div>
 </ng-container>
-
-<clr-alert *ngIf="message" class="page-alert"
-  [clrAlertType]="message.type" [clrAlertClosable]="false">
-  <clr-alert-item>
-    <span class="alert-text">{{message.text}}</span>
-  </clr-alert-item>
-</clr-alert>
 
 <div *ngIf="loading" class="spinner-cover">
   <div class="spinner spinner-md"></div>

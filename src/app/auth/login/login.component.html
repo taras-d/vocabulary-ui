@@ -2,11 +2,7 @@
   <h4 class="login-header">
     <clr-icon shape="book" size="18"></clr-icon> Vocabulary
   </h4>
-  <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
-    <clr-alert-item>
-      <span class="alert-text">{{message.text}}</span>
-    </clr-alert-item>
-  </clr-alert>
+  <v-alert-message *ngIf="message" [message]="message"></v-alert-message>
   <clr-input-container>
     <input clrInput type="text" [(ngModel)]="user.email"
       name="email" placeholder="Email" class="clr-col-12"/>

@@ -1,8 +1,4 @@
-<clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
-  <clr-alert-item>
-    <span class="alert-text">{{message.text}}</span>
-  </clr-alert-item>
-</clr-alert>
+<v-alert-message *ngIf="message" [message]="message"></v-alert-message>
 
 <div class="search">
   <input class="clr-input" placeholder="Search" name="search"

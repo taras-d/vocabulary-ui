@@ -1,11 +1,7 @@
 <clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="false">
   <div class="modal-title">Delete word</div>
   <div class="modal-body">
-    <clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
-      <clr-alert-item>
-        <span class="alert-text">{{message.text}}</span>
-      </clr-alert-item>
-    </clr-alert>
+    <v-alert-message *ngIf="message" [message]="message" class="in-modal"></v-alert-message>
     <div>
       Are you really want to delete word <b>{{word?.text}}</b>?
     </div>
