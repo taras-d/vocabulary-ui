@@ -16,6 +16,7 @@ export interface WordList {
 }
 
 export interface WordCreateResult {
-  duplicates: number;
-  inserted: number;
+  total: number;
+  inserted: Word[];
+  duplicates: Word[];
 }

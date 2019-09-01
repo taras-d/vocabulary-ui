@@ -57,15 +57,17 @@ export class WordCreateComponent extends BaseComponent {
       takeUntil(this.destroy$)
     ).subscribe((res: WordCreateResult) => {
       this.words = [];
-      if (res.duplicates) {
+      this.complete.emit();
+
+      if (res.duplicates.length) {
         this.message = {
           type: 'info',
-          text: 'Words added: <b>5 of 10</b><br/>Duplicated words: <b>word1, word2</b>'
+          text: `Words added: <b>${res.inserted.length} of ${res.total}</b><br/>` +
+            `Skipped words (duplicate): <b>${res.duplicates.map(w => w.text).join(', ')}</b>`
         };
         this.extraInfo = true;
       } else {
         this.open = false;
-        this.complete.emit();
       }
     }, err => {
       this.message = { type: 'danger', text: this.errorService.parseError(err) };
