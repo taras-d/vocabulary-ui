@@ -45,6 +45,11 @@
   </clr-dg-row>
 
   <clr-dg-footer>
+    <div class="text-left">
+      <button class="btn btn-sm" (click)="createClick()">
+        <clr-icon shape="plus"></clr-icon> Add word(s)
+      </button>
+    </div>
     <clr-dg-pagination #pagination
       [clrDgPage]="paging.page"
       [clrDgPageSize]="paging.pageSize"

@@ -17,7 +17,7 @@
   }
 }
 .actions {
-  padding: 4px 12px;
+  padding: 6px 12px;
   flex-grow: 0;
   min-width: 0;
   .btn-group {
@@ -35,4 +35,10 @@
 clr-datagrid {
   max-width: 700px;
   margin: 0 auto;
+}
+clr-dg-action-overflow .action-item {
+  padding: 3px 15px;
+  &:focus:not(:hover) {
+    background-color: transparent;
+  }
 }
