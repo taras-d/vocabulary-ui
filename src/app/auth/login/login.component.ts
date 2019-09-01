@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
 import { AuthService } from '@core/services/auth.service';
+import { ErrorService } from '@core/services/error.service';
 import { BaseComponent } from '@shared/components/base/base.component';
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent extends BaseComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -33,10 +35,10 @@ export class LoginComponent extends BaseComponent {
       takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigate(['/']);
-    }, (err) => {
+    }, err => {
       this.message = {
         type: 'danger',
-        text: (err.status === 401) ? 'Incorrect email or password' : 'Service temporarily unavailable'
+        text: (err.status === 401) ? 'Incorrect email or password' : this.errorService.parseError(err)
       };
       this.loading = ClrLoadingState.DEFAULT;
     });

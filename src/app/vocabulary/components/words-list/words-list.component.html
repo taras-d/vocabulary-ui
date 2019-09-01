@@ -1,3 +1,9 @@
+<clr-alert *ngIf="message" [clrAlertType]="message.type" [clrAlertClosable]="false">
+  <clr-alert-item>
+    <span class="alert-text">{{message.text}}</span>
+  </clr-alert-item>
+</clr-alert>
+
 <div class="search">
   <input class="clr-input" placeholder="Search" name="search"
     [(ngModel)]="search" (keyup.enter)="getWords()"/>

@@ -5,6 +5,7 @@ import { ClrLoadingState } from '@clr/angular';
 import { Word } from '@core/models/word';
 import { WordsService } from '@vocabulary/services/words.service';
 import { BaseComponent } from '@shared/components/base/base.component';
+import { ErrorService } from '@core/services/error.service';
 
 @Component({
   selector: 'v-word-delete',
@@ -18,7 +19,8 @@ export class WordDeleteComponent extends BaseComponent {
   open: boolean;
 
   constructor(
-    private wordsService: WordsService
+    private wordsService: WordsService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -38,8 +40,7 @@ export class WordDeleteComponent extends BaseComponent {
       this.loading = ClrLoadingState.DEFAULT;
       this.complete.emit(this.word);
     }, err => {
-      // TODO: Show error message
-      console.log(err);
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
       this.loading = ClrLoadingState.DEFAULT;
     });
   }

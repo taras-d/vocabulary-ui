@@ -1,10 +1,10 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
+import { ErrorService } from '@core/services/error.service';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 import { WordCreateComponent } from '../word-create/word-create.component';
 import { WordDeleteComponent } from '../word-delete/word-delete.component';
@@ -34,7 +34,8 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   actions = actions;
 
   constructor(
-    private wordsService: WordsService
+    private wordsService: WordsService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -93,8 +94,8 @@ export class WordsListComponent extends BaseComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe({
       error: err => {
-        // TODO: Show error message
-        console.log(err);
+        this.message = { type: 'danger', text: this.errorService.parseError(err) };
+        this.loading = false;
       }
     });
   }
@@ -107,7 +108,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   trackWord(index: number, word: any): any {
     return word._id;
   }
-  
+
   @HostListener('window:resize')
   private setActionMenuVisible(): void {
     this.actionMenuVisible = window.innerWidth <= 600;

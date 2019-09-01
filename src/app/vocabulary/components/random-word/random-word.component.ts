@@ -4,6 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
+import { ErrorService } from '@core/services/error.service';
 
 @Component({
   selector: 'v-random-word',
@@ -15,7 +16,8 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
   wordCount = 0;
 
   constructor(
-    private wordsService: WordsService
+    private wordsService: WordsService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -38,8 +40,8 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
         this.message = { type: 'info', text: 'No data' };
       }
       this.loading = false;
-    }, () => {
-      this.message = { type: 'danger', text: 'Service temporarely unavailable' };
+    }, err => {
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
       this.loading = false;
     });
   }

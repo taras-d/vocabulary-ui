@@ -5,6 +5,7 @@ import Chart from 'chart.js';
 
 import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsStatsService } from '@vocabulary/services/words-stats.service';
+import { ErrorService } from '@core/services/error.service';
 
 @Component({
   selector: 'v-words-stats',
@@ -20,7 +21,8 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
   chart: Chart;
 
   constructor(
-    private wordsStatsService: WordsStatsService
+    private wordsStatsService: WordsStatsService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -57,8 +59,8 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
         this.message = { type: 'info', text: 'No data' };
       }
       this.loading = false;
-    }, () => {
-      this.message = { type: 'danger', text: 'Service temporarely unavailable' };
+    }, err => {
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
       this.loading = false;
     });
   }

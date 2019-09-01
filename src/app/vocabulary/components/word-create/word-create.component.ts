@@ -5,6 +5,7 @@ import { ClrLoadingState } from '@clr/angular';
 import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word, WordCreateResult } from '@core/models/word';
+import { ErrorService } from '@core/services/error.service';
 
 @Component({
   selector: 'v-word-create',
@@ -21,7 +22,8 @@ export class WordCreateComponent extends BaseComponent {
   extraInfo: boolean;
 
   constructor(
-    private wordsService: WordsService
+    private wordsService: WordsService,
+    private errorService: ErrorService
   ) {
     super();
   }
@@ -61,8 +63,8 @@ export class WordCreateComponent extends BaseComponent {
         this.open = false;
         this.complete.emit();
       }
-    }, () => {
-      this.message = { type: 'danger', text: 'Error' };
+    }, err => {
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
       this.loading = ClrLoadingState.DEFAULT;
     });
   }
