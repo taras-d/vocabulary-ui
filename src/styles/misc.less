@@ -1,5 +1,4 @@
-button:focus,
-.dropdown-menu .dropdown-item:focus {
+button:focus {
   outline: none;
 }
 
@@ -20,16 +19,6 @@ button:focus,
   opacity: 0.7;
 }
 
-v-login {
-  clr-password-container .clr-input-group {
-    width: 100%;
-    max-width: 100%;
-    input {
-      width: calc(100% - 30px);
-    }
-  }
-}
-
 .tabs-content {
   border: 1px solid #ccc;
   border-top: 0;
@@ -37,6 +26,16 @@ v-login {
   @media (max-width: 767px) {
     border-left: 0;
     border-right: 0;
+  }
+}
+
+v-login {
+  clr-password-container .clr-input-group {
+    width: 100%;
+    max-width: 100%;
+    input {
+      width: calc(100% - 30px);
+    }
   }
 }
 
