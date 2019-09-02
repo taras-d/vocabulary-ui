@@ -1,9 +1,20 @@
 <v-alert-message *ngIf="message" [message]="message"></v-alert-message>
 
-<div class="search">
-  <input class="clr-input" placeholder="Search" name="search"
-    [(ngModel)]="search" (keyup.enter)="getWords()"/>
-  <clr-icon shape="search" (click)="getWords()"></clr-icon>
+<div class="top-bar">
+  <div class="clr-row">
+    <div class="clr-col-6 text-left">
+      <div class="search">
+        <input class="clr-input" placeholder="Search" name="search"
+          [(ngModel)]="search" (keyup.enter)="getWords()"/>
+        <clr-icon shape="search" (click)="getWords()"></clr-icon>
+      </div>
+    </div>
+    <div class="clr-col-6 text-right">
+      <button class="btn btn-sm btn-add" (click)="createClick()">
+        <clr-icon shape="plus"></clr-icon> Add word(s)
+      </button>
+    </div>
+  </div>
 </div>
 
 <clr-datagrid>
@@ -49,11 +60,6 @@
   <clr-dg-placeholder>No data</clr-dg-placeholder>
 
   <clr-dg-footer>
-    <div class="text-left">
-      <button class="btn btn-sm" (click)="createClick()">
-        <clr-icon shape="plus"></clr-icon> Add word(s)
-      </button>
-    </div>
     <clr-dg-pagination #pagination
       [clrDgPage]="paging.page"
       [clrDgPageSize]="paging.pageSize"

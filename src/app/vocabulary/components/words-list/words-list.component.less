@@ -5,18 +5,24 @@
 v-alert-message {
   margin-bottom: 15px;
 }
-.search {
-  max-width: 300px;
+.top-bar {
+  max-width: 700px;
   margin: 0 auto;
-  position: relative;
-  .clr-input {
-    width: 100%;
+  .search {
+    max-width: 300px;
+    position: relative;
+    .clr-input {
+      width: 100%;
+    }
+    clr-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      cursor: pointer;
+    }
   }
-  clr-icon {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    cursor: pointer;
+  .btn-add {
+    margin: 0;
   }
 }
 .actions {
@@ -38,6 +44,10 @@ v-alert-message {
 clr-datagrid {
   max-width: 700px;
   margin: 0 auto;
+  height: auto !important;
+}
+clr-dg-cell {
+  word-break: break-word;
 }
 clr-dg-action-overflow .action-item {
   padding: 3px 15px;
