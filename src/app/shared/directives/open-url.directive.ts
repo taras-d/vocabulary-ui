@@ -1,5 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
+import device from 'current-device';
 
+const isMobile = device.mobile();
 const windowMap: { [key: string]: Window } = {};
 
 @Directive({
@@ -11,6 +13,12 @@ export class OpenUrlDirective {
   @HostListener('click')
   linkClick(): void {
     const url = this.vOpenUrl;
+
+    if (isMobile) {
+      window.open(url);
+      return;
+    }
+
     const origin = new URL(url).origin;
     const wnd = windowMap[origin];
 
