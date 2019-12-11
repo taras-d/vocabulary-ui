@@ -1,9 +1,14 @@
 <v-alert-message *ngIf="message" [message]="message"></v-alert-message>
 
 <ng-container *ngIf="word">
-  <h1 class="word-text">
-    {{word.text}}
-  </h1>
+  <clr-signpost>
+    <span class="word-text" clrSignpostTrigger>
+      {{word.text}}
+    </span>
+    <clr-signpost-content clrPosition="top-middle" *clrIfOpen>
+      {{word.translation || 'no translation'}}
+    </clr-signpost-content>
+  </clr-signpost>
 
   <div class="btn-group btn-icon word-actions">
     <button class="btn" title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
