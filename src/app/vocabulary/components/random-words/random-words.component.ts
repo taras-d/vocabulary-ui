@@ -7,13 +7,12 @@ import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
 
 @Component({
-  selector: 'v-random-word',
-  templateUrl: './random-word.component.html',
-  styleUrls: ['./random-word.component.less']
+  selector: 'v-random-words',
+  templateUrl: './random-words.component.html',
+  styleUrls: ['./random-words.component.less']
 })
-export class RandomWordComponent extends BaseComponent implements OnInit {
-  word: Word;
-  wordCount = 0;
+export class RandomWordsComponent extends BaseComponent implements OnInit {
+  words: Word[];
 
   constructor(
     private wordsService: WordsService,
@@ -23,22 +22,17 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRandomWord();
+    this.getRandomWords();
   }
 
-  getRandomWord(): void {
+  getRandomWords(): void {
     this.loading = true;
     this.message = null;
 
-    this.wordsService.getRandomWord().pipe(
+    this.wordsService.getRandomWords(10).pipe(
       takeUntil(this.destroy$)
-    ).subscribe((res: Word) => {
-      this.word = res;
-      if (this.word) {
-        this.wordCount += 1;
-      } else {
-        this.message = { type: 'info', text: 'No data' };
-      }
+    ).subscribe((words: Word[]) => {
+      this.words = words;
       this.loading = false;
     }, err => {
       this.message = { type: 'danger', text: this.errorService.parseError(err) };
@@ -46,7 +40,7 @@ export class RandomWordComponent extends BaseComponent implements OnInit {
     });
   }
 
-  editComplete(res: Word): void {
-    this.word = res;
+  trackWord(word: Word): string {
+    return word._id;
   }
 }

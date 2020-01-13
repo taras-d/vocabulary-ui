@@ -1,0 +1,22 @@
+<v-alert-message *ngIf="message" [message]="message"></v-alert-message>
+
+<ng-container *ngIf="words?.length">
+  <h5>Do you remember those words?</h5>
+
+  <div class="clr-row">
+    <div *ngFor="let word of words; trackBy: trackWord" class="clr-col-sm-6">
+      <div class="random-word" (click)="word.flip = !word.flip" [class.flip]="word.flip">
+        <div class="card card-front">
+          <div class="card-block">{{word.text}}</div>
+        </div>
+        <div class="card card-back">
+          <div class="card-block">{{word.translation || 'no translation'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="loading" class="spinner-cover">
+  <div class="spinner spinner-md"></div>
+</div>

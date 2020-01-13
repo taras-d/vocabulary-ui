@@ -37,10 +37,12 @@ export class WordsService {
     );
   }
 
-  getRandomWord(): Observable<Word> {
-    return this.http.get(`random-words?size=1`).pipe(
-      map(words => {
-        return this.decorateWord(words[0]);
+  getRandomWords(size: number): Observable<Word[]> {
+    return this.http.get(`random-words`, {
+      params: { size: `${size}` }
+    }).pipe(
+      tap((words: Word[]) => {
+        words.forEach(word => this.decorateWord(word));
       })
     );
   }

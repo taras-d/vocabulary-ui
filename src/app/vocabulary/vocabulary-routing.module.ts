@@ -5,7 +5,7 @@ import { AuthorizedGuard } from '@core/guards/authorized.guard';
 import { PageLayoutComponent } from '@shared/components/page-layout/page-layout.component';
 import { VocabularyComponent } from './components/vocabulary/vocabulary.component';
 import { WordsListComponent } from './components/words-list/words-list.component';
-import { RandomWordComponent } from './components/random-word/random-word.component';
+import { RandomWordsComponent } from './components/random-words/random-words.component';
 import { WordsStatsComponent } from './components/words-stats/words-stats.component';
 
 const routes: Routes = [
@@ -23,8 +23,8 @@ const routes: Routes = [
             component: WordsListComponent
           },
           {
-            path: 'random-word',
-            component: RandomWordComponent
+            path: 'random-words',
+            component: RandomWordsComponent
           },
           {
             path: 'stats',
