@@ -62,8 +62,8 @@ export class WordCreateComponent extends BaseComponent {
       if (res.duplicates.length) {
         this.message = {
           type: 'info',
-          text: `Words added: <b>${res.inserted.length} of ${res.total}</b><br/>` +
-            `Skipped words (duplicate): <b>${res.duplicates.map(w => w.text).join(', ')}</b>`
+          text: `Words added - <b>${res.inserted.length} of ${res.total}</b><br/>` +
+            `Following words already in vocabulary - <b>${res.duplicates.map(w => w.text).join(', ')}</b>`
         };
         this.extraInfo = true;
       } else {

@@ -1,7 +1,7 @@
 <v-alert-message *ngIf="message" [message]="message"></v-alert-message>
 
 <div class="top-bar">
-  <div class="clr-row">
+  <div class="clr-row clr-align-items-center">
     <div class="clr-col-6 text-left">
       <div class="search">
         <input class="clr-input" placeholder="Search" name="search"
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="clr-col-6 text-right">
-      <button class="btn btn-sm btn-add" (click)="createClick()">
+      <button class="btn btn-add" (click)="createClick()">
         <clr-icon shape="plus"></clr-icon> Add word(s)
       </button>
     </div>
