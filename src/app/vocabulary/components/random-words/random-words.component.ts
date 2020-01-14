@@ -43,4 +43,8 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
   trackWord(word: Word): string {
     return word._id;
   }
+
+  refreshClick(): void {
+    this.getRandomWords();
+  }
 }
