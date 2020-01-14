@@ -1,1 +1,1 @@
-web: npx serve dist/vocabulary
+web: npx serve dist/vocabulary -s
