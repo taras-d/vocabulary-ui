@@ -4,12 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --live-reload=false",
-    "build": "ng build",
-    "buildProd": "ng build --prod",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "engines": {
     "node": "11.15.0",
