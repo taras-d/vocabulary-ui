@@ -40,7 +40,7 @@ export class WordEditComponent extends BaseComponent {
       text: this.word.text,
       translation: this.word.translation
     }).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe((res: Word) => {
       this.open = false;
       this.loading = ClrLoadingState.DEFAULT;

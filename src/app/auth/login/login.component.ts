@@ -32,7 +32,7 @@ export class LoginComponent extends BaseComponent {
     this.loading = ClrLoadingState.LOADING;
 
     this.authService.login(this.user).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe(() => {
       this.router.navigate(['/']);
     }, err => {

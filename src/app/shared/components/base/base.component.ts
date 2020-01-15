@@ -5,10 +5,10 @@ import { ClrLoadingState } from '@clr/angular';
 export class BaseComponent implements OnDestroy {
   loading: boolean | ClrLoadingState;
   message: { type: string; text: string };
-  protected destroy$: Subject<void> = new Subject();
+  protected destroy: Subject<void> = new Subject();
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroy.next();
+    this.destroy.complete();
   }
 }

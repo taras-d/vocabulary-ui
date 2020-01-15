@@ -32,7 +32,7 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
     this.message = null;
 
     this.wordsService.getRandomWords(10).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe((words: Word[]) => {
       this.words = words;
       this.loading = false;

@@ -34,7 +34,7 @@ export class WordDeleteComponent extends BaseComponent {
     this.loading = ClrLoadingState.LOADING;
 
     this.wordsService.deleteWord(this.word._id).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe(() => {
       this.open = false;
       this.loading = ClrLoadingState.DEFAULT;

@@ -54,7 +54,7 @@ export class WordCreateComponent extends BaseComponent {
     this.message = null;
 
     this.wordsService.createWord(this.words).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe((res: WordCreateResult) => {
       this.words = [];
       this.complete.emit();

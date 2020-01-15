@@ -53,7 +53,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
 
     this.loadYears().pipe(
       mergeMap(() => this.loadTotalInMonth()),
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe(() => {
       if (!this.totalInMonth) {
         this.message = { type: 'info', text: 'No data' };

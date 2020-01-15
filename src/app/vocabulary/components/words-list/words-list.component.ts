@@ -66,7 +66,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
         this.loading = false;
       })
     ).pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy)
     ).subscribe({
       error: err => {
         this.message = { type: 'danger', text: this.errorService.parseError(err) };
