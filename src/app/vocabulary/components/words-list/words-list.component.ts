@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { takeUntil, tap } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/components/base/base.component';
@@ -6,9 +6,6 @@ import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
 import { constants } from '@core/constants';
-import { WordEditComponent } from '../word-edit/word-edit.component';
-import { WordCreateComponent } from '../word-create/word-create.component';
-import { WordDeleteComponent } from '../word-delete/word-delete.component';
 
 @Component({
   selector: 'v-words-list',
@@ -16,10 +13,6 @@ import { WordDeleteComponent } from '../word-delete/word-delete.component';
   styleUrls: ['./words-list.component.less']
 })
 export class WordsListComponent extends BaseComponent implements OnInit {
-  @ViewChild(WordEditComponent, { static: true }) wordEditRef: WordEditComponent;
-  @ViewChild(WordCreateComponent, { static: true }) wordCreateRef: WordCreateComponent;
-  @ViewChild(WordDeleteComponent, { static: true }) wordDeleteRef: WordDeleteComponent;
-
   actionMenuVisible: boolean;
   search: string;
   words: Word[] = [];
@@ -39,8 +32,8 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     this.getWords();
   }
 
-  editClick(word: Word): void {
-    this.wordEditRef.openModal(word);
+  createComplete(): void {
+    this.getWords();
   }
 
   editComplete(res: Word): void {
@@ -48,22 +41,10 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     Object.assign(word, res);
   }
 
-  deleteClick(word: Word): void {
-    this.wordDeleteRef.openModal(word);
-  }
-
   deleteComplete(): void {
     if (this.paging.page > 1 && this.words.length === 1) {
       this.paging.page -= 1;
     }
-    this.getWords();
-  }
-
-  createClick(): void {
-    this.wordCreateRef.openModal();
-  }
-
-  createComplete(): void {
     this.getWords();
   }
 

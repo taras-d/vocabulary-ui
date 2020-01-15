@@ -47,8 +47,8 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
   }
 
   editComplete(res: Word): void {
-    const index = this.words.findIndex(w => w._id === res._id);
-    Object.assign(this.words[index], res);
+    const word = this.words.find(w => w._id === res._id);
+    Object.assign(word, res);
   }
 
   wordClick(event: MouseEvent, word: Word): void {

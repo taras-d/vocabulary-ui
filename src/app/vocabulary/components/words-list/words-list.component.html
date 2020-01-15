@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="clr-col-6 text-right">
-      <button class="btn btn-add" (click)="createClick()">
+      <button class="btn btn-add" (click)="wordCreate.openModal()">
         <clr-icon shape="plus"></clr-icon> Add word(s)
       </button>
     </div>
@@ -33,27 +33,19 @@
         <button class="btn" [title]="actions.openGoogleImages" [vOpenUrl]="word.googleImagesLink">
           <clr-icon shape="image"></clr-icon>
         </button>
-        <button class="btn" [title]="actions.editWord" (click)="editClick(word)">
+        <button class="btn" [title]="actions.editWord" (click)="wordEdit.openModal(word)">
           <clr-icon shape="pencil"></clr-icon>
         </button>
-        <button class="btn" [title]="actions.deleteWord" (click)="deleteClick(word)">
+        <button class="btn" [title]="actions.deleteWord" (click)="wordDelete.openModal(word)">
           <clr-icon shape="trash"></clr-icon>
         </button>
       </div>
     </clr-dg-cell>
     <clr-dg-action-overflow *ngIf="actionMenuVisible">
-      <button class="action-item" [vOpenUrl]="word.googleTranslateLink">
-        {{actions.openGoogleTranslate}}
-      </button>
-      <button class="action-item" [vOpenUrl]="word.googleImagesLink">
-        {{actions.openGoogleImages}}
-      </button>
-      <button class="action-item" (click)="editClick(word)">
-        {{actions.editWord}}
-      </button>
-      <button class="action-item" (click)="deleteClick(word)">
-        {{actions.deleteWord}}
-      </button>
+      <button class="action-item" [vOpenUrl]="word.googleTranslateLink">{{actions.openGoogleTranslate}}</button>
+      <button class="action-item" [vOpenUrl]="word.googleImagesLink">{{actions.openGoogleImages}}</button>
+      <button class="action-item" (click)="wordEdit.openModal(word)">{{actions.editWord}}</button>
+      <button class="action-item" (click)="wordDelete.openModal(word)">{{actions.deleteWord}}</button>
     </clr-dg-action-overflow>
   </clr-dg-row>
 
@@ -70,11 +62,11 @@
   </clr-dg-footer>
 </clr-datagrid>
 
-<v-word-edit (complete)="editComplete($event)"></v-word-edit>
+<v-word-create #wordCreate (complete)="createComplete()"></v-word-create>
 
-<v-word-create (complete)="createComplete()"></v-word-create>
+<v-word-edit #wordEdit (complete)="editComplete($event)"></v-word-edit>
 
-<v-word-delete (complete)="deleteComplete()"></v-word-delete>
+<v-word-delete #wordDelete (complete)="deleteComplete()"></v-word-delete>
 
 <div *ngIf="loading" class="spinner-cover">
   <div class="spinner spinner-md"></div>
