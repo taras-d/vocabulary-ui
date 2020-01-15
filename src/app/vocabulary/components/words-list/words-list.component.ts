@@ -13,12 +13,12 @@ import { constants } from '@core/constants';
   styleUrls: ['./words-list.component.less']
 })
 export class WordsListComponent extends BaseComponent implements OnInit {
-  actionMenuVisible: boolean;
   search: string;
   words: Word[] = [];
   paging = { page: 1, pageSize: 10, total: 0 };
 
   actions = constants.wordActions;
+  rowActionsVisible: boolean;
 
   constructor(
     private wordsService: WordsService,
@@ -28,7 +28,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setActionMenuVisible();
+    this.setRowActionsVisible();
     this.getWords();
   }
 
@@ -85,7 +85,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  private setActionMenuVisible(): void {
-    this.actionMenuVisible = window.innerWidth <= 600;
+  private setRowActionsVisible(): void {
+    this.rowActionsVisible = window.innerWidth <= 600;
   }
 }
