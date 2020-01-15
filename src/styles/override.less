@@ -1,0 +1,64 @@
+// Styles that cannot be used inside components style due to view encapsulation
+
+clr-dropdown-menu .dropdown-item:focus {
+  outline: none;
+}
+
+clr-modal .modal-header .close:focus {
+  box-shadow: none;
+}
+
+v-login {
+  clr-password-container .clr-input-group {
+    width: 100%;
+    max-width: 100%;
+    input {
+      width: calc(100% - 30px);
+    }
+  }
+}
+
+v-word-edit,
+v-word-create,
+v-word-delete {
+  .modal-header {
+    padding-bottom: 15px;
+    padding-right: 0;
+  }
+  .modal-footer {
+    padding-right: 0;
+  }
+}
+v-word-edit,
+v-word-create {
+  .modal {
+    justify-content: flex-start;
+    padding-top: 100px;
+  }
+}
+
+v-words-list {
+  .datagrid-table {
+    position: static;
+    outline: none;
+  }
+  .datagrid-placeholder-image {
+    display: none;
+  }
+}
+
+v-alert-message {
+  .alert {
+    margin-top: 0;
+  }
+}
+
+v-random-word {
+  .signpost-content-header {
+    display: none;
+  }
+  .signpost-content-body {
+    padding: 12px;
+    word-break: break-word;
+  }
+}

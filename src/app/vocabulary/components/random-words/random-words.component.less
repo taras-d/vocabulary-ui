@@ -1,3 +1,5 @@
+@import "variables";
+
 :host {
   display: block;
   position: relative;
@@ -44,12 +46,12 @@ h5 {
     }
   }
   .card-front {
-    background-color: #fafafa;
+    background-color: @color-white2;
   }
   .card-back {
     transform: rotateY(180deg);
-    border-color: #0065ad;
-    color: #0065ad;
+    border-color: @color-blue;
+    color: @color-blue;
   }
 }
 
