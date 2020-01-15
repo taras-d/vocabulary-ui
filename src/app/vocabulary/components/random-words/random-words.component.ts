@@ -5,6 +5,7 @@ import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
+import { constants } from '@core/constants';
 
 @Component({
   selector: 'v-random-words',
@@ -13,6 +14,7 @@ import { ErrorService } from '@core/services/error.service';
 })
 export class RandomWordsComponent extends BaseComponent implements OnInit {
   words: Word[];
+  actions = constants.wordActions;
 
   constructor(
     private wordsService: WordsService,
@@ -42,6 +44,17 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
 
   trackWord(word: Word): string {
     return word._id;
+  }
+
+  editComplete(res: Word): void {
+    const index = this.words.findIndex(w => w._id === res._id);
+    Object.assign(this.words[index], res);
+  }
+
+  wordClick(event: MouseEvent, word: Word): void {
+    if (!(event.target as HTMLElement).closest('.word-actions, .dropdown-menu')) {
+      word.flip = !word.flip;
+    }
   }
 
   refreshClick(): void {

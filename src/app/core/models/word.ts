@@ -6,6 +6,7 @@ export interface Word {
   updatedAt?: string;
   googleTranslateLink?: string;
   googleImagesLink?: string;
+  flip?: boolean;
 }
 
 export interface WordList {
