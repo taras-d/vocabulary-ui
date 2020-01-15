@@ -5,16 +5,10 @@ import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
+import { constants } from '@core/constants';
 import { WordEditComponent } from '../word-edit/word-edit.component';
 import { WordCreateComponent } from '../word-create/word-create.component';
 import { WordDeleteComponent } from '../word-delete/word-delete.component';
-
-const actions = {
-  openGoogleTranslate: 'Open in Google Translate',
-  openGoogleImages: 'Open in Google Images',
-  editWord: 'Edit word',
-  deleteWord: 'Delete word'
-};
 
 @Component({
   selector: 'v-words-list',
@@ -31,7 +25,7 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   words: Word[] = [];
   paging = { page: 1, pageSize: 10, total: 0 };
 
-  actions = actions;
+  actions = constants.wordActions;
 
   constructor(
     private wordsService: WordsService,
