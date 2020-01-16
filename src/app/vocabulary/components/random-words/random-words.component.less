@@ -13,20 +13,24 @@ h5 {
 
 .clr-row {
   [class^="clr-col"] {
-    perspective: 1000px;
     margin-bottom: 15px;
   }
 }
 
-.random-word {
-  position: relative;
+.flip-word {
+  perspective: 1000px;
   height: 60px;
-  transition: transform 0.25s linear;
-  transform-style: preserve-3d;
-  cursor: pointer;
   font-size: 16px;
-  &.flip {
+  cursor: pointer;
+  &.flip .card-wrap {
     transform: rotateY(180deg);
+  }
+  .card-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
   }
   .card {
     position: absolute;
@@ -38,6 +42,7 @@ h5 {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
     .card-block {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -49,9 +54,9 @@ h5 {
     background-color: @color-white2;
   }
   .card-back {
-    transform: rotateY(180deg);
     border-color: @color-blue;
     color: @color-blue;
+    transform: rotateY(180deg);
   }
 }
 
