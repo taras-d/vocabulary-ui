@@ -58,6 +58,11 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
   }
 
   refreshClick(): void {
-    this.getRandomWords();
+    if (this.words.some(w => w.flip)) {
+      this.words.forEach(w => w.flip = false);
+      setTimeout(() => this.getRandomWords(), 300);
+    } else {
+      this.getRandomWords();
+    }
   }
 }
