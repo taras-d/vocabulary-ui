@@ -36,9 +36,8 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     this.getWords();
   }
 
-  editComplete(res: Word): void {
-    const word = this.words.find(w => w._id === res._id);
-    Object.assign(word, res);
+  editComplete(): void {
+    this.getWords();
   }
 
   deleteComplete(): void {

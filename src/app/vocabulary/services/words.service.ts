@@ -15,7 +15,7 @@ export class WordsService {
 
   getWords(search: string, paging: any): Observable<WordList> {
     const params: any = {
-      '$sort[createdAt]': '-1',
+      '$sort[updatedAt]': '-1',
       $limit: (paging && paging.limit) || '10',
       $skip: (paging && paging.skip) || '0'
     };
