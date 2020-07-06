@@ -13,7 +13,7 @@ import { ErrorService } from '@core/services/error.service';
   styleUrls: ['./words-stats.component.less']
 })
 export class WordsStatsComponent extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild('canvas', { static: false }) canvas: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
 
   years: number[];
   selectedYear: number;

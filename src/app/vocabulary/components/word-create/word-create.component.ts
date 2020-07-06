@@ -15,7 +15,7 @@ import { ErrorService } from '@core/services/error.service';
 export class WordCreateComponent extends BaseComponent {
   @Output() complete = new EventEmitter();
 
-  @ViewChild('itemsWrapper', { static: false }) itemsWrapper: ElementRef;
+  @ViewChild('itemsWrapper') itemsWrapper: ElementRef;
 
   open: boolean;
   words: Word[] = [];
