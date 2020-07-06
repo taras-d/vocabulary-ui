@@ -18,8 +18,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.user$.pipe(
-      takeUntil(this.destroy)
-    ).subscribe((user: User) => this.user = user);
+    this.user = this.authService.user;
   }
 }

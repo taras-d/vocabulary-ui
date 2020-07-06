@@ -15,6 +15,6 @@ export class PageLayoutComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe();
+    this.authService.logout();
   }
 }

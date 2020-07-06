@@ -41,9 +41,16 @@ v-words-list {
   .datagrid-table {
     position: static;
     outline: none;
-  }
-  .datagrid-placeholder-image {
-    display: none;
+    .datagrid-placeholder-container {
+      border-top: 0;
+    }
+    .datagrid-placeholder.datagrid-empty {
+      font-size: 13px;
+      padding: 8px;
+    }
+    .datagrid-placeholder-image {
+      display: none;
+    }
   }
 }
 
