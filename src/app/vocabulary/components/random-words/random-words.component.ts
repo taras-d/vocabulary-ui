@@ -38,6 +38,7 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
       this.loading = false;
     }, err => {
       this.message = { type: 'danger', text: this.errorService.parseError(err) };
+      this.words = null;
       this.loading = false;
     });
   }
