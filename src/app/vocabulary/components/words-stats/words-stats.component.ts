@@ -61,6 +61,7 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
       this.loading = false;
     }, err => {
       this.message = { type: 'danger', text: this.errorService.parseError(err) };
+      this.totalInMonth = null;
       this.loading = false;
     });
   }
@@ -110,7 +111,12 @@ export class WordsStatsComponent extends BaseComponent implements OnInit, OnDest
         }]
       },
       options: {
-        legend: false
+        legend: false,
+        scales: {
+          yAxes: [{
+            ticks: { stepSize: 1 }
+          }]
+        }
       }
     });
   }
