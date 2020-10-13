@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '@core/services/auth.service';
-import { BaseComponent } from '@shared/components/base/base.component';
 import { User } from '@core/models/auth';
 
 @Component({
@@ -10,11 +8,11 @@ import { User } from '@core/models/auth';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.less']
 })
-export class ProfileComponent extends BaseComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   user: User;
 
   constructor(private authService: AuthService) {
-    super();
+
   }
 
   ngOnInit(): void {

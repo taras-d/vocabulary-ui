@@ -10,17 +10,17 @@
   <form *ngIf="user" clrForm>
     <clr-input-container>
       <label>Email</label>
-      <input clrInput type="text" name="email" disabled value="{{user.email}}"/>
+      <input clrInput type="text" name="email" disabled [value]="user.email"/>
     </clr-input-container>
     <clr-input-container>
       <label>Created</label>
       <input clrInput type="text" name="createdAt" disabled
-        value="{{user.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+        [value]="user.createdAt|date:'dd.MM.yyyy HH:mm:ss'"/>
     </clr-input-container>
     <clr-input-container>
       <label>Updated</label>
       <input clrInput type="text" name="updatedAt" disabled
-        value="{{user.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+        [value]="user.updatedAt|date:'dd.MM.yyyy HH:mm:ss'"/>
     </clr-input-container>
   </form>
 </div>
