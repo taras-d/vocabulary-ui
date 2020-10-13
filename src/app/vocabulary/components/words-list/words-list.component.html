@@ -36,9 +36,6 @@
         <button class="btn" [title]="actions.editWord" (click)="wordEdit.openModal(word)">
           <clr-icon shape="pencil"></clr-icon>
         </button>
-        <button class="btn" [title]="actions.deleteWord" (click)="wordDelete.openModal(word)">
-          <clr-icon shape="trash"></clr-icon>
-        </button>
       </div>
     </clr-dg-cell>
   </clr-dg-row>
@@ -58,9 +55,7 @@
 
 <v-word-create #wordCreate (complete)="createComplete()"></v-word-create>
 
-<v-word-edit #wordEdit (complete)="editComplete()"></v-word-edit>
-
-<v-word-delete #wordDelete (complete)="deleteComplete()"></v-word-delete>
+<v-word-edit #wordEdit (editComplete)="editComplete()" (deleteComplete)="deleteComplete()"></v-word-edit>
 
 <div *ngIf="loading" class="spinner-cover">
   <div class="spinner spinner-md"></div>

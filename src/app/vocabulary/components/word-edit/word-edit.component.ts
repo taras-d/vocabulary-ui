@@ -13,10 +13,12 @@ import { ErrorService } from '@core/services/error.service';
   styleUrls: ['./word-edit.component.less']
 })
 export class WordEditComponent extends BaseComponent {
-  @Output() complete = new EventEmitter();
+  @Output() editComplete = new EventEmitter();
+  @Output() deleteComplete = new EventEmitter();
 
   open: boolean;
   word: Word;
+  isDelete: boolean;
 
   constructor(
     private wordsService: WordsService,
@@ -27,9 +29,14 @@ export class WordEditComponent extends BaseComponent {
 
   openModal(word: Word): void {
     this.word = Object.assign({}, word);
+    this.isDelete = false;
     this.message = null;
     this.loading = ClrLoadingState.DEFAULT;
     this.open = true;
+  }
+
+  closeModal(): void {
+    this.open = false;
   }
 
   updateWord(): void {
@@ -44,10 +51,31 @@ export class WordEditComponent extends BaseComponent {
     ).subscribe((res: Word) => {
       this.open = false;
       this.loading = ClrLoadingState.DEFAULT;
-      this.complete.emit(res);
+      this.editComplete.emit(res);
     }, err => {
       this.message = { type: 'danger', text: this.errorService.parseError(err) };
       this.loading = ClrLoadingState.DEFAULT;
     });
+  }
+
+  deleteWord(): void {
+    this.loading = ClrLoadingState.LOADING;
+    this.message = null;
+
+    this.wordsService.deleteWord(this.word._id).pipe(
+      takeUntil(this.destroy)
+    ).subscribe(() => {
+      this.open = false;
+      this.loading = ClrLoadingState.DEFAULT;
+      this.deleteComplete.emit(this.word);
+    }, err => {
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
+      this.loading = ClrLoadingState.DEFAULT;
+    });
+  }
+
+  showDelete(isDelete: boolean): void {
+    this.isDelete = isDelete;
+    this.message = null;
   }
 }

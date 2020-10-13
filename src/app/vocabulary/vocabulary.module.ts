@@ -7,7 +7,6 @@ import { WordsListComponent } from './components/words-list/words-list.component
 import { RandomWordsComponent } from './components/random-words/random-words.component';
 import { WordCreateComponent } from './components/word-create/word-create.component';
 import { WordEditComponent } from './components/word-edit/word-edit.component';
-import { WordDeleteComponent } from './components/word-delete/word-delete.component';
 import { WordsStatsComponent } from './components/words-stats/words-stats.component';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { WordsStatsComponent } from './components/words-stats/words-stats.compon
     RandomWordsComponent,
     WordCreateComponent,
     WordEditComponent,
-    WordDeleteComponent,
     WordsStatsComponent
   ]
 })

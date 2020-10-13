@@ -1,10 +1,11 @@
 <clr-modal [(clrModalOpen)]="open" [clrModalStaticBackdrop]="false">
-  <div class="modal-title">Edit word</div>
+  <div class="modal-title">{{isDelete? 'Delete' : 'Edit'}} word</div>
 
-  <div class="modal-body">
+  <div *ngIf="word" class="modal-body">
     <v-alert-message *ngIf="message" [message]="message" class="in-modal"></v-alert-message>
 
-    <form *ngIf="word" clrForm #form="ngForm" (ngSubmit)="updateWord()">
+    <!-- Edit form -->
+    <form *ngIf="!isDelete" clrForm #form="ngForm" (ngSubmit)="updateWord()">
       <clr-input-container>
         <label>Text</label>
         <input clrInput type="text" name="text" maxlength="200"
@@ -26,15 +27,33 @@
         <input clrInput type="text" name="updated" disabled
           [value]="word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'"/>
       </clr-input-container>
-      <div class="actions">
-        <button class="btn btn-outline" type="button" (click)="open = false">
-          <clr-icon shape="undo"></clr-icon> Cancel
+      <div class="edit-actions">
+        <button class="btn btn-warning delete" (click)="showDelete(true)">
+          <clr-icon shape="trash"></clr-icon> Delete
         </button>
-        <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
-          [clrLoading]="loading">
-          <clr-icon shape="floppy"></clr-icon> Save
-        </button>
+        <div>
+          <button class="btn btn-outline" type="button" (click)="closeModal()">
+            <clr-icon shape="undo"></clr-icon> Cancel
+          </button>
+          <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
+            [clrLoading]="loading">
+            <clr-icon shape="floppy"></clr-icon> Save
+          </button>
+        </div>
       </div>
     </form>
+
+    <!-- Delete -->
+    <div *ngIf="isDelete">
+      Are you really want to delete word <b>{{word.text}}</b>?
+      <div class="delete-actions">
+        <button class="btn" (click)="showDelete(false)">
+          <clr-icon shape="undo"></clr-icon> Back
+        </button>
+        <button class="btn btn-warning" (click)="deleteWord()" [clrLoading]="loading">
+          <clr-icon shape="trash"></clr-icon> Delete
+        </button>
+      </div>
+    </div>
   </div>
 </clr-modal>
