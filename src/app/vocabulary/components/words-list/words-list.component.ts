@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { takeUntil, tap } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
@@ -18,7 +18,6 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   paging = { page: 1, pageSize: 10, total: 0 };
 
   actions = constants.wordActions;
-  rowActionsVisible: boolean;
 
   constructor(
     private wordsService: WordsService,
@@ -28,7 +27,6 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setRowActionsVisible();
     this.getWords();
   }
 
@@ -55,22 +53,18 @@ export class WordsListComponent extends BaseComponent implements OnInit {
     this.wordsService.getWords(this.search, {
       skip: (page * pageSize) - pageSize, limit: pageSize
     }).pipe(
-      tap((res: any) => {
-        this.words = res.data;
-        this.paging = {
-          page: (res.skip / res.limit) + 1,
-          pageSize: res.limit,
-          total: res.total
-        };
-        this.loading = false;
-      })
-    ).pipe(
       takeUntil(this.destroy)
-    ).subscribe({
-      error: err => {
-        this.message = { type: 'danger', text: this.errorService.parseError(err) };
-        this.loading = false;
-      }
+    ).subscribe(res => {
+      this.words = res.data;
+      this.paging = {
+        page: (res.skip / res.limit) + 1,
+        pageSize: res.limit,
+        total: res.total
+      };
+      this.loading = false;
+    }, err => {
+      this.message = { type: 'danger', text: this.errorService.parseError(err) };
+      this.loading = false;
     });
   }
 
@@ -81,10 +75,5 @@ export class WordsListComponent extends BaseComponent implements OnInit {
 
   trackWord(index: number, word: any): any {
     return word._id;
-  }
-
-  @HostListener('window:resize')
-  private setRowActionsVisible(): void {
-    this.rowActionsVisible = window.innerWidth <= 600;
   }
 }

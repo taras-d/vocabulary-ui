@@ -19,12 +19,12 @@
       <clr-input-container>
         <label>Created</label>
         <input clrInput type="text" name="created" disabled
-          value="{{word.createdAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+          [value]="word.createdAt|date:'dd.MM.yyyy HH:mm:ss'"/>
       </clr-input-container>
       <clr-input-container>
         <label>Updated</label>
         <input clrInput type="text" name="updated" disabled
-          value="{{word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'}}"/>
+          [value]="word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'"/>
       </clr-input-container>
       <div class="actions">
         <button class="btn btn-outline" type="button" (click)="open = false">

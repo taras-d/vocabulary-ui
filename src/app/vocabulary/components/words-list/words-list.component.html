@@ -20,12 +20,12 @@
 <clr-datagrid>
   <clr-dg-column>Text</clr-dg-column>
   <clr-dg-column>Translation</clr-dg-column>
-  <clr-dg-column *ngIf="!rowActionsVisible" class="actions"></clr-dg-column>
+  <clr-dg-column class="actions"></clr-dg-column>
 
   <clr-dg-row *ngFor="let word of words">
     <clr-dg-cell>{{word.text}}</clr-dg-cell>
     <clr-dg-cell>{{word.translation}}</clr-dg-cell>
-    <clr-dg-cell *ngIf="!rowActionsVisible" class="actions">
+    <clr-dg-cell class="actions">
       <div class="btn-group btn-icon">
         <button class="btn" [title]="actions.openGoogleTranslate" [vOpenUrl]="word.googleTranslateLink">
           <clr-icon shape="text"></clr-icon>
@@ -41,14 +41,6 @@
         </button>
       </div>
     </clr-dg-cell>
-    <clr-dg-action-overflow *ngIf="rowActionsVisible" #dgRowActions>
-      <div class="words-list-row-actions" (click)="dgRowActions.open = false">
-        <button class="action-item" [vOpenUrl]="word.googleTranslateLink">{{actions.openGoogleTranslate}}</button>
-        <button class="action-item" [vOpenUrl]="word.googleImagesLink">{{actions.openGoogleImages}}</button>
-        <button class="action-item" (click)="wordEdit.openModal(word)">{{actions.editWord}}</button>
-        <button class="action-item" (click)="wordDelete.openModal(word)">{{actions.deleteWord}}</button>
-      </div>
-    </clr-dg-action-overflow>
   </clr-dg-row>
 
   <clr-dg-placeholder>No data</clr-dg-placeholder>
