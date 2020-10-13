@@ -24,16 +24,17 @@
 
       <div class="actions clr-row">
         <div class="clr-col-sm-4">
-          <button class="btn btn-link add-word" type="button" (click)="addWord()">
+          <button class="btn btn-link add-word" type="button" (click)="addWord()"
+            title="Add word">
             <clr-icon shape="plus"></clr-icon> Add word
           </button>
         </div>
         <div class="clr-col-sm-8 text-right">
-          <button class="btn" type="button" (click)="open = false">
+          <button class="btn" type="button" (click)="open = false" title="Cancel word(s) add">
             <clr-icon shape="undo"></clr-icon> Cancel
           </button>
           <button class="btn btn-primary" type="submit" [disabled]="form?.invalid"
-            [clrLoading]="loading">
+            [clrLoading]="loading" title="Save changes">
             <clr-icon shape="floppy"></clr-icon> Save
           </button>
         </div>

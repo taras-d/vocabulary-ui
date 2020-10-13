@@ -7,31 +7,13 @@
 clr-input-container:first-child {
   margin-top: 0;
 }
-.edit-actions,
-.delete-actions {
+.actions {
   margin-top: 22px;
-}
-.edit-actions {
-  display: flex;
-  justify-content: space-between;
-  .btn-primary {
-    margin-right: 0;
-  }
-}
-.delete-actions {
   text-align: right;
-  .btn-warning {
+  .btn:last-child {
     margin-right: 0;
   }
-}
-
-@media(max-width: 420px) {
-  .edit-actions {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    .btn-warning {
-      margin-right: 0;
-    }
+  .delete {
+    float: left;
   }
 }
