@@ -28,7 +28,7 @@
           [value]="word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'"/>
       </clr-input-container>
       <div class="actions">
-        <button class="btn btn-icon btn-warning delete" (click)="showDelete(true)"
+        <button class="btn btn-icon btn-warning delete" type="button" (click)="showDelete(true)"
           title="Delete word">
           <clr-icon shape="trash"></clr-icon>
         </button>
@@ -47,10 +47,10 @@
     <div *ngIf="isDelete">
       Are you really want to delete word <b>{{word.text}}</b>?
       <div class="actions">
-        <button class="btn" (click)="showDelete(false)" title="Back to edit">
+        <button class="btn" type="button" (click)="showDelete(false)" title="Back to edit">
           <clr-icon shape="undo"></clr-icon> Back
         </button>
-        <button class="btn btn-warning" (click)="deleteWord()" [clrLoading]="loading"
+        <button class="btn btn-warning" type="button" (click)="deleteWord()" [clrLoading]="loading"
           title="Confirm delete">
           <clr-icon shape="trash"></clr-icon> Delete
         </button>
