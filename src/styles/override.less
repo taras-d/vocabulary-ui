@@ -9,11 +9,16 @@ clr-modal .modal-header .close:focus {
 }
 
 v-login {
-  clr-password-container .clr-input-group {
-    width: 100%;
+  .clr-input-wrapper {
     max-width: 100%;
-    input {
-      width: calc(100% - 30px);
+    .clr-input {
+      width: 100%;
+    }
+  }
+  .clr-input-group  {
+    width: 100%;
+    .clr-input {
+      max-width: calc(100% - 30px);
     }
   }
 }
