@@ -5,7 +5,6 @@ import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
-import { constants } from '@core/constants';
 
 @Component({
   selector: 'v-words-list',
@@ -16,8 +15,6 @@ export class WordsListComponent extends BaseComponent implements OnInit {
   search: string;
   words: Word[] = [];
   paging = { page: 1, pageSize: 10, total: 0 };
-
-  actions = constants.wordActions;
 
   constructor(
     private wordsService: WordsService,

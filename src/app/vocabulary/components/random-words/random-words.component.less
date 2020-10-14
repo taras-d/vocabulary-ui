@@ -15,16 +15,21 @@ h5 {
   max-width: 350px;
   margin: 10px;
 }
+.card-block {
+  padding: 15px;
+}
 .card-title {
   cursor: pointer;
-  border-bottom: 1px dashed #dedede;
-  padding-bottom: 10px;
+  border-bottom: 1px dashed @color-silver2;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 35px;
+  white-space: nowrap;
 }
 .translation {
-  color: gray;
+  color: @color-gray;
+  font-weight: normal;
 }
 .btn.refresh {
   margin: 10px;
