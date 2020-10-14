@@ -26,17 +26,7 @@
     <clr-dg-cell>{{word.text}}</clr-dg-cell>
     <clr-dg-cell>{{word.translation}}</clr-dg-cell>
     <clr-dg-cell class="actions">
-      <div class="btn-group btn-icon">
-        <button class="btn" [title]="actions.openGoogleTranslate" [vOpenUrl]="word.googleTranslateLink">
-          <clr-icon shape="text"></clr-icon>
-        </button>
-        <button class="btn" [title]="actions.openGoogleImages" [vOpenUrl]="word.googleImagesLink">
-          <clr-icon shape="image"></clr-icon>
-        </button>
-        <button class="btn" [title]="actions.editWord" (click)="wordEdit.openModal(word)">
-          <clr-icon shape="pencil"></clr-icon>
-        </button>
-      </div>
+      <v-word-actions [word]="word" (edit)="wordEdit.openModal(word)"></v-word-actions>
     </clr-dg-cell>
   </clr-dg-row>
 

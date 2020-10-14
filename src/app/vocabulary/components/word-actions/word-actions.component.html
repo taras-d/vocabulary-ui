@@ -1,0 +1,11 @@
+<div class="btn-group btn-icon">
+  <button class="btn" title="Open in Google Translate" [vOpenUrl]="word.googleTranslateLink">
+    <clr-icon shape="text"></clr-icon>
+  </button>
+  <button class="btn" title="Open in Google Images" [vOpenUrl]="word.googleImagesLink">
+    <clr-icon shape="image"></clr-icon>
+  </button>
+  <button class="btn" title="Edit word" (click)="edit.emit(word)">
+    <clr-icon shape="pencil"></clr-icon>
+  </button>
+</div>
