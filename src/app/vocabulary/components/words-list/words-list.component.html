@@ -45,7 +45,7 @@
 
 <v-word-create #wordCreate (complete)="createComplete()"></v-word-create>
 
-<v-word-edit #wordEdit (editComplete)="editComplete()" (deleteComplete)="deleteComplete()"></v-word-edit>
+<v-word-edit #wordEdit (editComplete)="editComplete($event)" (deleteComplete)="deleteComplete()"></v-word-edit>
 
 <div *ngIf="loading" class="spinner-cover">
   <div class="spinner spinner-md"></div>
