@@ -4,13 +4,15 @@
   <h5>Do you remember those words?</h5>
 
   <div class="words">
-    <div *ngFor="let word of words; trackBy: trackWord" class="card">
-      <div class="card-block">
-        <div class="card-title" (click)="word.hint = !word.hint">
-          <span *ngIf="!word.hint">{{word.text}}</span>
-          <span *ngIf="word.hint" class="translation">{{word.translation || '[no translation]'}}</span>
+    <div class="word" *ngFor="let word of words; trackBy: trackWord">
+      <div class="card">
+        <div class="card-block">
+          <div class="card-title" (click)="word.hint = !word.hint">
+            <span *ngIf="!word.hint">{{word.text}}</span>
+            <span *ngIf="word.hint" class="translation">{{word.translation || '[no translation]'}}</span>
+          </div>
+          <v-word-actions [word]="word" (edit)="editWord.openModal(word)"></v-word-actions>
         </div>
-        <v-word-actions [word]="word" (edit)="editWord.openModal(word)"></v-word-actions>
       </div>
     </div>
   </div>
