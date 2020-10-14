@@ -5,7 +5,6 @@ import { BaseComponent } from '@shared/components/base/base.component';
 import { WordsService } from '@vocabulary/services/words.service';
 import { Word } from '@core/models/word';
 import { ErrorService } from '@core/services/error.service';
-import { constants } from '@core/constants';
 
 @Component({
   selector: 'v-random-words',
@@ -14,7 +13,6 @@ import { constants } from '@core/constants';
 })
 export class RandomWordsComponent extends BaseComponent implements OnInit {
   words: Word[];
-  actions = constants.wordActions;
 
   constructor(
     private wordsService: WordsService,
@@ -31,7 +29,7 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.message = null;
 
-    this.wordsService.getRandomWords(10).pipe(
+    this.wordsService.getRandomWords(4).pipe(
       takeUntil(this.destroy)
     ).subscribe((words: Word[]) => {
       this.words = words;
@@ -50,20 +48,5 @@ export class RandomWordsComponent extends BaseComponent implements OnInit {
   editComplete(res: Word): void {
     const word = this.words.find(w => w._id === res._id);
     Object.assign(word, res);
-  }
-
-  wordClick(event: MouseEvent, word: Word): void {
-    if (!(event.target as HTMLElement).closest('.word-actions, .dropdown-menu')) {
-      word.flip = !word.flip;
-    }
-  }
-
-  refreshClick(): void {
-    if (this.words.some(w => w.flip)) {
-      this.words.forEach(w => w.flip = false);
-      setTimeout(() => this.getRandomWords(), 300);
-    } else {
-      this.getRandomWords();
-    }
   }
 }

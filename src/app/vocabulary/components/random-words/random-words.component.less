@@ -6,76 +6,26 @@
   text-align: center;
   min-height: 36px;
 }
-
 h5 {
-  margin: 0 0 15px;
+  margin: 0 0 5px;
   font-size: 15px;
 }
-
-.words {
-  max-width: 700px;
-  margin: 0 auto;
+.card {
+  display: inline-block;
+  max-width: 350px;
+  margin: 10px;
 }
-
-.clr-row {
-  [class^="clr-col"] {
-    margin-bottom: 15px;
-  }
-}
-
-.flip-word {
-  perspective: 1000px;
-  height: 55px;
-  font-size: 15px;
+.card-title {
   cursor: pointer;
-  &.flip .card-wrap {
-    transform: rotateY(180deg);
-  }
-  .card-wrap {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s;
-    transform-style: preserve-3d;
-  }
-  .card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    backface-visibility: hidden;
-    box-shadow: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform-style: preserve-3d;
-    .card-block {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      border: 0;
-    }
-  }
-  .card-front {
-    background-color: @color-white2;
-  }
-  .card-back {
-    border-color: @color-blue;
-    color: @color-blue;
-    transform: rotateY(180deg);
-  }
+  border-bottom: 1px dashed #dedede;
+  padding-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 35px;
 }
-
-.word-actions {
-  position: absolute;
-  top: 0;
-  right: 0;
-  .dropdown-toggle {
-    padding: 2px;
-    color: inherit;
-  }
+.translation {
+  color: gray;
 }
-
 .btn.refresh {
-  margin: 5px;
+  margin: 10px;
 }

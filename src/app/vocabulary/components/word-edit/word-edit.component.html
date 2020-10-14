@@ -28,8 +28,8 @@
           [value]="word.updatedAt|date:'dd.MM.yyyy HH:mm:ss'"/>
       </clr-input-container>
       <div class="actions">
-        <button class="btn btn-icon btn-warning delete" type="button" (click)="showDelete(true)"
-          title="Delete word">
+        <button *ngIf="canDelete" class="btn btn-icon btn-warning delete" type="button" 
+          (click)="showDelete(true)" title="Delete word">
           <clr-icon shape="trash"></clr-icon>
         </button>
         <button class="btn btn-outline" type="button" (click)="closeModal()"

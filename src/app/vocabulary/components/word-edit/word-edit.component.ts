@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
@@ -13,6 +13,8 @@ import { ErrorService } from '@core/services/error.service';
   styleUrls: ['./word-edit.component.less']
 })
 export class WordEditComponent extends BaseComponent {
+  @Input() canDelete = true;
+
   @Output() editComplete = new EventEmitter();
   @Output() deleteComplete = new EventEmitter();
 

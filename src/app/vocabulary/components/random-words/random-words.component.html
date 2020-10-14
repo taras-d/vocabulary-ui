@@ -4,38 +4,18 @@
   <h5>Do you remember those words?</h5>
 
   <div class="words">
-    <div class="clr-row">
-      <div *ngFor="let word of words; index as wordIndex; trackBy: trackWord" class="clr-col-sm-6"
-        [style.zIndex]="words.length - wordIndex">
-
-        <div class="flip-word" (click)="wordClick($event, word)" [class.flip]="word.flip">
-          <div class="card-wrap">
-            <div class="card card-front">
-              <div class="card-block">{{word.text}}</div>
-            </div>
-            <div class="card card-back">
-              <div class="card-block">
-                {{word.translation || 'no translation'}}
-              </div>
-              <div class="word-actions">
-                <clr-dropdown>
-                  <button clrDropdownTrigger><clr-icon shape="ellipsis-vertical"></clr-icon></button>
-                  <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
-                    <div clrDropdownItem [vOpenUrl]="word.googleTranslateLink">{{actions.openGoogleTranslate}}</div>
-                    <div clrDropdownItem [vOpenUrl]="word.googleImagesLink">{{actions.openGoogleImages}}</div>
-                    <div clrDropdownItem (click)="editWord.openModal(word)">{{actions.editWord}}</div>
-                  </clr-dropdown-menu>
-                </clr-dropdown>
-              </div>
-            </div>
-          </div>
+    <div *ngFor="let word of words; trackBy: trackWord" class="card">
+      <div class="card-block">
+        <div class="card-title" (click)="word.hint = !word.hint">
+          <span *ngIf="!word.hint">{{word.text}}</span>
+          <span *ngIf="word.hint" class="translation">{{word.translation || '[no translation]'}}</span>
         </div>
-        
+        <v-word-actions [word]="word" (edit)="editWord.openModal(word)"></v-word-actions>
       </div>
     </div>
   </div>
 
-  <button type="button" class="btn btn-icon refresh" title="Refresg" (click)="refreshClick()">
+  <button type="button" class="btn btn-icon refresh" title="Refresg" (click)="getRandomWords()">
     Refresh <clr-icon shape="shuffle"></clr-icon>
   </button>
 </ng-container>
@@ -44,4 +24,4 @@
   <div class="spinner spinner-md"></div>
 </div>
 
-<v-word-edit #editWord (complete)="editComplete($event)"></v-word-edit>
+<v-word-edit #editWord [canDelete]="false" (editComplete)="editComplete($event)"></v-word-edit>
